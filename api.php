@@ -1,4 +1,15 @@
 <?php
+
+session_start();
+
+$info = (object)[]; // empty object
+// check if logged in
+if (!isset($_SESSION['userid'])) { // if no userid in sessions, it's not logged in
+    $info->logged_in  = false;
+    echo json_encode($info); // put it in the info object, it is echoed so it is part of the result, the $info is maybe just a dummy object
+    die;
+}
+
 require_once("classes/autoload.php");
 
 $DB = new Database();
