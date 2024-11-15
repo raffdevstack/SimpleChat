@@ -24,15 +24,7 @@
         </div>
     </div>
     <script>
-        // disable the button while sending the data,
-        // reenable after sending
-
-        // element by id getter
-        function _(element) {
-            return document.getElementById(element);
-        }
-
-        const signup_button = _("signup_button");
+        const signup_button = document.getElementById("signup_button");
         signup_button.addEventListener("click", collectData)
 
         function collectData() {
@@ -86,7 +78,7 @@
             if(data.data_type === "info") {
                 window.location = "index.php";
             } else {
-                let error_element = _('error');
+                const error_element = document.getElementById("error");
                 error_element.innerHTML = data.message;
                 error_element.style.display = "block";
             }

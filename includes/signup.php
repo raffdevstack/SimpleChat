@@ -1,8 +1,5 @@
 <?php
 
-// todo
-// proper error messaging
-
 $info = (Object)[];
 
 global $DATA_OBJ, $DB, $Error;
@@ -27,13 +24,12 @@ if ($Error == "") {
     if ($result) {
         $info->message = "Your account has been created.";
         $info->data_type = "info";
-        echo json_encode($info);
     } else {
         $info->message = "Your has not been created due to some error.";
         $info->data_type = "error";
-        echo json_encode($info);    }
+    }
 } else {
     $info->message = $Error;
     $info->data_type = "error";
-    echo json_encode($info);
 }
+echo json_encode($info);
