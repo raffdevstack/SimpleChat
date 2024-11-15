@@ -4,11 +4,7 @@ $info = (Object)[];
 
 global $DATA_OBJ, $DB, $Error;
 
-date_default_timezone_set('Asia/Manila');
 $data = false;
-$data['userid'] = $DB->generate_id(20);
-$data['date'] = date("Y-m-d H:i:s");
-
 $data['username'] = $DATA_OBJ->username;
 if ($DATA_OBJ->username == "") {
     $Error .= "Username is required";
