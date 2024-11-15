@@ -1,6 +1,6 @@
 <?php
 
-$info = (Object)[];
+$info = (Object)[]; // this info object will be the base of the respose to ajax
 
 global $DATA_OBJ, $DB, $Error;
 

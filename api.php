@@ -2,7 +2,8 @@
 
 session_start();
 
-$info = (object)[]; // empty object
+$info = (object)[]; // this info object will be the base of the respose to ajax
+
 // check if logged in
 if (!isset($_SESSION['userid'])) { // if no userid in sessions, it's not logged in
     $info->logged_in  = false;
