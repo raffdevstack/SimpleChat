@@ -1,73 +1,112 @@
+/* General Styling */
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    background-color: #f3f4f6;
 }
 
 #wrapper {
-    min-height: 600px;
-    max-width: 900px;
+    max-width: 960px;
+    height: 600px;
     display: flex;
-    margin: auto;
+    margin: 50px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Left Sidebar Styling */
 #left_wrapper {
-    min-height: 600px;
-    background-color: #bde3ff;
+    background-color: #3b82f6;
     flex: 1;
-    padding: 10px;
+    padding: 20px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #profile_wrapper {
-    position: relative;
-    /*background-color: green;*/
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-#profile_wrapper img {
-    width: 100px;
+#profile_image {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    margin: 0 auto;
+    margin-bottom: 10px;
+    border: 2px solid #ffffff;
+}
+
+.profile_name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.profile_email {
+    font-size: 14px;
+    color: #cbd5e1;
 }
 
 #buttons_wrapper {
-    /*background-color: red;*/
-    margin-top: 64px;
+    width: 100%;
 }
 
 #buttons_wrapper label {
     display: block;
-    padding: 10px 5px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #2563eb;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 #buttons_wrapper label:hover {
+    background-color: #1e40af;
     cursor: pointer;
-    background-color: #fff;
 }
 
+/* Right Content Area Styling */
 #right_wrapper {
-    min-height: 600px;
     flex: 4;
-    background-color: red;
-}
-
-#right_wrapper > #header {
-    min-height: 70px;
-    background-color: #ffeac1;
+    background-color: #ffffff;
     display: flex;
+    flex-direction: column;
 }
 
-#right_wrapper > #container {
-    min-height: 530px;
+#header {
+    background-color: #fef3c7;
+    padding: 20px;
     display: flex;
+    align-items: center;
+    border-bottom: 2px solid #e5e7eb;
 }
 
-#container > #inner_left_wrapper {
-    min-height: 530px;
-    background-color: #ffbec3;
+#header h4 {
+    margin: 0;
+    color: #374151;
+}
+
+#container {
+    display: flex;
     flex: 1;
+    overflow: hidden;
 }
 
-#container > #inner_right_wrapper {
-    min-height: 530px;
-    background-color: #faf7ff;
+#inner_left_wrapper {
+    background-color: #f3f4f6;
+    flex: 1;
+    padding: 20px;
+    border-right: 2px solid #e5e7eb;
+}
+
+#inner_right_wrapper {
+    background-color: #f9fafb;
     flex: 3;
+    padding: 20px;
 }
