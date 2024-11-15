@@ -48,6 +48,30 @@
     </div>
     <script>
 
+        function get_data(find, type) { // something we are searching (an object), data type (string)
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+                if (xhr.status === 200 || xhr.readyState === 4) {
+                    handle_result(xhr.responseText, type);
+                }
+            }
+
+            let data = {} // empty object
+            data.find = find;
+            data.data_type = type;
+            data = JSON.stringify(data);
+            xhr.open("POST","api.php",true);
+            xhr.send(data);
+        }
+
+        function handle_result(result, type) {
+            alert(result);
+        }
+
+        get_data({},"user_data"); // calling the function above, empty object because we are not finding anything
+
     </script>
 </body>
 </html>
