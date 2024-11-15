@@ -9,29 +9,27 @@
 <body>
     <div id="wrapper">
         <div id="form_wrapper">
-            <h2>Sign Up</h2>
+            <h2>Login</h2>
             <p id="error" style="color: red; display: none"></p>
-            <form id="signupForm">
+            <form id="loginForm">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" >
-
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" >
-
-                <input type="submit" id="signup_button" value="Signup" />
+                <input type="submit" id="login_button" value="Login" />
             </form>
             <p id="message"></p>
         </div>
     </div>
     <script>
-        const signup_button = document.getElementById("signup_button");
-        signup_button.addEventListener("click", collectData)
+        const login_button = document.getElementById("login_button");
+        login_button.addEventListener("click", collectData)
 
         function collectData() {
-            signup_button.disabled = true;
-            signup_button.value = "Loading... Please wait...";
+            login_button.disabled = true;
+            login_button.value = "Loading... Please wait...";
             const formData = {};  // Create an object to store input data
-            const inputs = document.querySelectorAll("#signupForm input");  // Select all input elements
+            const inputs = document.querySelectorAll("#loginForm input");  // Select all input elements
             // Iterate over each input element in the form
             for (let i = 0; i < inputs.length; i++) {
                 const input = inputs[i];
@@ -50,7 +48,7 @@
                         console.log(`Unknown input: ${name}`);
                 }
             }
-            sendDataToServer(formData, 'signup');
+            sendDataToServer(formData, 'login');
         }
 
         // Function to send data to the server using AJAX (XMLHttpRequest)
@@ -61,8 +59,8 @@
             xhr.onload = function () {
                 if (xhr.status === 200 || xhr.readyState === 4) {
                     handle_result(xhr.responseText);
-                    signup_button.disabled = false;
-                    signup_button.value = "Signup";
+                    login_button.disabled = false;
+                    login_button.value = "Login";
                 }
             };
 
