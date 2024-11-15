@@ -20,12 +20,23 @@ Class Database {
     public function write($query, $data_array=[]) { // if no data, the default is empty array
         $con = $this->connect();
         $stmt = $con->prepare($query);
-        foreach ($data_array as $key => $value) {
-            $stmt->bindValue(":$key", $value);
-        }
-        $check = $stmt->execute();
+        $check = $stmt->execute($data_array);
         if ($check) {
             return true;
+        }
+        return false;
+    }
+
+    public function read($query, $data_array=[]) { // if no data, the default is empty array
+        $con = $this->connect();
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($data_array);
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
+                return $result; // return the result object
+            }
+            return false;
         }
         return false;
     }
