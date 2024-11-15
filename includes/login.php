@@ -6,24 +6,33 @@ global $DATA_OBJ, $DB, $Error;
 
 $data = false;
 $data['username'] = $DATA_OBJ->username;
+
 if ($DATA_OBJ->username == "") {
     $Error .= "Username is required";
 }
-$data['password'] = $DATA_OBJ->password;
 if ($DATA_OBJ->password == "") {
     $Error .= "Password is required";
 }
 
 if ($Error == "") {
-    $query = "insert into users(userid,username,password,date) values(:userid,:username,:password,:date)";
-    $result = $DB->write($query, $data);
-    if ($result) {
-        $info->message = "Your account has been created.";
-        $info->data_type = "info";
+
+    $query = "select * from users where username = :username limit 1"; // to get the user first
+    $result = $DB->read($query, $data);
+
+    if (is_array($result)) {
+        $result = $result[0]; // get the first result (array)
+        if ($result['password'] == $DATA_OBJ->password) {
+
+        } else {
+            $info->message = "Wrong password";
+            $info->data_type = "error";
+            echo json_encode($info);
+        }
     } else {
-        $info->message = "Your has not been created due to some error.";
+        $info->message = "Wrong username";
         $info->data_type = "error";
     }
+
 } else {
     $info->message = $Error;
     $info->data_type = "error";
