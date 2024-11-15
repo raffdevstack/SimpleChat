@@ -70,7 +70,7 @@
             alert(result);
         }
 
-        get_data({},"user_data"); // calling the function above, empty object because we are not finding anything
+        get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
 
     </script>
 </body>

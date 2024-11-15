@@ -9,9 +9,9 @@ $DATA_OBJ = json_decode($DATA_RAW_STRING); // this is like JSON.parse() in js
 $Error = "";
 
 // process the data
-if (isset($DATA_OBJ->type) && $DATA_OBJ->type == "signup") {
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/signup.php");
-} else {
-    echo "type not compatible";
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_info") {
+    echo "info is okay";
 }
 
