@@ -18,27 +18,58 @@
         </div>
         <!-- Navigation Buttons -->
         <div id="buttons_wrapper">
-            <label for="chat">Chat</label>
-            <label for="contacts">Contacts</label>
-            <label for="settings">Settings</label>
+            <label id="label_chat" for="radio_chat">Chat</label>
+            <label id="label_contacts" for="radio_contacts">Contacts</label>
+            <label id="label_settings" for="radio_settings">Settings</label>
         </div>
     </div>
     <!-- Right Content Area -->
     <div id="right_wrapper">
         <!-- Header Section -->
         <div id="header">
-            <h4>Simple Chat</h4>
+            <h4 id="text_logo">Simple Chat</h4>
         </div>
         <!-- Chat Container -->
         <div id="container">
             <div id="inner_left_wrapper">
-                <!-- Placeholder for Contacts or Options -->
+
             </div>
+
+            <input type="radio" id="radio_chat" name="my_radio" style="display: none">
+            <input type="radio" id="radio_contacts" name="my_radio" style="display: none">
+            <input type="radio" id="radio_settings" name="my_radio" style="display: none">
+
             <div id="inner_right_wrapper">
                 <!-- Placeholder for Chat Messages -->
             </div>
         </div>
     </div>
+    <script>
+
+        document.getElementById("label_settings").addEventListener("click", function() {
+            // Create an XMLHttpRequest object
+            const xhr = new XMLHttpRequest();
+
+            // Define what happens when the request is successful
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Display the response text in the result div
+                    document.getElementById("text_logo").innerHTML = xhr.responseText;
+                }
+            };
+
+            // Handle errors
+            xhr.onerror = function() {
+                console.error("Request failed.");
+            };
+
+            // Initialize the request
+            xhr.open("POST", "data.php", true);
+            // Send the request
+            xhr.send();
+        });
+
+    </script>
 </div>
 </body>
 </html>
