@@ -24,5 +24,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/signup.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_info") {
     echo "info is okay";
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "login") {
+    include("includes/login.php");
 }
 
