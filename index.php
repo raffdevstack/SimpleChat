@@ -50,7 +50,7 @@
     <script>
 
         const logout_el = document.getElementById("logout");
-        logout_el.addEventListener("click", logout);
+        logout_el.addEventListener("click", logout_user);
 
         function get_data(find, type) { // something we are searching (an object), data type (string)
 
@@ -90,7 +90,7 @@
             }
         }
 
-        function logout() {
+        function logout_user() {
             var answer = confirm("Are you sure you want to logout?")
             if (answer)
                 get_data({},"logout");
