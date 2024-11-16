@@ -91,7 +91,9 @@
         }
 
         function logout() {
-            get_data({},"logout");
+            var answer = confirm("Are you sure you want to logout?")
+            if (answer)
+                get_data({},"logout");
         }
 
         // data getter from the server
