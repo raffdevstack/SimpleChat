@@ -22,6 +22,7 @@
                 <label id="label_contacts" for="radio_contacts">Contacts</label>
                 <label id="label_settings" for="radio_settings">Settings</label>
             </div>
+            <input type="button" id="logout" value="Logout">
         </div>
         <!-- Right Content Area -->
         <div id="right_wrapper">
@@ -48,6 +49,9 @@
     </div>
     <script>
 
+        const logout_el = document.getElementById("logout");
+        logout_el.addEventListener("click", logout);
+
         function get_data(find, type) { // something we are searching (an object), data type (string)
 
             let xhr = new XMLHttpRequest();
@@ -68,7 +72,7 @@
 
         // called inside the get_data()
         function handle_result(result, type) {
-            alert(result);
+            // alert(result);
             if (result.trim() !== "") { // if result is not empty
                 let obj_result = JSON.parse(result); // converting to object the text json
                 if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
@@ -86,8 +90,13 @@
             }
         }
 
+        function logout() {
+            get_data({},"logout");
+        }
+
         // data getter from the server
         get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
+
 
     </script>
 </body>
