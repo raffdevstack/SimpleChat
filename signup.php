@@ -68,7 +68,7 @@
                 }
             };
 
-            data.type = type; // the type is sent to the data object
+            data.data_type = type; // the type is sent to the data object
             let data_string = JSON.stringify(data);
 
             xhr.open("POST","api.php",true);
