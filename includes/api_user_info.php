@@ -14,7 +14,7 @@ if ($Error == "") {
 
     if (is_array($result)) {
         $result = $result[0]; // get the first result (array)
-
+        $info->data_type = "info"; // send to responseText
     } else {
         $info->message = "Wrong username";
         $info->data_type = "error";
