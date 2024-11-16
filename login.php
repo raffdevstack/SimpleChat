@@ -45,7 +45,7 @@
                         formData.password = value;
                         break;
                     default:
-                        console.log(`Unknown input: ${name}`);
+                        console.log(`Unknown input from login.php: ${name}`);
                 }
             }
             sendDataToServer(formData, 'login');
