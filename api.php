@@ -17,8 +17,6 @@ if (!isset($_SESSION['userid'])) { // if no userid in sessions, it's not logged 
         echo json_encode($info); // put it in the info object, it is echoed so it is part of the result, the $info is maybe just a dummy object
         die;
     }
-} else {
-    $info->logged_in  = true;
 }
 
 $Error = "";
