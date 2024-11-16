@@ -68,13 +68,13 @@
 
         // called inside the get_data()
         function handle_result(result, type) {
-            alert(result);
+
             if (result.trim() !== "") { // if result is not empty
                 let obj = JSON.parse(result); // converting to object the text json
-                if (!obj.logged_in) { // if not logged in
+                if (typeof(obj.logged_in) != "undefined" && !obj.logged_in ) { // if not logged in
                     window.location = "login.php";
                 } else {
-                    alert(result);
+
                 }
             }
         }
