@@ -33,9 +33,12 @@
             <!-- Chat Container -->
             <div id="container">
                 <div id="inner_left_wrapper">
-
+                    <p>Username</p>
+                    <p>Username</p>
+                    <p>Username</p>
                 </div>
 
+<!--            these are hidden so it's okay    -->
                 <input type="radio" id="radio_chat" name="my_radio" style="display: none">
                 <input type="radio" id="radio_contacts" name="my_radio" style="display: none">
                 <input type="radio" id="radio_settings" name="my_radio" style="display: none">
