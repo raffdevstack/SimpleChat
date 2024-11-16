@@ -13,8 +13,8 @@
             <!-- Profile Section -->
             <div id="profile_wrapper">
                 <img id="profile_image" src="images/profile.png" alt="Profile Image">
-                <p class="profile_name">Username</p>
-                <p class="profile_email">email@example.com</p>
+                <p id="username" class="profile_name">Username</p>
+                <p id="email" class="profile_email">email@example.com</p>
             </div>
             <!-- Navigation Buttons -->
             <div id="buttons_wrapper">
@@ -70,11 +70,18 @@
         function handle_result(result, type) {
             alert(result);
             if (result.trim() !== "") { // if result is not empty
-                let obj = JSON.parse(result); // converting to object the text json
-                if (typeof(obj.logged_in) != "undefined" && !obj.logged_in ) { // if not logged in
+                let obj_result = JSON.parse(result); // converting to object the text json
+                if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
                     window.location = "login.php";
                 } else {
-
+                    switch (obj_result.data_type) { // goes through all data types
+                        case "user_info":
+                            const username_el = document.getElementById("username");
+                            username_el.innerHTML = obj_result.username;
+                            break;
+                        case "contacts":
+                            break;
+                    }
                 }
             }
         }
