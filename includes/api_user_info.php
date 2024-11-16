@@ -1,8 +1,6 @@
 <?php
 
-$info = (Object)[]; // this info object will be the base of the respose to ajax
-
-global $DATA_OBJ, $DB, $Error;
+global $DATA_OBJ, $DB, $Error, $info;
 
 $data = false;
 $data['userid'] = $_SESSION['userid'];
