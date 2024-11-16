@@ -28,7 +28,6 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_info") {
     echo "info is okay";
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "login") {
-    echo "login is okay";
     include("includes/api_login.php");
 }
 
