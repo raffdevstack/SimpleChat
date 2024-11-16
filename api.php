@@ -25,9 +25,9 @@ $Error = "";
 // process the data
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_signup.php");
-} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_info") {
-    echo "info is okay";
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "login") {
     include("includes/api_login.php");
+}  else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_info") {
+    include("includes/api_user_info.php");
 }
 
