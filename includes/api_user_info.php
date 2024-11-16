@@ -12,13 +12,16 @@ if ($Error == "") {
 
     if (is_array($result)) {
         $result = $result[0]; // get the first result (array)
-        $info->data_type = "info"; // send to responseText
+        $result->data_type = "user_info"; // send to responseText
+        echo json_encode($result);
     } else {
         $info->message = "Wrong username";
         $info->data_type = "error";
+        echo json_encode($info); // this is required to have a response to ajax
     }
 } else {
     $info->message = $Error;
     $info->data_type = "error";
+    echo json_encode($info); // this is required to have a response to ajax
 }
-echo json_encode($info); // this is required to have a response to ajax
+
