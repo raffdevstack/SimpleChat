@@ -14,11 +14,13 @@
             <form id="signupForm">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" >
-
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" >
-
                 <input type="submit" id="signup_button" value="Signup" />
+                <br>
+                <br>
+                <br>
+                <a href="login.php">Already have an account? Login here.</a>
             </form>
             <p id="message"></p>
         </div>
@@ -74,6 +76,7 @@
         }
 
         function handle_result(result) {
+            alert(result);
             let data = JSON.parse(result);
             if(data.data_type === "info") {
                 window.location = "index.php";

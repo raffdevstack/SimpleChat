@@ -17,6 +17,10 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" >
                 <input type="submit" id="login_button" value="Login" />
+                <br>
+                <br>
+                <br>
+                <a href="signup.php">Don't have an account? Signup here.</a>
             </form>
             <p id="message"></p>
         </div>
