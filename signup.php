@@ -76,10 +76,10 @@
         }
 
         function handle_result(result) {
-            alert(result);
             let data = JSON.parse(result);
             if(data.data_type === "info") {
-                window.location = "index.php";
+                alert(data.message);
+                window.location = "login.php";
             } else {
                 const error_element = document.getElementById("error");
                 error_element.innerHTML = data.message;

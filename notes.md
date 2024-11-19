@@ -3,7 +3,16 @@
 1. ~~convert the html markup in api_contact, with a 
 loop concatenated markup.~~
 2. ~~test the loop with 10 iterations~~
-3. use $DB->read($sql, []) 
+3. use $DB->read($sql, []), put it in users var
+4. put the for loop inside an if, if (is_array($users));
+5. use foreach to loop through all users
+6. provide query, "select * from users limit 10"
+7. supply actual data to each iteration, double quote
+on the outside and single on the inside
+8. 
+
+#### Debugging
+1. 
 
 ---
 ### Display the contacts
