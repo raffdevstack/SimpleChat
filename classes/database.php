@@ -27,7 +27,7 @@ Class Database {
         return false;
     }
 
-    public function read($query, $data_array=[]) { // if no data, the default is empty array
+    public function read($query, $data_array=[]) { // if no data, the default is empty array (ex. put data if you are searching)
         $con = $this->connect();
         $stmt = $con->prepare($query);
         $check = $stmt->execute($data_array);
