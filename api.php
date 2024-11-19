@@ -30,5 +30,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_logout.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_info") {
     include("includes/api_user_info.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
+    include("includes/api_contacts.php");
 }
 
