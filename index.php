@@ -53,6 +53,9 @@
         const logout_el = document.getElementById("logout");
         logout_el.addEventListener("click", logout_user);
 
+        const label_contacts_el = document.getElementById("label_contacts");
+        label_contacts_el.addEventListener("click", get_contacts);
+
         function get_data(find, type) { // something we are searching (an object), data type (string)
 
             let xhr = new XMLHttpRequest();
