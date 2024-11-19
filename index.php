@@ -88,6 +88,8 @@
                             username_el.innerHTML = obj_result.username;
                             break;
                         case "contacts":
+                            const inner_left_wrapper_el = document.getElementById("inner_left_wrapper");
+                            inner_left_wrapper_el.innerHTML = obj_result.message;
                             break;
                     }
                 }
