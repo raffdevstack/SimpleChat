@@ -105,6 +105,15 @@ body {
     border-right: 2px solid #e5e7eb;
 }
 
+#contacts_container {
+    /*background-color: red;*/
+}
+
+#contacts_container p {
+    display: inline-block;
+    width: 8rem;
+}
+
 #inner_right_wrapper {
     background-color: #f9fafb;
     flex: 3;

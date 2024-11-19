@@ -33,9 +33,11 @@
             <!-- Chat Container -->
             <div id="container">
                 <div id="inner_left_wrapper">
-                    <p>Username</p>
-                    <p>Username</p>
-                    <p>Username</p>
+                    <div id="contacts_container">
+                        <p>Username</p>
+                        <p>Username</p>
+                        <p>Username</p>
+                    </div>
                 </div>
 
 <!--            these are hidden so it's okay    -->
