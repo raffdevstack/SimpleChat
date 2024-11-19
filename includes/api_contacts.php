@@ -3,12 +3,14 @@
 
     global $info, $DB;
 
-    $sql = "SELECT * FROM `users` LIMIT 1";
+    $sql = "SELECT * FROM `users` LIMIT 10";
     $users = $DB->read($sql, []);
 
     $contacts_markup = '<div id="contacts_container">';
-    for ($i = 1; $i <= 10; $i++) {
-        $contacts_markup .= "<p>Username {$i}</p>";
+    if (is_array($users)) {
+        foreach ($users as $user) {
+            $contacts_markup .= "<p>$user->username</p>";
+        }
     }
     $contacts_markup .= '</div>';
 
