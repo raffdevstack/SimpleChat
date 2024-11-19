@@ -1,12 +1,13 @@
 ### Display the contacts
 #### Pre-requisites
-~~1. Make a dynamic display element for the contacts~~
+1. ~~Make a dynamic display element for the contacts~~
 #### Main Code
-~~1. Make the contacts dynamic place it in the server side
-   in the includes/api_contacts.php~~
-2. create a redirect from api.php to api_contacts.php
-3. copy the error message incoding from api_userinfo.php to api_contacts.php
-4. also copy the successful data retrieval code
+1. ~~Make the contacts dynamic place it in the server 
+side
+   in the includes/api_contacts.php~~ <br>
+2. ~~create a redirect from api.php to api_contacts.php~~
+3. ~~copy the error message incoding from api_userinfo.php to api_contacts.php~~
+4. ~~also copy the successful data retrieval code~~
 5. put the markup to a variable, enclose with ' ' single quotes
 6. send that var as a message in $result, the contacts data type, then die after the statement
 7. event listener for the label_contacts, call get_contacts function
