@@ -1,8 +1,8 @@
 ### Get contacts from db
 #### Main code
-1. convert the html markup in api_contact, with a 
-loop concatenated markup.
-2. test the loop with 10 iterations
+1. ~~convert the html markup in api_contact, with a 
+loop concatenated markup.~~
+2. ~~test the loop with 10 iterations~~
 3. use $DB->read($sql, []) 
 
 ---
