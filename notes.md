@@ -19,5 +19,7 @@ call get_data from get_contacts~~
 9. ~~add the 'case' for contacts data_type in switch~~
 10. ~~target the panel to display the contact, and inject
 the message there using innerHTML~~
+11. ~~same as get_contacts, also create same functions~~
 #### Debugging
-1. make sure to use same empty objects to return in api_contacts
+1. ~~make sure to use same empty objects to return in 
+api_contacts~~

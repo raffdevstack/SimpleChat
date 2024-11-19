@@ -104,7 +104,14 @@
 
         function get_contacts(e) {
             get_data({},"contacts");
+        }
 
+        function get_chats(e) {
+            get_data({},"chats");
+        }
+
+        function get_settings(e) {
+            get_data({},"settings");
         }
 
         // data getter from the server
