@@ -27,4 +27,4 @@ the message there using innerHTML~~
 #### Debugging
 1. ~~make sure to use same empty objects to return in 
 api_contacts~~
-2. ensure id of elements match
+2. ~~ensure id of elements match~~
