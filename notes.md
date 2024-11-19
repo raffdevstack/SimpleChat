@@ -14,7 +14,7 @@ single quotes~~
 data type, then die after the statement~~
 7. ~~event listener for the label_contacts, call 
 get_contacts function~~
-8. put parameter 'e' (in case we need that event), call get_data from get_contacts
+8. ~~put parameter 'e' (in case we need that event), call get_data from get_contacts~~
 9. add the 'case' for contacts data_type in switch
 10. target the panel to display the contact, and inject the message there using innerHTML
 #### Debugging
