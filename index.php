@@ -18,7 +18,7 @@
             </div>
             <!-- Navigation Buttons -->
             <div id="buttons_wrapper">
-                <label id="label_chat" for="radio_chat">Chat</label>
+                <label id="label_chats" for="radio_chat">Chat</label>
                 <label id="label_contacts" for="radio_contacts">Contacts</label>
                 <label id="label_settings" for="radio_settings">Settings</label>
             </div>
@@ -55,6 +55,11 @@
 
         const label_contacts_el = document.getElementById("label_contacts");
         label_contacts_el.addEventListener("click", get_contacts);
+        const label_chats_el = document.getElementById("label_chats");
+        label_chats_el.addEventListener("click", get_chats);
+        const label_settings_el = document.getElementById("label_settings");
+        label_settings_el.addEventListener("click", get_settings);
+
 
         function get_data(find, type) { // something we are searching (an object), data type (string)
 
@@ -84,12 +89,16 @@
                 } else {
                     switch (obj_result.data_type) { // goes through all data types
                         case "user_info":
-                            const username_el = document.getElementById("username");
-                            username_el.innerHTML = obj_result.username;
+                            document.getElementById("username").innerHTML = obj_result.username;
+                            break;
+                        case "chats":
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             break;
                         case "contacts":
-                            const inner_left_wrapper_el = document.getElementById("inner_left_wrapper");
-                            inner_left_wrapper_el.innerHTML = obj_result.message;
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            break;
+                        case "settings":
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             break;
                     }
                 }
@@ -102,6 +111,9 @@
                 get_data({},"logout");
         }
 
+        // data getter from the server
+        get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
+
         function get_contacts(e) {
             get_data({},"contacts");
         }
@@ -113,10 +125,6 @@
         function get_settings(e) {
             get_data({},"settings");
         }
-
-        // data getter from the server
-        get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
-
 
 
     </script>

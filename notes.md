@@ -20,6 +20,11 @@ call get_data from get_contacts~~
 10. ~~target the panel to display the contact, and inject
 the message there using innerHTML~~
 11. ~~same as get_contacts, also create same functions~~
+12. ~~also add their event listeners~~
+13. ~~add directories for chats and settings in api.php~~
+14. ~~make those files, then edit the contents of those~~
+15. ~~add in the switch inside the handle_result function~~
 #### Debugging
 1. ~~make sure to use same empty objects to return in 
 api_contacts~~
+2. ensure id of elements match
