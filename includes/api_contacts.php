@@ -1,7 +1,10 @@
 
 <?php
 
-    global $info;
+    global $info, $DB;
+
+    $sql = "SELECT * FROM `users` LIMIT 1";
+    $users = $DB->read($sql, []);
 
     $contacts_markup = '<div id="contacts_container">';
     for ($i = 1; $i <= 10; $i++) {
