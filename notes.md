@@ -1,3 +1,18 @@
+### Save settings
+#### Main code
+1. reuse code js from signup.php and use it in 
+index.php for sending data to db
+2. edit the js to adapt to index.php
+2. redirect in api.php
+3. create file api_save_settings.php in includes based
+on api_signup
+4. edit api_save_settings
+
+#### Debugging
+1. 
+
+---
+
 ### Display settings page
 #### Main code
 1. ~~get markup from signup page and copy to 
@@ -14,8 +29,8 @@ to a var that you will access to get the indiv data~~
 6. ~~supply the data to the markup~~
 
 #### Debugging
-1. query = "select * from users where userid = 
-:userid limit 1"
+1. ~~query = "select * from users where userid = 
+:userid limit 1"~~
 
 ---
 ### ~~Get contacts from db~~
