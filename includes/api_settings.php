@@ -6,7 +6,7 @@
     $result = $DB->read($query, ['userid'=>$id]);
 
     if (is_array($result)) {
-
+        $user = $result[0];
     }
 
     $html_markup = '

@@ -7,8 +7,8 @@ api_settings~~
 where id is the userid from session~~
 3. ~~check if data (result from db, call it result) 
 is_array,~~
-4. inside the if, put the first result in the array
-to a var that you will access to get the indiv data
+4. ~~inside the if, put the first result in the array
+to a var that you will access to get the indiv data~~
 5. suppy the html inside the if
 
 #### Debugging
