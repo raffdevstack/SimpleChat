@@ -3,6 +3,8 @@
 
     global $info, $DB;
 
+    $query = "SELECT * FROM `users` WHERE `userid` = :userid LIMIT 1";
+    $id = $_SESSION['userid'];
     $result = $DB->read($query, ['userid'=>$id]);
 
     if (is_array($result)) {

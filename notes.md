@@ -9,6 +9,7 @@ where id is the userid from session~~
 is_array,~~
 4. ~~inside the if, put the first result in the array
 to a var that you will access to get the indiv data~~
+5. suppy the query, and id
 5. suppy the html inside the if
 
 #### Debugging
