@@ -14,15 +14,15 @@
     }
     $contacts_markup .= '</div>';
 
-    $info->message = $contacts_markup;
-    $info->data_type = "contacts"; // send to responseText
+    if($users) {
+        $info->message = $contacts_markup;
+        $info->data_type = "contacts"; // send to responseText
+    } else {
+        $info->message = "No contacts found";
+        $info->data_type = "error";
+    }
     echo json_encode($info);
 
-//    die;
-//    $info->message = "No contacts found";
-//    $info->data_type = "error";
-//    echo json_encode($info);
 
-?>
 
 
