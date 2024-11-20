@@ -3,7 +3,11 @@
 
     global $info, $DB;
 
-    $DB->read($query, ['userid'=>$id]);
+    $result = $DB->read($query, ['userid'=>$id]);
+
+    if (is_array($result)) {
+
+    }
 
     $html_markup = '
         <div id="form_wrapper">

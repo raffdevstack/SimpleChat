@@ -2,11 +2,11 @@
 #### Main code
 1. ~~get markup from signup page and copy to 
 api_settings~~
-2. use db read up to and supply the query and 
+2. ~~use db read up to and supply the query and 
 ['userid'=>id], 
-where id is the userid from session
-3. check if data (result from db, call it result) 
-is_array,
+where id is the userid from session~~
+3. ~~check if data (result from db, call it result) 
+is_array,~~
 4. inside the if, put the first result in the array
 to a var that you will access to get the indiv data
 5. suppy the html inside the if
