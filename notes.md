@@ -1,4 +1,22 @@
-### Get contacts from db
+### Display settings page
+#### Main code
+1. ~~get markup from signup page and copy to 
+api_settings~~
+2. use db read up to and supply the query and 
+['userid'=>id], 
+where id is the userid from session
+3. check if data (result from db, call it result) 
+is_array,
+4. inside the if, put the first result in the array
+to a var that you will access to get the indiv data
+5. suppy the html inside the if
+
+#### Debugging
+1. query = "select * from users where userid = 
+:userid limit 1"
+
+---
+### ~~Get contacts from db~~
 #### Main code
 1. ~~convert the html markup in api_contact, with a 
 loop concatenated markup.~~
@@ -10,13 +28,12 @@ loop concatenated markup.~~
 6. ~~provide query, "select * from users limit 10~~"
 7. ~~supply actual data to each iteration, double quote
 on the outside and single on the inside~~
-8. 
 
 #### Debugging
 1. 
 
 ---
-### Display the contacts
+### ~~Display the contacts~~
 #### Pre-requisites
 1. ~~Make a dynamic display element for the contacts~~
 #### Main Code

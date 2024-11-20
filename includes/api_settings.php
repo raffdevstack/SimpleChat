@@ -4,7 +4,23 @@
     global $info;
 
     $html_markup = '
-        hello from settings
+        <div id="form_wrapper">
+            <h2>Settings</h2>
+            <p id="error" style="color: red; display: none"></p>
+            <form id="signupForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" >
+                <br>
+                <br>
+                <label for="password">Password:</label>
+                <input id="password" name="password" >
+                <br>
+                <br>
+                <br>
+                <input type="submit" id="signup_button" value="Signup" />
+            </form>
+            <p id="message"></p>
+        </div>
     ';
 
     $info->message = $html_markup;
