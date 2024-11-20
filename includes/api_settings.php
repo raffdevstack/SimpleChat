@@ -7,11 +7,10 @@
     $id = $_SESSION['userid'];
     $result = $DB->read($query, ['userid'=>$id]);
 
+    $html_markup = "";
     if (is_array($result)) {
         $user = $result[0];
-    }
-
-    $html_markup = '
+        $html_markup = '
         <div id="form_wrapper">
             <h2>Settings</h2>
             <p id="error" style="color: red; display: none"></p>
@@ -30,6 +29,9 @@
             <p id="message"></p>
         </div>
     ';
+    }
+
+
 
     $info->message = $html_markup;
     $info->data_type = "settings"; // send to responseText
