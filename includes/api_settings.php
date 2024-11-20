@@ -1,7 +1,9 @@
 
 <?php
 
-    global $info;
+    global $info, $DB;
+
+    $DB->read($query, ['userid'=>$id]);
 
     $html_markup = '
         <div id="form_wrapper">
@@ -17,7 +19,7 @@
                 <br>
                 <br>
                 <br>
-                <input type="submit" id="signup_button" value="Signup" />
+                <input type="submit" id="signup_button" value="Save Settings" />
             </form>
             <p id="message"></p>
         </div>
