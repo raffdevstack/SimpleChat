@@ -16,11 +16,11 @@
             <p id="error" style="color: red; display: none"></p>
             <form id="signupForm">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" >
+                <input type="text" id="username" name="username" value="'.$user->username.'" >
                 <br>
                 <br>
                 <label for="password">Password:</label>
-                <input id="password" name="password" >
+                <input id="password" name="password" value="'.$user->password.'" >
                 <br>
                 <br>
                 <br>

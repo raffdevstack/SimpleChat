@@ -11,6 +11,7 @@ is_array,~~
 to a var that you will access to get the indiv data~~
 5. ~~suppy the query, and id~~
 5. ~~suppy the html inside the if~~
+6. ~~supply the data to the markup~~
 
 #### Debugging
 1. query = "select * from users where userid = 
