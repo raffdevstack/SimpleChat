@@ -100,6 +100,11 @@
                         case "settings":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             break;
+                        case "save_settings":
+                            alert("Username: " + obj_result.username + "\nPassword: " + obj_result.password);
+                            get_data({},"user_info");
+                            get_settings(true);
+                            break;
                     }
                 }
             }
@@ -123,52 +128,52 @@
             get_data({},"settings");
         }
 
+        function collectUpdatedSettings() {
+            const save_settings_button_el = document.getElementById("save_settings_button");
+            save_settings_button_el.disabled = true;
+            save_settings_button_el.value = "Loading... Please wait...";
+            const formData = {};  // Create an object to store input data
+            const inputs = document.querySelectorAll("#settings_form input");  // Select all input elements
+            // Iterate over each input element in the form
+            for (let i = 0; i < inputs.length; i++) {
+                const input = inputs[i];
+                const name = input.name;
+                const value = input.value;
 
-function collectData() {
-    signup_button.disabled = true;
-    signup_button.value = "Loading... Please wait...";
-    const formData = {};  // Create an object to store input data
-    const inputs = document.querySelectorAll("#signupForm input");  // Select all input elements
-    // Iterate over each input element in the form
-    for (let i = 0; i < inputs.length; i++) {
-        const input = inputs[i];
-        const name = input.name;
-        const value = input.value;
-
-        // Use a switch case to handle each input based on its name
-        switch (name) {
-            case "username":
-                formData.username = value;
-                break;
-            case "password":
-                formData.password = value;
-                break;
-            default:
-                console.log(`Unknown input: ${name}`);
+                // Use a switch case to handle each input based on its name
+                switch (name) {
+                    case "username":
+                        formData.username = value;
+                        break;
+                    case "password":
+                        formData.password = value;
+                        break;
+                    default:
+                        console.log(`Unknown input: ${name}`);
+                }
+            }
+            sendSettingsUpdateToServer(formData, 'save_settings');
         }
-    }
-    sendDataToServer(formData, 'signup');
-}
 
-// Function to send data to the server using AJAX (XMLHttpRequest)
-function sendDataToServer(data, type) {
+        // Function to send data to the server using AJAX (XMLHttpRequest)
+        function sendSettingsUpdateToServer(data, type) {
+            const xhr = new XMLHttpRequest();
 
-    const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status === 200 || xhr.readyState === 4) {
+                    handle_result(xhr.responseText);
+                    const save_settings_button_el = document.getElementById("save_settings_button");
+                    save_settings_button_el.disabled = false;
+                    save_settings_button_el.value = "Save Settings";
+                }
+            };
 
-    xhr.onload = function () {
-        if (xhr.status === 200 || xhr.readyState === 4) {
-            handle_result(xhr.responseText);
-            signup_button.disabled = false;
-            signup_button.value = "Signup";
+            data.data_type = type; // the type is sent to the data object
+            let data_string = JSON.stringify(data);
+
+            xhr.open("POST","api.php",true);
+            xhr.send(data_string);
         }
-    };
-
-    data.data_type = type; // the type is sent to the data object
-    let data_string = JSON.stringify(data);
-
-    xhr.open("POST","api.php",true);
-    xhr.send(data_string);
-}
 
         // data getter from the server
         get_data({},"user_info"); // calling the function above, empty object because we are not finding anything

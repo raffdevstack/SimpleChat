@@ -1,15 +1,32 @@
-### Save settings
-#### Main code
-1. reuse code js from signup.php and use it in 
-index.php for sending data to db
-2. edit the js to adapt to index.php
-2. redirect in api.php
-3. create file api_save_settings.php in includes based
-on api_signup
-4. edit api_save_settings
 
-#### Debugging
-1. 
+### Save settings
+#### New way (my way - applied debugging and testing every phase)
+1. ~~collect settings data~~
+2. ~~send it to server~~
+3. ~~handle result~~
+4. send new settings to database
+#### Main code
+1. ~~reuse code js from signup.php and use it in 
+index.php for sending data to db~~
+2. edit the js to adapt to index.php
+3. redirect in api.php
+4. create file api_save_settings.php in includes based
+on api_signup
+5. edit api_save_settings
+6. put onclick on the save settings because it is in 
+the server, don't forget to pass an event
+7. put save_settings in the handle result, just alert
+the message
+8. put redirect to save_settings in api.php
+9. copy api_signup.php and paste as api_save_settings
+10. edit api_save_settings
+11. change query
+12. sanity check in api_save_settings, 
+echo json_encode($DATA_OBJ);
+13. refresh the data, call get_data after the alert
+call get_settings(true) also, true because we 
+don't have an event
+14. kaya na ni i debug oi hahahhha
 
 ---
 
@@ -25,8 +42,8 @@ is_array,~~
 4. ~~inside the if, put the first result in the array
 to a var that you will access to get the indiv data~~
 5. ~~suppy the query, and id~~
-5. ~~suppy the html inside the if~~
-6. ~~supply the data to the markup~~
+6. ~~suppy the html inside the if~~
+7. ~~supply the data to the markup~~
 
 #### Debugging
 1. ~~query = "select * from users where userid = 

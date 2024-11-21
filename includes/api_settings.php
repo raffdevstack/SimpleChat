@@ -14,7 +14,7 @@
         <div id="form_wrapper">
             <h2>Settings</h2>
             <p id="error" style="color: red; display: none"></p>
-            <form id="signupForm">
+            <form id="settings_form">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" value="'.$user->username.'" >
                 <br>
@@ -24,7 +24,7 @@
                 <br>
                 <br>
                 <br>
-                <input type="submit" id="signup_button" value="Save Settings" />
+                <input type="submit" id="save_settings_button" value="Save Settings" onclick="collectUpdatedSettings()" />
             </form>
             <p id="message"></p>
         </div>
