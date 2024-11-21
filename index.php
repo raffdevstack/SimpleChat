@@ -111,9 +111,6 @@
                 get_data({},"logout");
         }
 
-        // data getter from the server
-        get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
-
         function get_contacts(e) {
             get_data({},"contacts");
         }
@@ -126,7 +123,8 @@
             get_data({},"settings");
         }
 
-
+        // data getter from the server
+        get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
     </script>
 </body>
 </html>
