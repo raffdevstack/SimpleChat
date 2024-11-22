@@ -5,7 +5,7 @@
 1. 
 #### Steps
 1. ~~Don't include yourself from the db result, modify the query~~
-2. give hover to each image, make it bigger
+2. ~~give hover to each image, make it bigger~~
 3. activate the chat page (through the radio), create a function and call onclick, on the function call get_chats
 4. on the contact container, add a property 'info' and put the userid of the that user
 5. get the userid id from the function in index.php, assign that to a global var at the top of the script
