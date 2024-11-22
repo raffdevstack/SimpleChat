@@ -101,7 +101,7 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             break;
                         case "save_settings":
-                            alert("Username: " + obj_result.username + "\nPassword: " + obj_result.password);
+                            alert(obj_result.message)
                             get_data({},"user_info");
                             get_settings(true);
                             break;

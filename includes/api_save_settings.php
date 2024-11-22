@@ -4,32 +4,28 @@ $info = (Object)[]; // this info object will be the base of the respose to ajax
 
 global $DATA_OBJ, $DB, $Error;
 
-// test
-echo json_encode($DATA_OBJ);
-die;
+$data = false; // local var
 
-date_default_timezone_set('Asia/Manila');
-$data = false;
-$data['userid'] = $DB->generate_id(20);
-$data['date'] = date("Y-m-d H:i:s");
-
-$data['username'] = $DATA_OBJ->username;
+// validation
 if ($DATA_OBJ->username == "") {
     $Error .= "Username is required";
 }
-$data['password'] = $DATA_OBJ->password;
 if ($DATA_OBJ->password == "") {
     $Error .= "Password is required";
 }
 
+$data['username'] = $DATA_OBJ->username;
+$data['password'] = $DATA_OBJ->password;
+$data['userid'] = $_SESSION['userid'];
+
 if ($Error == "") {
-    $query = "insert into users(userid,username,password,date) values(:userid,:username,:password,:date)";
+    $query = "UPDATE users SET username = :username, password = :password WHERE userid = :userid";
     $result = $DB->write($query, $data);
     if ($result) {
-        $info->message = "Your account has been created.";
-        $info->data_type = "info";
+        $info->message = "Your account has been updated successfully.";
+        $info->data_type = "save_settings";
     } else {
-        $info->message = "Your has not been created due to some error.";
+        $info->message = "Your account has not been updated due to some error.";
         $info->data_type = "error";
     }
 } else {
