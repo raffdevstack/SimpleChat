@@ -105,6 +105,10 @@
                             get_data({},"user_info");
                             get_settings(true);
                             break;
+                        case "error":
+                            alert(obj_result.message)
+                            get_settings(true);
+                            break;
                     }
                 }
             }

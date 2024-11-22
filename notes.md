@@ -5,6 +5,7 @@
 2. ~~send it to server~~
 3. ~~handle result~~
 4. ~~send new settings to database~~
+5. ~~handle error in index~~
 #### Main code
 1. ~~reuse code js from signup.php and use it in 
 index.php for sending data to db~~
