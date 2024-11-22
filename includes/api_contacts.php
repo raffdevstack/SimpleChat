@@ -22,7 +22,7 @@
     if (is_array($users)) {
         foreach ($users as $user) {
             $contacts_markup .= "
-                <div id='contact' onclick='startChat(event)'>
+                <div id='contact' userid='$user->userid' onclick='startChat(event)'>
                     <p>$user->username</p>
                 </div>";
         }

@@ -180,6 +180,13 @@
         }
 
         function startChat(e) {
+            let userid = e.target.getAttribute("userid"); // it targets the element where the event happened
+            if (e.target.id === "") {
+                userid = e.target.parentNode.getAttribute("userid"); // when inner element catches the click
+            }
+            console.log(userid);
+            let radio_chat_el = document.getElementById("radio_chat");
+            radio_chat_el.checked = true;
             get_chats(e);
         }
 
