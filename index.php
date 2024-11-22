@@ -179,12 +179,12 @@
             xhr.send(data_string);
         }
 
+        function startChat(e) {
+            get_chats(e);
+        }
+
         // data getter from the server
         get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
-
-        function startChat(e) {
-            alert('start chat');
-        }
     </script>
 </body>
 </html>
