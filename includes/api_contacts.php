@@ -2,8 +2,9 @@
 <?php
 
     global $info, $DB;
+    $logged_user = $_SESSION['userid'];
 
-    $sql = "SELECT * FROM `users` LIMIT 10";
+    $sql = "SELECT * FROM `users` WHERE `userid`!='$logged_user' ";
     $users = $DB->read($sql, []);
 
     $contacts_markup = '<div id="contacts_container">';
