@@ -50,6 +50,8 @@
     </div>
     <script>
 
+        let CURRENT_CHAT_USER = null;
+
         const logout_el = document.getElementById("logout");
         logout_el.addEventListener("click", logout_user);
 
@@ -184,7 +186,7 @@
             if (e.target.id === "") {
                 userid = e.target.parentNode.getAttribute("userid"); // when inner element catches the click
             }
-            console.log(userid);
+            CURRENT_CHAT_USER = userid;
             let radio_chat_el = document.getElementById("radio_chat");
             radio_chat_el.checked = true;
             get_chats(e);
