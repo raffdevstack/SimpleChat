@@ -9,6 +9,9 @@
 
     $contacts_markup = '
     <style>
+        #contact {
+            display: inline-block;
+        }
         #contact:hover {
             color: blue;
             font-weight: bold;
@@ -18,7 +21,10 @@
     <div id="contacts_container">';
     if (is_array($users)) {
         foreach ($users as $user) {
-            $contacts_markup .= "<p id='contact'>$user->username</p>";
+            $contacts_markup .= "
+                <div id='contact' onclick='startChat(event)'>
+                    <p>$user->username</p>
+                </div>";
         }
     }
     $contacts_markup .= '</div>';
