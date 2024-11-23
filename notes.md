@@ -1,6 +1,6 @@
 ### Chat section
 #### Functions
-1. Display userid on chats
+1. ~~Display userid on chats~~
 #### Debugging
 1. 
 #### Steps

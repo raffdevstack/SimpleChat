@@ -83,7 +83,6 @@
 
         // called inside the getData()
         function handle_result(result, type) {
-            // alert(result);
             if (result.trim() !== "") { // if result is not empty
                 let obj_result = JSON.parse(result); // converting to object the text json
                 if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
@@ -94,7 +93,8 @@
                             document.getElementById("username").innerHTML = obj_result.username;
                             break;
                         case "chats":
-                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            console.log(obj_result);
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.find.user;
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
@@ -189,8 +189,7 @@
             CURRENT_CHAT_USER = userid;
             let radio_chat_el = document.getElementById("radio_chat");
             radio_chat_el.checked = true;
-            getChats(e);
-            getData({}, 'get_chats')
+            getData({user:CURRENT_CHAT_USER}, 'chats')
         }
 
         // data getter from the server

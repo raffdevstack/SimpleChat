@@ -1,7 +1,10 @@
 
 <?php
 
-    global $info;
+    global $info, $DATA_OBJ;
+
+    echo json_encode($DATA_OBJ);
+    die;
 
     $html_markup = '
         hello from chats
