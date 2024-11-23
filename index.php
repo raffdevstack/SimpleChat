@@ -94,7 +94,7 @@
                             break;
                         case "chats":
                             console.log(obj_result);
-                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.find.user;
+                            // document.getElementById("inner_left_wrapper").innerHTML = obj_result.find.user;
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
