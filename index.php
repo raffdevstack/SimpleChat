@@ -58,12 +58,12 @@
         const label_contacts_el = document.getElementById("label_contacts");
         label_contacts_el.addEventListener("click", get_contacts);
         const label_chats_el = document.getElementById("label_chats");
-        label_chats_el.addEventListener("click", get_chats);
+        label_chats_el.addEventListener("click", getChats);
         const label_settings_el = document.getElementById("label_settings");
         label_settings_el.addEventListener("click", get_settings);
 
 
-        function get_data(find, type) { // something we are searching (an object), data type (string)
+        function getData(find, type) { // something we are searching (an object), data type (string)
 
             let xhr = new XMLHttpRequest();
 
@@ -81,7 +81,7 @@
             xhr.send(data);
         }
 
-        // called inside the get_data()
+        // called inside the getData()
         function handle_result(result, type) {
             // alert(result);
             if (result.trim() !== "") { // if result is not empty
@@ -104,7 +104,7 @@
                             break;
                         case "save_settings":
                             alert(obj_result.message)
-                            get_data({},"user_info");
+                            getData({},"user_info");
                             get_settings(true);
                             break;
                         case "error":
@@ -119,19 +119,19 @@
         function logout_user() {
             var answer = confirm("Are you sure you want to logout?")
             if (answer)
-                get_data({},"logout");
+                getData({},"logout");
         }
 
         function get_contacts(e) {
-            get_data({},"contacts");
+            getData({},"contacts");
         }
 
-        function get_chats(e) {
-            get_data({},"chats");
+        function getChats(e) {
+            getData({},"chats");
         }
 
         function get_settings(e) {
-            get_data({},"settings");
+            getData({},"settings");
         }
 
         function collectUpdatedSettings() {
@@ -189,11 +189,12 @@
             CURRENT_CHAT_USER = userid;
             let radio_chat_el = document.getElementById("radio_chat");
             radio_chat_el.checked = true;
-            get_chats(e);
+            getChats(e);
+            getData({}, 'get_chats')
         }
 
         // data getter from the server
-        get_data({},"user_info"); // calling the function above, empty object because we are not finding anything
+        getData({},"user_info"); // calling the function above, empty object because we are not finding anything
     </script>
 </body>
 </html>
