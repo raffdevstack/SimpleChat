@@ -1,9 +1,11 @@
-/* General Styling */
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     background-color: #f3f4f6;
 }
 
@@ -55,10 +57,19 @@ body {
     width: 100%;
 }
 
-input {
+input[type="text"], input[type="password"] {
+    -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+    -moz-appearance: none; /* Remove default styling in Firefox */
+    appearance: none; /* Remove default styling in modern browsers */
+    background: none; /* Remove background */
+    margin: 0; /* Remove margin */
+    outline: none; /* Remove outline */
+    box-shadow: none; /* Remove box shadow */
     padding: 5px;
     font-size: 1.2rem;
     border-radius: 5px;
+    width: 100%;
+    border: #374151 solid 1px;
 }
 
 input[type="submit"] {
@@ -69,10 +80,25 @@ input[type="submit"] {
     border-radius: 5px;
     font-weight: bold;
     color: #fff;
+    margin: 16px 0;
 }
 
 input[type="submit"]:hover {
     cursor: pointer;
+}
+
+#form_wrapper {
+    border: solid 1px red;
+    padding: 16px;
+}
+
+#form_wrapper h2 {
+    text-align: center;
+}
+
+#signupForm {
+    background-color: #fff;
+    padding: 24px;
 }
 
 #buttons_wrapper label {
