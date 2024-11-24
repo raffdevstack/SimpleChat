@@ -94,7 +94,7 @@
                             break;
                         case "chats":
                             console.log(obj_result);
-                            // document.getElementById("inner_left_wrapper").innerHTML = obj_result.find.user;
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
@@ -189,7 +189,7 @@
             CURRENT_CHAT_USER = userid;
             let radio_chat_el = document.getElementById("radio_chat");
             radio_chat_el.checked = true;
-            getData({user:CURRENT_CHAT_USER}, 'chats')
+            getData({userid:CURRENT_CHAT_USER}, 'chats')
         }
 
         // data getter from the server
