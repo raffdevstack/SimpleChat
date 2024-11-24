@@ -2,8 +2,6 @@
 
     global $DATA_OBJ, $DB, $info;
 
-//echo json_encode($DATA_OBJ);
-//die;
     $arr['userid'] = "";
 
     if (isset($DATA_OBJ->find->userid)) {
