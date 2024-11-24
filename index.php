@@ -65,7 +65,13 @@
         label_settings_el.addEventListener("click", get_settings);
 
         const radio_contacts_el = document.getElementById("radio_contacts");
-        radio_contacts_el.checked = true;
+
+        function initializeLanding() {
+            // data getter from the server
+            getData({},"user_info"); // calling the function above, empty object because we are not finding anything
+            getData({},"contacts");
+            radio_contacts_el.checked = true;
+        }
 
         function getData(find, type) { // something we are searching (an object), data type (string)
 
@@ -87,6 +93,7 @@
 
         // called inside the getData()
         function handle_result(result, type) {
+            console.log(result);
             if (result.trim() !== "") { // if result is not empty
                 let obj_result = JSON.parse(result); // converting to object the text json
                 if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
@@ -113,7 +120,7 @@
                             break;
                         case "error":
                             alert(obj_result.message)
-                            get_settings(true);
+                            initializeLanding();
                             break;
                     }
                 }
@@ -196,9 +203,7 @@
             getData({userid:CURRENT_CHAT_USER}, 'chats')
         }
 
-        // data getter from the server
-        getData({},"user_info"); // calling the function above, empty object because we are not finding anything
-        getData({},"contacts");
+        initializeLanding();
     </script>
 </body>
 </html>
