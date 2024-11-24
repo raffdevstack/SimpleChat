@@ -13,13 +13,18 @@
         if (is_array($result)) {
             $user = $result[0];
             $html_markup = "
-            <h3>Our chats with: </h3>
-            <p>$user->username</p>
-        ";
-            $info->message = $html_markup;
+                <h3>Our chats with: </h3>
+                <p>$user->username</p>
+            ";
+            $html_message = "
+                <h3>Our chats with: </h3>
+                <p>$user->username</p>
+            ";
+            $info->chat_contact = $html_markup;
+            $info->messages = $html_message;
             $info->data_type = "chats"; // send to responseText
         } else {
-            $info->message = "No chats found";
+            $info->chat_contact = "No chats found";
             $info->data_type = "error";
         }
     } else {

@@ -19,7 +19,7 @@
             <!-- Navigation Buttons -->
             <div id="buttons_wrapper">
                 <label id="label_contacts" for="radio_contacts">Contacts</label>
-                <label id="label_chats" for="radio_chat">Chat</label>
+                <label id="label_chats" for="radio_chat" style="display: none">Chat</label>
                 <label id="label_settings" for="radio_settings">Settings</label>
             </div>
             <input type="button" id="logout" value="Logout">
@@ -93,7 +93,6 @@
 
         // called inside the getData()
         function handle_result(result, type) {
-            console.log(result);
             if (result.trim() !== "") { // if result is not empty
                 let obj_result = JSON.parse(result); // converting to object the text json
                 if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
@@ -104,8 +103,8 @@
                             document.getElementById("username").innerHTML = obj_result.username;
                             break;
                         case "chats":
-                            console.log(obj_result);
-                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
+                            document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
