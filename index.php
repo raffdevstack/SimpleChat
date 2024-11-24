@@ -18,8 +18,8 @@
             </div>
             <!-- Navigation Buttons -->
             <div id="buttons_wrapper">
-                <label id="label_chats" for="radio_chat">Chat</label>
                 <label id="label_contacts" for="radio_contacts">Contacts</label>
+                <label id="label_chats" for="radio_chat">Chat</label>
                 <label id="label_settings" for="radio_settings">Settings</label>
             </div>
             <input type="button" id="logout" value="Logout">
@@ -57,11 +57,15 @@
 
         const label_contacts_el = document.getElementById("label_contacts");
         label_contacts_el.addEventListener("click", get_contacts);
+
         const label_chats_el = document.getElementById("label_chats");
         label_chats_el.addEventListener("click", getChats);
+
         const label_settings_el = document.getElementById("label_settings");
         label_settings_el.addEventListener("click", get_settings);
 
+        const radio_contacts_el = document.getElementById("radio_contacts");
+        radio_contacts_el.checked = true;
 
         function getData(find, type) { // something we are searching (an object), data type (string)
 
@@ -194,6 +198,7 @@
 
         // data getter from the server
         getData({},"user_info"); // calling the function above, empty object because we are not finding anything
+        getData({},"contacts");
     </script>
 </body>
 </html>
