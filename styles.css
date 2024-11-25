@@ -174,3 +174,32 @@ input[type="submit"]:hover {
 #radio_settings:checked ~ #inner_right_wrapper { /* ~ means sibling */
     flex: 0;
 }
+
+.message_container {
+    display: flex;
+    /*background-color: red;*/
+    margin-top: 16px;
+}
+
+.message {
+    background-color: #3b82f6;
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: #ffffff;
+}
+
+.message p { margin: 4px 0; }
+
+.left_message {
+    margin-right: auto;
+}
+
+.right_message {
+    margin-left: auto;
+}
+
+.message * {
+    margin: 0;
+}
+

@@ -13,12 +13,24 @@
         if (is_array($result)) {
             $user = $result[0];
             $html_markup = "
-                <h3>Our chats with: </h3>
+                <h3>You are chatting with: </h3>
                 <p>$user->username</p>
             ";
             $html_message = "
-                <h3>Our chats with: </h3>
-                <p>$user->username</p>
+                <div class='message_container'>
+                    <div class='message left_message'>
+                        <h4>John</h4>
+                        <p>This is the message</p>
+                        <h6>25 Nov 2023, 08:20 PM</h6>
+                    </div>
+                </div>
+                <div class='message_container'>
+                    <div class='message right_message'>
+                        <h4>John</h4>
+                        <p>This is the message</p>
+                        <h6>25 Nov 2023, 08:20 PM</h6>
+                    </div>
+                </div>
             ";
             $info->chat_contact = $html_markup;
             $info->messages = $html_message;
