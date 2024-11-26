@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+:root {
+    --blue-one: #3b82f6;
+    --blue-two: #2563eb;
+    --blue-three: #1e40af;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -21,7 +27,7 @@ body {
 
 /* Left Sidebar Styling */
 #left_wrapper {
-    background-color: #3b82f6;
+    background-color: var(--blue-one);
     flex: 1;
     padding: 20px;
     color: #ffffff;
@@ -105,7 +111,7 @@ input[type="submit"]:hover {
     display: block;
     padding: 12px;
     margin-bottom: 10px;
-    background-color: #2563eb;
+    background-color: var(--blue-two);
     color: #ffffff;
     text-align: center;
     border-radius: 8px;
@@ -113,7 +119,7 @@ input[type="submit"]:hover {
 }
 
 #buttons_wrapper label:hover {
-    background-color: #1e40af;
+    background-color: var(--blue-three);
     cursor: pointer;
 }
 
@@ -185,7 +191,7 @@ input[type="submit"]:hover {
     background-color: #3b82f6;
     width: fit-content;
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: 16px;
     color: #ffffff;
 }
 
@@ -193,10 +199,14 @@ input[type="submit"]:hover {
 
 .left_message {
     margin-right: auto;
+    background-color: var(--blue-two);
+    border-top-left-radius: 0;
 }
 
 .right_message {
     margin-left: auto;
+    background-color: var(--blue-one);
+    border-bottom-right-radius: 0;
 }
 
 .message * {
