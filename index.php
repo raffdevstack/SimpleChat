@@ -75,6 +75,10 @@
             radio_contacts_el.checked = true;
         }
 
+        function raffyCustomConsole(description, data) {
+            console.log(description + " ::::: " + data);
+        }
+
         function getData(find, type) { // something we are searching (an object), data type (string)
 
             let xhr = new XMLHttpRequest();
@@ -100,7 +104,7 @@
 
         // called inside the getData()
         function handle_result(result, type) {
-            console.log(result);
+            raffyCustomConsole("from handle result", result)
             inner_right_wrapper_el.style.overflow = "visible";
             inner_right_wrapper_el.style.opacity = "1";
 
@@ -128,15 +132,15 @@
                             inner_right_wrapper_el.style.opacity = "0";
                             break;
                         case "save_settings":
-                            alert(obj_result.message);
+                            alert("Message:" + obj_result.message);
                             getData({},"user_info");
                             get_settings(true);
                             break;
                         case "send_message":
-                            alert(obj_result.message);
+                            alert("Message:" + obj_result.message);
                             break;
                         case "error":
-                            alert(obj_result.message);
+                            alert("Error:" + obj_result.message);
                             initializeLanding();
                             break;
                     }
@@ -196,7 +200,7 @@
                         formData.password = value;
                         break;
                     default:
-                        console.log(`Unknown input: ${name}`);
+                        console.log(`Unknown input in settings collection: ${name}`);
                 }
             }
             sendSettingsUpdateToServer(formData, 'save_settings');
