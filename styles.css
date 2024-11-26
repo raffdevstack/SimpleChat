@@ -188,6 +188,7 @@ input[type="submit"]:hover {
 
 .message_container {
     display: flex;
+    margin: 8px 0;
 }
 
 .message {

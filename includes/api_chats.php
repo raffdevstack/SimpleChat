@@ -17,49 +17,12 @@
                 <p>$user->username</p>
             ";
             $html_message = "
-                <div id='messages_wrapper'>
-                    <div class='message_container'>
-                        <div class='message left_message'>
-                            <h4>John</h4>
-                            <p>This is the message</p>
-                            <h6>25 Nov 2023, 08:20 PM</h6>
-                        </div>
-                    </div>
-                    <div class='message_container'>
-                        <div class='message right_message'>
-                            <h4>John</h4>
-                            <p>This is the message</p>
-                            <h6>25 Nov 2023, 08:20 PM</h6>
-                        </div>
-                    </div>
-                    <div class='message_container'>
-                        <div class='message left_message'>
-                            <h4>John</h4>
-                            <p>This is the message</p>
-                            <h6>25 Nov 2023, 08:20 PM</h6>
-                        </div>
-                    </div>
-                    <div class='message_container'>
-                        <div class='message right_message'>
-                            <h4>John</h4>
-                            <p>This is the message</p>
-                            <h6>25 Nov 2023, 08:20 PM</h6>
-                        </div>
-                    </div>
-                    <div class='message_container'>
-                        <div class='message left_message'>
-                            <h4>John</h4>
-                            <p>This is the message</p>
-                            <h6>25 Nov 2023, 08:20 PM</h6>
-                        </div>
-                    </div>
-                    <div class='message_container'>
-                        <div class='message right_message'>
-                            <h4>John</h4>
-                            <p>This is the message</p>
-                            <h6>25 Nov 2023, 08:20 PM</h6>
-                        </div>
-                    </div>
+                <div id='messages_wrapper'>";
+                    $html_message .= getMessageLeft($user->username);
+                    $html_message .= getMessageRight($user->username);
+                    $html_message .= getMessageLeft($user->username);
+                    $html_message .= getMessageRight($user->username);
+                $html_message .= "
                 </div>
                 <div id='messages_inputs'>
                     <input type='text' placeholder='Enter your message here...' name='' id=''>
