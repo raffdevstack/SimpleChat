@@ -25,8 +25,10 @@
                 $html_message .= "
                 </div>
                 <div id='messages_inputs'>
-                    <input type='text' placeholder='Enter your message here...' name='' id=''>
-                    <input type='button' name='' id='send_message' value='SEND'>
+                    <label for='file_input' id='file_input_label'>File</label>
+                    <input type='file' id='file_input' style='display: none' >
+                    <input type='text' placeholder='Enter your message here...' >
+                    <input type='button' id='send_message' value='SEND'>
                 </div>
             "
             ;

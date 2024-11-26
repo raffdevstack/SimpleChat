@@ -47,7 +47,7 @@ function getMessageLeft($user)
         <div class='message_container'>
             <div class='message left_message'>
                 <h4>$user->username</h4>
-                <p>This is the message</p>
+                <p>This is the message. This is the message. This is the message. This is the message. This is the message</p>
                 <h6>25 Nov 2023, 08:20 PM</h6>
             </div>
         </div>
@@ -60,7 +60,7 @@ function getMessageRight($user)
     return "
         <div class='message_container'>
             <div class='message right_message'>
-                <h4>$user->username</h4>
+                <h4>You</h4>
                 <p>This is the message</p>
                 <h6>25 Nov 2023, 08:20 PM</h6>
             </div>

@@ -67,7 +67,6 @@
         const radio_contacts_el = document.getElementById("radio_contacts");
 
         const inner_right_wrapper_el = document.getElementById("inner_right_wrapper");
-        inner_right_wrapper_el.style.overflow = "hidden";
 
         function initializeLanding() {
             // data getter from the server
@@ -98,6 +97,7 @@
         function handle_result(result, type) {
 
             inner_right_wrapper_el.style.overflow = "visible";
+            inner_right_wrapper_el.style.opacity = "1";
 
             if (result.trim() !== "") { // if result is not empty
                 let obj_result = JSON.parse(result); // converting to object the text json
@@ -115,10 +115,12 @@
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
                             break;
                         case "settings":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
                             break;
                         case "save_settings":
                             alert(obj_result.message)

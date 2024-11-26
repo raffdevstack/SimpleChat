@@ -179,6 +179,7 @@ input[type="submit"]:hover {
 
 #radio_settings:checked ~ #inner_right_wrapper { /* ~ means sibling */
     flex: 0;
+
 }
 
 #messages_wrapper {
@@ -193,7 +194,7 @@ input[type="submit"]:hover {
 
 .message {
     background-color: #3b82f6;
-    width: fit-content;
+    max-width: 60%;
     padding: 8px 16px;
     border-radius: 16px;
     color: #ffffff;
@@ -225,4 +226,8 @@ input[type="submit"]:hover {
 
 #messages_inputs > #send_message {
     width: 8rem;
+}
+
+#file_input_label {
+    border: solid 1px red;
 }
