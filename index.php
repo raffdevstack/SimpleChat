@@ -66,6 +66,9 @@
 
         const radio_contacts_el = document.getElementById("radio_contacts");
 
+        const inner_right_wrapper_el = document.getElementById("inner_right_wrapper");
+        inner_right_wrapper_el.style.overflow = "hidden";
+
         function initializeLanding() {
             // data getter from the server
             getData({},"user_info"); // calling the function above, empty object because we are not finding anything
@@ -93,6 +96,9 @@
 
         // called inside the getData()
         function handle_result(result, type) {
+
+            inner_right_wrapper_el.style.overflow = "visible";
+
             if (result.trim() !== "") { // if result is not empty
                 let obj_result = JSON.parse(result); // converting to object the text json
                 if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
@@ -108,9 +114,11 @@
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            inner_right_wrapper_el.style.overflow = "hidden";
                             break;
                         case "settings":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            inner_right_wrapper_el.style.overflow = "hidden";
                             break;
                         case "save_settings":
                             alert(obj_result.message)
