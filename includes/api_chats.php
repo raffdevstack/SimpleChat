@@ -18,10 +18,10 @@
             ";
             $html_message = "
                 <div id='messages_wrapper'>";
-                    $html_message .= getMessageLeft($user->username);
-                    $html_message .= getMessageRight($user->username);
-                    $html_message .= getMessageLeft($user->username);
-                    $html_message .= getMessageRight($user->username);
+                    $html_message .= getMessageLeft($user);
+                    $html_message .= getMessageRight($user);
+                    $html_message .= getMessageLeft($user);
+                    $html_message .= getMessageRight($user);
                 $html_message .= "
                 </div>
                 <div id='messages_inputs'>
