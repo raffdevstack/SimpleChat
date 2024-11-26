@@ -40,6 +40,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_save_settings.php");
 }
 
+// template for messages on the left side
 function getMessageLeft($user)
 {
     return "
@@ -53,6 +54,7 @@ function getMessageLeft($user)
     ";
 }
 
+// template for messages on the right side
 function getMessageRight($user)
 {
     return "
