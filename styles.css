@@ -231,3 +231,7 @@ input[type="submit"]:hover {
 #file_input_label {
     border: solid 1px red;
 }
+
+#file_input_label:hover {
+    cursor: pointer;
+}

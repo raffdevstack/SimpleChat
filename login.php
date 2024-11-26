@@ -21,6 +21,7 @@
                 <br>
                 <br>
                 <a href="signup.php">Don't have an account? Signup here.</a>
+                <p style="color: red">dev note: it shouldn't tell wrong username</p>
             </form>
             <p id="message"></p>
         </div>
