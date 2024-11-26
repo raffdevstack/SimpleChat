@@ -154,6 +154,17 @@
             getData({},"settings");
         }
 
+        function sendMessage(e) {
+            // get data from the input
+            var text = document.getElementById("message_text").value;
+            if (text.trim() === "") {
+                alert("Please type something to send");
+                return;
+            }
+
+            getData({},"send_message");
+        }
+
         function collectUpdatedSettings() {
             const save_settings_button_el = document.getElementById("save_settings_button");
             save_settings_button_el.disabled = true;
