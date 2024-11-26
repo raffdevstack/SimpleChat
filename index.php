@@ -86,8 +86,13 @@
             }
 
             let data = {} // empty object
-            data.find = find;
+            if (typeof find === 'object' && find !== null) { // Merge the properties of find into data
+                Object.assign(data, find);
+            } else {
+                data.find = find;
+            }
             data.data_type = type;
+
             data = JSON.stringify(data);
             xhr.open("POST","api.php",true);
             xhr.send(data);
@@ -95,7 +100,7 @@
 
         // called inside the getData()
         function handle_result(result, type) {
-
+            console.log(result);
             inner_right_wrapper_el.style.overflow = "visible";
             inner_right_wrapper_el.style.opacity = "1";
 
@@ -123,12 +128,15 @@
                             inner_right_wrapper_el.style.opacity = "0";
                             break;
                         case "save_settings":
-                            alert(obj_result.message)
+                            alert(obj_result.message);
                             getData({},"user_info");
                             get_settings(true);
                             break;
+                        case "send_message":
+                            alert(obj_result.message);
+                            break;
                         case "error":
-                            alert(obj_result.message)
+                            alert(obj_result.message);
                             initializeLanding();
                             break;
                     }
@@ -156,13 +164,15 @@
 
         function sendMessage(e) {
             // get data from the input
-            var text = document.getElementById("message_text").value;
-            if (text.trim() === "") {
+            let text = document.getElementById("message_text").value.trim();
+            if (text === "") {
                 alert("Please type something to send");
                 return;
             }
-
-            getData({},"send_message");
+            getData({
+                message: text,
+                userid: CURRENT_CHAT_USER
+            },"send_message");
         }
 
         function collectUpdatedSettings() {

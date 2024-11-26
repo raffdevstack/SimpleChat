@@ -4,9 +4,9 @@
 
     $arr['userid'] = "";
 
-    if (isset($DATA_OBJ->find->userid)) {
+    if (isset($DATA_OBJ->userid)) {
 
-        $arr['userid'] = $DATA_OBJ->find->userid;
+        $arr['userid'] = $DATA_OBJ->userid;
         $sql = "SELECT * FROM `users` WHERE `userid` = :userid LIMIT 1 ";
         $result = $DB->read($sql, $arr);
 

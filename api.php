@@ -38,6 +38,9 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_settings.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "save_settings") {
     include("includes/api_save_settings.php");
+}   else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "send_message") {
+    $info = $DATA_OBJ;
+    echo json_encode($info);
 }
 
 // template for messages on the left side
