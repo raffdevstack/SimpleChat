@@ -61,6 +61,10 @@
                         </div>
                     </div>
                 </div>
+                <div id='messages_inputs'>
+                    <input type='text' placeholder='Enter your message here...' name='' id=''>
+                    <input type='button' name='' id='send_message' value='SEND'>
+                </div>
             "
             ;
             $info->chat_contact = $html_markup;

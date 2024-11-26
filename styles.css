@@ -216,3 +216,12 @@ input[type="submit"]:hover {
     margin: 0;
 }
 
+#messages_inputs {
+    padding: 8px 0;
+    display: flex;
+    gap: 4px;
+}
+
+#messages_inputs > #send_message {
+    width: 8rem;
+}
