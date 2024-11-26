@@ -17,21 +17,52 @@
                 <p>$user->username</p>
             ";
             $html_message = "
-                <div class='message_container'>
-                    <div class='message left_message'>
-                        <h4>John</h4>
-                        <p>This is the message</p>
-                        <h6>25 Nov 2023, 08:20 PM</h6>
+                <div id='messages_wrapper'>
+                    <div class='message_container'>
+                        <div class='message left_message'>
+                            <h4>John</h4>
+                            <p>This is the message</p>
+                            <h6>25 Nov 2023, 08:20 PM</h6>
+                        </div>
+                    </div>
+                    <div class='message_container'>
+                        <div class='message right_message'>
+                            <h4>John</h4>
+                            <p>This is the message</p>
+                            <h6>25 Nov 2023, 08:20 PM</h6>
+                        </div>
+                    </div>
+                    <div class='message_container'>
+                        <div class='message left_message'>
+                            <h4>John</h4>
+                            <p>This is the message</p>
+                            <h6>25 Nov 2023, 08:20 PM</h6>
+                        </div>
+                    </div>
+                    <div class='message_container'>
+                        <div class='message right_message'>
+                            <h4>John</h4>
+                            <p>This is the message</p>
+                            <h6>25 Nov 2023, 08:20 PM</h6>
+                        </div>
+                    </div>
+                    <div class='message_container'>
+                        <div class='message left_message'>
+                            <h4>John</h4>
+                            <p>This is the message</p>
+                            <h6>25 Nov 2023, 08:20 PM</h6>
+                        </div>
+                    </div>
+                    <div class='message_container'>
+                        <div class='message right_message'>
+                            <h4>John</h4>
+                            <p>This is the message</p>
+                            <h6>25 Nov 2023, 08:20 PM</h6>
+                        </div>
                     </div>
                 </div>
-                <div class='message_container'>
-                    <div class='message right_message'>
-                        <h4>John</h4>
-                        <p>This is the message</p>
-                        <h6>25 Nov 2023, 08:20 PM</h6>
-                    </div>
-                </div>
-            ";
+            "
+            ;
             $info->chat_contact = $html_markup;
             $info->messages = $html_message;
             $info->data_type = "chats"; // send to responseText

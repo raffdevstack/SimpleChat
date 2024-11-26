@@ -19,7 +19,7 @@ body {
     max-width: 960px;
     height: 600px;
     display: flex;
-    margin: 50px auto;
+    margin: 30px auto;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -181,10 +181,13 @@ input[type="submit"]:hover {
     flex: 0;
 }
 
+#messages_wrapper {
+    height: 90%;
+    overflow-y: scroll;
+}
+
 .message_container {
     display: flex;
-    /*background-color: red;*/
-    margin-top: 16px;
 }
 
 .message {
