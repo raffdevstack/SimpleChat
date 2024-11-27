@@ -28,44 +28,12 @@
                         (:chat_id, :sender_userid, :receiver_userid, :message, :date)";
         $result = $DB->write($sql_send, $arr2);
 
-//        get chat messages from db
-
-        //read from db
-        $arr3['chat_id'] = $arr2['chat_id'];
-        $sql_read_chat = "SELECT * FROM `messages` WHERE `chat_id` = :chat_id  LIMIT 10";
-        $result_chat_id = $DB->read($sql_read_chat, $arr3); // array of chat messages
-
-        if (is_array($result_chat_id)) {
-            // we need to get first the user for user info like username and profile
-            $receiver_info = $DB->getChatReceiver( $result_chat_id[0]->receiver );
-
-            // for the left panel
-            $html_markup = "
-                <h3>You are chatting with: </h3>
-                <p>$receiver_info->username</p>
-            ";
-
-            // for the message box
-            $html_message = "
-                <div id='messages_wrapper'>";
-                    foreach ($result_chat_id as $message) {
-                        $html_message .= getMessageRight($message);
-                    }
-                $html_message .= "
-                </div>
-                <div id='messages_inputs'>
-                    <label for='message_file' id='file_input_label'>File</label>
-                    <input type='file' id='message_file' style='display: none' >
-                    <input type='text' id='message_text' placeholder='Enter your message here...' >
-                    <input type='button' onclick='sendMessage(event)' id='send_message' value='SEND'>    
-                </div>
-            "
-            ;
-            $info->chat_contact = $html_markup;
-            $info->messages = $html_message;
-            $info->data_type = "chats"; // send to responseText
+        if ($result) {
+//            $info->chat_contact = $html_markup;
+            $info->message = "Message successfully sent";
+            $info->data_type = "send_message"; // send to responseText
         } else {
-            $info->chat_contact = "No chats found";
+            $info->chat_contact = "Message not sent due to error";
             $info->data_type = "error";
         }
     } else {

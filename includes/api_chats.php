@@ -17,6 +17,7 @@
                 <p>$user->username</p>
             ";
             // get our chats
+
             $html_message = "
                 <div id='messages_wrapper'>";
 //                    $html_message .= getMessageLeft($user);
