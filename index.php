@@ -121,7 +121,11 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
                             const wrapper_el = document.getElementById("messages_wrapper");
-                            wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
+                            setTimeout(function () {
+                                wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
+                                const text_input_el = document.getElementById("message_text");
+                                text_input_el.focus();
+                            }, 500);
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
@@ -237,6 +241,12 @@
             let radio_chat_el = document.getElementById("radio_chat");
             radio_chat_el.checked = true;
             getData({userid:CURRENT_CHAT_USER}, 'chats')
+        }
+
+        function enter_pressed(e) {
+            if (event.keyCode === 13) {
+                sendMessage(e);
+            }
         }
 
         initializeLanding();
