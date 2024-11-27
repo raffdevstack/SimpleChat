@@ -41,24 +41,35 @@ Class Database {
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function chatFinder($receiver_id, $sender_id) {
         $con = $this->connect();
         $arr['receiver_userid'] = $receiver_id;
         $arr['sender_userid'] = $sender_id;
+//    print_r(" receiver: ". $receiver_id);
+//    print_r(" sender: ". $sender_id);
+//        $query = "SELECT * FROM `messages`
+//             WHERE (`receiver` = :receiver_userid AND `sender` = :sender_userid)
+//             OR (`sender` = :sender_userid AND `receiver` = :receiver_userid)
+//            LIMIT 1";
         $query = "SELECT * FROM `messages` 
-             WHERE (`receiver` = :receiver_userid AND `sender` = :sender_userid) 
-             OR (`sender` = :sender_userid AND `receiver` = :receiver_userid)
-            LIMIT 1";
+          WHERE (`receiver` = :receiver_userid AND `sender` = :sender_userid) 
+          OR (`receiver` = :sender_userid AND `sender` = :receiver_userid)
+          ORDER BY `date` DESC
+          LIMIT 1";
+
         $stmt = $con->prepare($query);
         $check = $stmt->execute($arr);
+
         if ($check) {
             $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+//            print_r($result); die;
             if (is_array($result) && count($result) > 0) {
                 return $result[0];
-            }
-            return false;
-        }
-        return false;
+            } throw new Exception("No messages found between the specified users.");
+        } throw new Exception("Failed to execute query.");
     }
 
     public function getChatMessages($chat_id) {
