@@ -7,13 +7,7 @@
     if (isset($DATA_OBJ->receiver_userid)) {
 
 //        checking if chat already exist
-        $arr['receiver_userid'] = $DATA_OBJ->receiver_userid;
-        $arr['sender_userid'] = $_SESSION['userid']; // my user id
-        $sql_find_chat = "SELECT * FROM `messages` 
-             WHERE (`receiver` = :receiver_userid AND `sender` = :sender_userid) 
-             OR (`sender` = :sender_userid AND `receiver` = :receiver_userid)
-            LIMIT 1";
-        $result_chat = $DB->read($sql_find_chat, $arr);
+        $result_chat = $DB->chatFinder($DATA_OBJ->receiver_userid, $_SESSION['userid']);
 
 //      send the message to db
 
@@ -42,12 +36,8 @@
         $result_chat_id = $DB->read($sql_read_chat, $arr3); // array of chat messages
 
         if (is_array($result_chat_id)) {
-            $first_chat = $result_chat_id[0];
             // we need to get first the user for user info like username and profile
-            $arr4['user_id'] = $first_chat->receiver;
-            $sql_get_receiver = "SELECT * FROM `users` WHERE `userid` = :user_id  LIMIT 1";
-            $result_receiver = $DB->read($sql_get_receiver, $arr4);
-            $receiver_info = $result_receiver[0];
+            $receiver_info = $DB->getChatReceiver( $result_chat_id[0]->receiver );
 
             // for the left panel
             $html_markup = "
@@ -61,9 +51,6 @@
                     foreach ($result_chat_id as $message) {
                         $html_message .= getMessageRight($message);
                     }
-//                    $html_message .= getMessageLeft($chat);
-//                    $html_message .= getMessageLeft($receiver_info, $chat);
-
                 $html_message .= "
                 </div>
                 <div id='messages_inputs'>

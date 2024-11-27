@@ -41,6 +41,42 @@ Class Database {
         return false;
     }
 
+    public function chatFinder($receiver_id, $sender_id) {
+        $con = $this->connect();
+        $arr['receiver_userid'] = $receiver_id;
+        $arr['sender_userid'] = $sender_id;
+        $query = "SELECT * FROM `messages` 
+             WHERE (`receiver` = :receiver_userid AND `sender` = :sender_userid) 
+             OR (`sender` = :sender_userid AND `receiver` = :receiver_userid)
+            LIMIT 1";
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($arr);
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
+                return $result; // return the result object
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public function getChatReceiver($receiver_id) {
+        $con = $this->connect();
+        $arr['receiver_userid'] = $receiver_id;
+        $query = "SELECT * FROM `users` WHERE `userid` = :receiver_userid  LIMIT 1";
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($arr);
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
+                return $result[0]; // return the result object
+            }
+            return false;
+        }
+        return false;
+    }
+
     public function generate_id($max) {
         $generated_id = 0;
         for ($i = 0; $i < 10; $i++) {
