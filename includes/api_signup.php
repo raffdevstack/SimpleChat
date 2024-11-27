@@ -4,7 +4,6 @@ $info = (Object)[]; // this info object will be the base of the respose to ajax
 
 global $DATA_OBJ, $DB, $Error;
 
-date_default_timezone_set('Asia/Manila');
 $data = false;
 $data['userid'] = $DB->generate_id(20);
 $data['date'] = date("Y-m-d H:i:s");

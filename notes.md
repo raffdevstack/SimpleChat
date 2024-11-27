@@ -1,4 +1,16 @@
 ### Chat section
+#### Function
+1. ~~Send message to db~~
+#### Steps
+1. ~~copy api chats~~ 
+2. ~~default values on db~~ 
+3. send to db 
+4. ~~add convo_id, varchar 60, add index~~ 
+5. ~~if a convo exist, use it, if not, generate a new one~~ 
+6. ~~make function random string id generator~~
+
+---
+### Chat section
 #### Functions
 1. ~~Display userid on chats~~
 2. ~~Get the use from userid and display name on chats~~

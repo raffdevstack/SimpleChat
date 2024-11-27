@@ -6,6 +6,8 @@ $DB = new Database();
 $DATA_RAW_STRING = file_get_contents('php://input');
 $DATA_OBJ = json_decode($DATA_RAW_STRING); // this is like JSON.parse() in js
 
+date_default_timezone_set('Asia/Manila');
+
 session_start();
 
 $info = (object)[]; // this info object will be the base of the response to ajax
@@ -39,8 +41,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "save_settings") {
     include("includes/api_save_settings.php");
 }   else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "send_message") {
-    $info = $DATA_OBJ;
-    echo json_encode($info);
+    include("includes/api_send_message.php");
 }
 
 // template for messages on the left side
