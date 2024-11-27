@@ -16,6 +16,7 @@
                 <h3>You are chatting with: </h3>
                 <p>$user->username</p>
             ";
+
             // get the receiver
             $chat_receiver = $DB->getChatReceiver($user->userid);
 
@@ -23,7 +24,10 @@
             $chat = $DB->chatFinder($user->userid, $_SESSION['userid']);
 
             // find chat messages
-            $chat_messages = $DB->getChatMessages($chat->chat_id);
+            $chat_messages = "";
+            if ($chat) {
+                $chat_messages = $DB->getChatMessages($chat->chat_id);
+            }
 
             $html_message = "
                 <div id='messages_wrapper'>";
@@ -58,7 +62,7 @@
         $info->data_type = "error";
     }
 
-echo json_encode($info);
+    echo json_encode($info);
 
 
 

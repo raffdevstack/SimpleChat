@@ -249,6 +249,10 @@
             }
         }
 
+        setInterval(function () {
+
+        }, 5000)
+
         initializeLanding();
     </script>
 </body>

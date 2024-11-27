@@ -62,8 +62,8 @@ Class Database {
             $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
             if (is_array($result) && count($result) > 0) {
                 return $result[0];
-            } throw new Exception("No messages found between the specified users.");
-        } throw new Exception("Failed to execute query.");
+            } return false;
+        } return false;
     }
 
     public function getChatMessages($chat_id) {
