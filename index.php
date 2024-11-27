@@ -76,7 +76,7 @@
         }
 
         function raffyCustomConsole(description, data) {
-            console.log(description + " ::::: " + data);
+            console.log(" ::::: " + description.toUpperCase() + " ::::: " + data);
         }
 
         function getData(find, type) { // something we are searching (an object), data type (string)

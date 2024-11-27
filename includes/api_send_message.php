@@ -30,7 +30,7 @@
         $arr2['sender_userid'] = $_SESSION['userid']; // my user id
         $arr2['message'] = $DATA_OBJ->text;
         $arr2['date'] = date('Y-m-d H:i:s');
-        $sql_send = "INSERT INTO `messages` (chat_id, sender, receiver, message, date) VALUES 
+        $sql_send = "INSERT INTO `messages` (chat_id, sender, receiver, txt_message, date) VALUES 
                         (:chat_id, :sender_userid, :receiver_userid, :message, :date)";
         $result = $DB->write($sql_send, $arr2);
 
