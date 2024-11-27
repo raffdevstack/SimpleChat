@@ -120,6 +120,8 @@
                         case "chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
+                            const wrapper_el = document.getElementById("messages_wrapper");
+                            wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
@@ -137,8 +139,6 @@
                             get_settings(true);
                             break;
                         case "send_message":
-                            alert("Message:" + obj_result.message);
-                            // alert("id:" + obj_result.receiver_id);
                             getData({userid: obj_result.receiver_id},"chats");
                             break;
                         case "error":

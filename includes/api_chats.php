@@ -36,10 +36,6 @@
                             }
                         }
                     }
-//                    $html_message .= getMessageLeft($user);
-//                    $html_message .= getMessageRight($user);
-//                    $html_message .= getMessageLeft($user);
-//                    $html_message .= getMessageRight($user);
                 $html_message .= "
                 </div>
                 <div id='messages_inputs'>
