@@ -12,9 +12,9 @@
 //      send the message to db
 
         $arr2 = [];
-        if (is_array($result_chat)) { // if chat exist
+        if ($result_chat) { // if chat exist
             // send this message to the chat
-            $chat = $result_chat[0];
+            $chat = $result_chat;
             $arr2['chat_id'] =$chat->chat_id;
         } else {
             $arr2['chat_id'] = generateRandomString(10);
@@ -31,6 +31,7 @@
         if ($result) {
 //            $info->chat_contact = $html_markup;
             $info->message = "Message successfully sent";
+            $info->receiver_id = $arr2['receiver_userid'];
             $info->data_type = "send_message"; // send to responseText
         } else {
             $info->chat_contact = "Message not sent due to error";

@@ -16,10 +16,26 @@
                 <h3>You are chatting with: </h3>
                 <p>$user->username</p>
             ";
-            // get our chats
+            // get the receiver
+            $chat_receiver = $DB->getChatReceiver($user->userid);
+
+            // find chat if exist
+            $chat = $DB->chatFinder($user->userid, $_SESSION['userid']);
+
+            // find chat messages
+            $chat_messages = $DB->getChatMessages($chat->chat_id);
 
             $html_message = "
                 <div id='messages_wrapper'>";
+                    if ($chat_messages) {
+                        foreach ($chat_messages as $message) {
+                            if ($message->receiver == $chat_receiver->userid) {
+                                $html_message .= getMessageRight($message);
+                            } else {
+                                $html_message .= getMessageLeft($chat_receiver, $message);
+                            }
+                        }
+                    }
 //                    $html_message .= getMessageLeft($user);
 //                    $html_message .= getMessageRight($user);
 //                    $html_message .= getMessageLeft($user);

@@ -54,6 +54,23 @@ Class Database {
         if ($check) {
             $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
             if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public function getChatMessages($chat_id) {
+        $con = $this->connect();
+        $arr['chat_id'] = $chat_id;
+        $query = "SELECT * FROM `messages` 
+             WHERE `chat_id` = :chat_id";
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($arr);
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
                 return $result; // return the result object
             }
             return false;
@@ -70,7 +87,7 @@ Class Database {
         if ($check) {
             $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
             if (is_array($result) && count($result) > 0) {
-                return $result[0]; // return the result object
+                return $result[0];
             }
             return false;
         }

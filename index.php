@@ -138,6 +138,8 @@
                             break;
                         case "send_message":
                             alert("Message:" + obj_result.message);
+                            // alert("id:" + obj_result.receiver_id);
+                            getData({userid: obj_result.receiver_id},"chats");
                             break;
                         case "error":
                             alert("Error:" + obj_result.message);
