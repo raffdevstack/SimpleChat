@@ -45,13 +45,13 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
 }
 
 // template for messages on the left side
-function getMessageLeft($user)
+function getMessageLeft($user, $message)
 {
     return "
         <div class='message_container'>
             <div class='message left_message'>
                 <h4>$user->username</h4>
-                <p>This is the message. This is the message. This is the message. This is the message. This is the message</p>
+                <p>$message->message</p>
                 <h6>25 Nov 2023, 08:20 PM</h6>
             </div>
         </div>
@@ -59,14 +59,14 @@ function getMessageLeft($user)
 }
 
 // template for messages on the right side
-function getMessageRight($user)
+function getMessageRight($message)
 {
     return "
         <div class='message_container'>
             <div class='message right_message'>
                 <h4>You</h4>
-                <p>This is the message</p>
-                <h6>25 Nov 2023, 08:20 PM</h6>
+                <p>$message->message</p>
+                <h6>$message->date</h6>
             </div>
         </div>
     ";

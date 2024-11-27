@@ -6,12 +6,16 @@
 
     if (isset($DATA_OBJ->receiver_userid)) {
 
+//        checking if chat already exist
         $arr['receiver_userid'] = $DATA_OBJ->receiver_userid;
         $arr['sender_userid'] = $_SESSION['userid']; // my user id
-
-        $sql_find_chat = "SELECT * FROM `messages` WHERE `receiver` = :receiver_userid AND
-                               `sender` = :sender_userid LIMIT 1";
+        $sql_find_chat = "SELECT * FROM `messages` 
+             WHERE (`receiver` = :receiver_userid AND `sender` = :sender_userid) 
+             OR (`sender` = :sender_userid AND `receiver` = :receiver_userid)
+            LIMIT 1";
         $result_chat = $DB->read($sql_find_chat, $arr);
+
+//      send the message to db
 
         $arr2 = [];
         if (is_array($result_chat)) { // if chat exist
@@ -24,27 +28,42 @@
 
         $arr2['receiver_userid'] = $DATA_OBJ->receiver_userid;
         $arr2['sender_userid'] = $_SESSION['userid']; // my user id
-        $arr2['message'] = $DATA_OBJ->message;
+        $arr2['message'] = $DATA_OBJ->text;
         $arr2['date'] = date('Y-m-d H:i:s');
         $sql_send = "INSERT INTO `messages` (chat_id, sender, receiver, message, date) VALUES 
                         (:chat_id, :sender_userid, :receiver_userid, :message, :date)";
         $result = $DB->write($sql_send, $arr2);
 
-die;
+//        get chat messages from db
 
+        //read from db
+        $arr3['chat_id'] = $arr2['chat_id'];
+        $sql_read_chat = "SELECT * FROM `messages` WHERE `chat_id` = :chat_id  LIMIT 10";
+        $result_chat_id = $DB->read($sql_read_chat, $arr3); // array of chat messages
 
-        if (is_array($result)) {
-            $user = $result[0];
+        if (is_array($result_chat_id)) {
+            $first_chat = $result_chat_id[0];
+            // we need to get first the user for user info like username and profile
+            $arr4['user_id'] = $first_chat->receiver;
+            $sql_get_receiver = "SELECT * FROM `users` WHERE `userid` = :user_id  LIMIT 1";
+            $result_receiver = $DB->read($sql_get_receiver, $arr4);
+            $receiver_info = $result_receiver[0];
+
+            // for the left panel
             $html_markup = "
                 <h3>You are chatting with: </h3>
-                <p>$user->username</p>
+                <p>$receiver_info->username</p>
             ";
+
+            // for the message box
             $html_message = "
                 <div id='messages_wrapper'>";
-                    $html_message .= getMessageLeft($user);
-                    $html_message .= getMessageRight($user);
-                    $html_message .= getMessageLeft($user);
-                    $html_message .= getMessageRight($user);
+                    foreach ($result_chat_id as $message) {
+                        $html_message .= getMessageRight($message);
+                    }
+//                    $html_message .= getMessageLeft($chat);
+//                    $html_message .= getMessageLeft($receiver_info, $chat);
+
                 $html_message .= "
                 </div>
                 <div id='messages_inputs'>

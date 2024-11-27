@@ -174,7 +174,7 @@
                 return;
             }
             getData({
-                message: text,
+                text: text,
                 receiver_userid: CURRENT_CHAT_USER
             },"send_message");
         }
