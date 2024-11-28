@@ -121,11 +121,11 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
                             const wrapper_el = document.getElementById("messages_wrapper");
-                            setTimeout(function () {
+                            // setTimeout(function () {
                                 wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
                                 const text_input_el = document.getElementById("message_text");
                                 text_input_el.focus();
-                            }, 500);
+                            // }, 500);
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;

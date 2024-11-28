@@ -70,13 +70,13 @@ Class Database {
         $con = $this->connect();
         $arr['chat_id'] = $chat_id;
         $query = "SELECT * FROM `messages` 
-             WHERE `chat_id` = :chat_id";
+             WHERE `chat_id` = :chat_id ORDER BY id DESC";
         $stmt = $con->prepare($query);
         $check = $stmt->execute($arr);
         if ($check) {
             $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
             if (is_array($result) && count($result) > 0) {
-                return $result; // return the result object
+                return array_reverse($result); // return the result object
             }
             return false;
         }
