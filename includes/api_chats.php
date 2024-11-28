@@ -21,7 +21,13 @@
             $chat_receiver = $DB->getChatReceiver($user->userid);
 
             // find chat if exist
-            $chat = $DB->chatFinder($user->userid, $_SESSION['userid']);
+            $chat = "";
+            try {
+                $chat = $DB->chatFinder($user->userid, $_SESSION['userid']);
+            } catch (Exception $e) {
+                $info->chat_contact = "No chats found: " . $e->getMessage();
+                $info->data_type = "error";
+            }
 
             // find chat messages
             $chat_messages = "";

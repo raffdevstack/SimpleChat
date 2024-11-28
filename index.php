@@ -249,9 +249,9 @@
             }
         }
 
-        setInterval(function () {
-
-        }, 5000)
+        // setInterval(function () {
+        //
+        // }, 5000)
 
         initializeLanding();
     </script>
