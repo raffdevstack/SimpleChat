@@ -4,6 +4,11 @@
 
     $arr['userid'] = "";
 
+    $refresh = false;
+    if ($DATA_OBJ->data_type == "chats_refresh") {
+        $refresh = true;
+    }
+
     if (isset($DATA_OBJ->userid)) {
 
         $arr['userid'] = $DATA_OBJ->userid;
@@ -12,10 +17,14 @@
 
         if (is_array($result)) {
             $user = $result[0];
-            $html_markup = "
-                <h3>You are chatting with: </h3>
-                <p>$user->username</p>
-            ";
+
+            $html_markup = "";
+            if (!$refresh) {
+                $html_markup = "
+                    <h3>You are chatting with: </h3>
+                    <p>$user->username</p>
+                ";
+            }
 
             // get the receiver
             $chat_receiver = $DB->getChatReceiver($user->userid);
@@ -35,8 +44,13 @@
                 $chat_messages = $DB->getChatMessages($chat->chat_id);
             }
 
-            $html_message = "
-                <div id='messages_wrapper'>";
+            $html_message = "";
+            if (!$refresh) {
+                $html_message = "
+                    <div id='messages_wrapper'>";
+            }
+
+                    // the messages itself
                     if ($chat_messages) {
                         foreach ($chat_messages as $message) {
                             if ($message->receiver == $chat_receiver->userid) {
@@ -46,6 +60,7 @@
                             }
                         }
                     }
+            if (!$refresh) {
                 $html_message .= "
                 </div>
                 <div id='messages_inputs'>
@@ -54,11 +69,15 @@
                     <input type='text' onkeyup='enter_pressed(event)' id='message_text' placeholder='Enter your message here...' >
                     <input type='button' onclick='sendMessage(event)' id='send_message' value='SEND'>    
                 </div>
-            "
-            ;
+                ";
+            }
             $info->chat_contact = $html_markup;
             $info->messages = $html_message;
             $info->data_type = "chats"; // send to responseText
+            if ($refresh) {
+                $info->messages = $html_message;
+                $info->data_type = "chats_refresh";
+            }
         } else {
             $info->chat_contact = "No chats found";
             $info->data_type = "error";

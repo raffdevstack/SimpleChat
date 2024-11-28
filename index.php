@@ -117,15 +117,17 @@
                         case "user_info":
                             document.getElementById("username").innerHTML = obj_result.username;
                             break;
+                        case "chats_refresh":
+                            document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
+
+                            break;
                         case "chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
                             const wrapper_el = document.getElementById("messages_wrapper");
-                            // setTimeout(function () {
-                                wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
-                                const text_input_el = document.getElementById("message_text");
-                                text_input_el.focus();
-                            // }, 500);
+                            wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
+                            const text_input_el = document.getElementById("message_text");
+                            text_input_el.focus();
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
@@ -249,9 +251,9 @@
             }
         }
 
-        // setInterval(function () {
-        //
-        // }, 5000)
+        setInterval(function () {
+            getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
+        }, 5000)
 
         initializeLanding();
     </script>

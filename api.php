@@ -32,7 +32,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_logout.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "user_info") {
     include("includes/api_user_info.php");
-} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "chats") {
+} else if (isset($DATA_OBJ->data_type) && ($DATA_OBJ->data_type == "chats") || $DATA_OBJ->data_type == "chats_refresh") {
     include("includes/api_chats.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
     include("includes/api_contacts.php");
