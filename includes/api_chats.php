@@ -92,6 +92,7 @@
         // I will get chats that has my userid
         $all_chats = $DB->findAllMyChat($_SESSION['userid']);
 
+        $html_previous_chats_panel = "";
         if (is_array($all_chats)) {
             $html_previous_chats_panel = "
             <h4>Previous Chats: </h4>
@@ -104,7 +105,7 @@
                     }
                     $user = $DB->getChatReceiver($otherUser);
                     $html_previous_chats_panel .= "
-                        <div style='border: 1px solid black; padding: 2px 8px'>
+                        <div id='previous_chat_item' userid='$user->userid' onclick='startChat(event)'>
                             <h5>$user->username</h5>
                             <p>$chat->txt_message</p>
                         </div>
