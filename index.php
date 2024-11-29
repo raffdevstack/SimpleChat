@@ -162,14 +162,17 @@
         }
 
         function get_contacts(e) {
+            CURRENT_CHAT_USER = null;
             getData({},"contacts");
         }
 
         function getChats(e) {
+            CURRENT_CHAT_USER = null;
             getData({},"chats");
         }
 
         function get_settings(e) {
+            CURRENT_CHAT_USER = null;
             getData({},"settings");
         }
 
