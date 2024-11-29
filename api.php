@@ -52,7 +52,7 @@ function getMessageLeft($user, $message)
             <div class='message left_message'>
                 <h4>$user->username</h4>
                 <p>$message->txt_message</p>
-                <h6>$message->date</h6>
+                <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>
             </div>
         </div>
     ";

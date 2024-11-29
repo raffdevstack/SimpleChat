@@ -66,6 +66,30 @@ Class Database {
         } return false;
     }
 
+    public function findAllMyChat($user_id) {
+        $con = $this->connect();
+        $arr['userid'] = $user_id;
+        $query = "SELECT m.* FROM `messages` m
+          INNER JOIN (
+              SELECT `chat_id`, MAX(id) AS latest
+              FROM `messages`
+              WHERE `receiver` = :userid OR `sender` = :userid
+              GROUP BY `chat_id`
+          ) latest_messages ON m.`chat_id` = latest_messages.`chat_id` AND m.`id` = latest_messages.latest
+          ORDER BY latest_messages.latest DESC";
+
+
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($arr);
+
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
+                return array_reverse($result);
+            } return false;
+        } return false;
+    }
+
     public function getChatMessages($chat_id) {
         $con = $this->connect();
         $arr['chat_id'] = $chat_id;

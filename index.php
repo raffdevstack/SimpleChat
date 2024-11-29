@@ -18,8 +18,8 @@
             </div>
             <!-- Navigation Buttons -->
             <div id="buttons_wrapper">
+                <label id="label_chats" for="radio_chat">Chat</label>
                 <label id="label_contacts" for="radio_contacts">Contacts</label>
-                <label id="label_chats" for="radio_chat" style="display: none">Chat</label>
                 <label id="label_settings" for="radio_settings">Settings</label>
             </div>
             <input type="button" id="logout" value="Logout">
@@ -71,8 +71,7 @@
         function initializeLanding() {
             // data getter from the server
             getData({},"user_info"); // calling the function above, empty object because we are not finding anything
-            getData({},"contacts");
-            radio_contacts_el.checked = true;
+            getData({},"chats");
         }
 
         function raffyCustomConsole(description, data) {
@@ -252,7 +251,9 @@
         }
 
         setInterval(function () {
-            getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
+            if (CURRENT_CHAT_USER) {
+                getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
+            }
         }, 5000)
 
         initializeLanding();

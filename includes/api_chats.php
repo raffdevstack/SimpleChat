@@ -18,9 +18,10 @@
         if (is_array($result)) {
             $user = $result[0];
 
-            $html_markup = "";
-            if (!$refresh) {
-                $html_markup = "
+            $html_contacts_panel = ""; // initialize
+
+            if (!$refresh) { // don't redisplay if we are refreshing the messages
+                $html_contacts_panel = "
                     <h3>You are chatting with: </h3>
                     <p>$user->username</p>
                 ";
@@ -44,23 +45,25 @@
                 $chat_messages = $DB->getChatMessages($chat->chat_id);
             }
 
-            $html_message = "";
-            if (!$refresh) {
+            $html_message = ""; // initialize messages section
+
+            if (!$refresh) { // don't redisplay if we are refreshing the messages
                 $html_message = "
                     <div id='messages_wrapper'>";
             }
 
-                    // the messages itself
-                    if ($chat_messages) {
-                        foreach ($chat_messages as $message) {
-                            if ($message->receiver == $chat_receiver->userid) {
-                                $html_message .= getMessageRight($message);
-                            } else {
-                                $html_message .= getMessageLeft($chat_receiver, $message);
-                            }
-                        }
+            // the messages itself
+            if ($chat_messages) {
+                foreach ($chat_messages as $message) {
+                    if ($message->receiver == $chat_receiver->userid) {
+                        $html_message .= getMessageRight($message);
+                    } else {
+                        $html_message .= getMessageLeft($chat_receiver, $message);
                     }
-            if (!$refresh) {
+                }
+            }
+
+            if (!$refresh) { // don't redisplay if we are refreshing the messages
                 $html_message .= "
                 </div>
                 <div id='messages_inputs'>
@@ -71,10 +74,11 @@
                 </div>
                 ";
             }
-            $info->chat_contact = $html_markup;
+
+            $info->chat_contact = $html_contacts_panel;
             $info->messages = $html_message;
             $info->data_type = "chats"; // send to responseText
-            if ($refresh) {
+            if ($refresh) { // if we are refreshing, only refresh the messages section
                 $info->messages = $html_message;
                 $info->data_type = "chats_refresh";
             }
@@ -83,8 +87,37 @@
             $info->data_type = "error";
         }
     } else {
-        $info->message = "Select a contact first";
-        $info->data_type = "error";
+
+        // $_SESSION['userid'] // my userid
+        // I will get chats that has my userid
+        $all_chats = $DB->findAllMyChat($_SESSION['userid']);
+
+        if (is_array($all_chats)) {
+            $html_previous_chats_panel = "
+            <h4>Previous Chats: </h4>
+            <div>";
+
+                foreach ($all_chats as $chat) {
+                    $otherUser = $chat->sender;
+                    if ($chat->sender == $_SESSION['userid']) {
+                        $otherUser = $chat->receiver;
+                    }
+                    $user = $DB->getChatReceiver($otherUser);
+                    $html_previous_chats_panel .= "
+                        <div style='border: 1px solid black; padding: 2px 8px'>
+                            <h5>$user->username</h5>
+                            <p>$chat->txt_message</p>
+                        </div>
+                    ";
+                };
+                
+            $html_previous_chats_panel .= "
+            </div>
+            ";
+        }
+
+        $info->chat_contact = $html_previous_chats_panel;
+        $info->data_type = "chats";
     }
 
     echo json_encode($info);
