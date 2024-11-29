@@ -85,7 +85,7 @@ Class Database {
         if ($check) {
             $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
             if (is_array($result) && count($result) > 0) {
-                return array_reverse($result);
+                return $result;
             } return false;
         } return false;
     }
