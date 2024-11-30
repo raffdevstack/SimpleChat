@@ -5,8 +5,11 @@
     $arr['userid'] = "";
 
     $refresh = false;
+    $chat_refresh = false;
     if ($DATA_OBJ->data_type == "chats_refresh") {
         $refresh = true;
+    } else if ($DATA_OBJ->data_type == "chats_contacts_refresh") {
+        $chat_refresh = true;
     }
 
     if (isset($DATA_OBJ->userid)) {
@@ -88,15 +91,17 @@
         }
     } else {
 
-        // $_SESSION['userid'] // my userid
-        // I will get chats that has my userid
+        // we go here if we are not chatting someone
+
         $all_chats = $DB->findAllMyChat($_SESSION['userid']);
 
         $html_previous_chats_panel = "";
         if (is_array($all_chats)) {
-            $html_previous_chats_panel = "
-            <h4>Previous Chats: </h4>
-            <div>";
+
+                $html_previous_chats_panel = "
+                    <h4>Previous Chats: </h4>
+                    <div>";
+
 
                 foreach ($all_chats as $chat) {
                     $otherUser = $chat->sender;
@@ -111,16 +116,23 @@
                         </div>
                     ";
                 };
-                
-            $html_previous_chats_panel .= "
-            </div>
-            ";
+
+
+                    $html_previous_chats_panel .= "
+                </div>
+                ";
+
         } else {
             $html_previous_chats_panel = "<p>Go to contacts to start a chat</p>";
         }
 
         $info->chat_contact = $html_previous_chats_panel;
         $info->data_type = "chats";
+        if ($chat_refresh) {
+            $info->chat_contact = $html_previous_chats_panel;
+            $info->data_type = "chats_contacts_refresh";
+        }
+
     }
 
     echo json_encode($info);

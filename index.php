@@ -118,7 +118,10 @@
                             break;
                         case "chats_refresh":
                             document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
-
+                            break;
+                        case "chats_contacts_refresh":
+                            alert('hi refresh');
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             break;
                         case "chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
@@ -254,9 +257,13 @@
         }
 
         setInterval(function () {
-            if (CURRENT_CHAT_USER) {
+            if (CURRENT_CHAT_USER != null) {
                 getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
+            } else {
+                getData({},"chats_contacts_refresh");
             }
+
+            // getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
         }, 5000)
 
         initializeLanding();
