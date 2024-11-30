@@ -12,7 +12,7 @@
         $chat_refresh = true;
     }
 
-    if (isset($DATA_OBJ->userid)) {
+    if (isset($DATA_OBJ->userid) ) {
 
         $arr['userid'] = $DATA_OBJ->userid;
         $sql = "SELECT * FROM `users` WHERE `userid` = :userid LIMIT 1 ";

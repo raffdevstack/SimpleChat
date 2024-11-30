@@ -120,7 +120,6 @@
                             document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
                             break;
                         case "chats_contacts_refresh":
-                            alert('hi refresh');
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             break;
                         case "chats":
