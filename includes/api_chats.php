@@ -115,6 +115,8 @@
             $html_previous_chats_panel .= "
             </div>
             ";
+        } else {
+            $html_previous_chats_panel = "<p>Go to contacts to start a chat</p>";
         }
 
         $info->chat_contact = $html_previous_chats_panel;
