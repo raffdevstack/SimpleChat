@@ -26,8 +26,8 @@
             if (!$refresh) { // don't redisplay if we are refreshing the messages
                 $html_contacts_panel = "
                     <h3>You are chatting with: </h3>
-                    <div id='back-to-chat' style='width: 100%; position: relative;'>
-                        <button onclick='getChats(event)' style='width: 100%' >Back</button>
+                    <div id='back-to-chat' style='width: 100%; background-color:red; position: relative;'>
+                        <button onclick='getChats(event)' style='right: 0; position: absolute'>Back</button>
                     </div>
                     <p>$user->username</p>
                 ";
