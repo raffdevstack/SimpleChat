@@ -126,7 +126,12 @@
             $html_previous_chats_panel = "<p>Go to contacts to start a chat</p>";
         }
 
-        $html_message = "<h1>click chats to open</h1>";
+        $html_message = "
+            <div id='messages_wrapper'>
+                <h1>click chats to open</h1>
+                <input id='message_text' style='display: none'>
+            </div>
+        ";
 
         $info->chat_contact = $html_previous_chats_panel;
         $info->messages = $html_message;

@@ -64,6 +64,8 @@
         const label_settings_el = document.getElementById("label_settings");
         label_settings_el.addEventListener("click", get_settings);
 
+        const radio_chat_el = document.getElementById("radio_chat");
+
         const radio_contacts_el = document.getElementById("radio_contacts");
 
         const inner_right_wrapper_el = document.getElementById("inner_right_wrapper");
@@ -72,6 +74,7 @@
             // data getter from the server
             getData({},"user_info"); // calling the function above, empty object because we are not finding anything
             getData({},"chats");
+            radio_chat_el.checked = true;
         }
 
         function raffyCustomConsole(description, data) {
@@ -244,7 +247,6 @@
                 userid = e.target.parentNode.getAttribute("userid"); // when inner element catches the click
             }
             CURRENT_CHAT_USER = userid;
-            let radio_chat_el = document.getElementById("radio_chat");
             radio_chat_el.checked = true;
             getData({userid:CURRENT_CHAT_USER}, 'chats')
         }
@@ -256,10 +258,13 @@
         }
 
         setInterval(function () {
-            if (CURRENT_CHAT_USER != null) {
+            if (CURRENT_CHAT_USER != null) { // if outside a chat conversation
                 getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
             } else {
-                getData({},"chats_contacts_refresh");
+                if (radio_chat_el.checked) {
+                    getData({},"chats_contacts_refresh");
+
+                }
             }
 
             // getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
