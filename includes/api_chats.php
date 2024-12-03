@@ -4,18 +4,17 @@
 
     $refresh = false;
     $chat_refresh = false;
-    if ($DATA_OBJ->data_type == "chats_refresh") {
+    if ($DATA_OBJ->data_type == "chats_refresh") { // messages refresh
         $refresh = true;
-    } else if ($DATA_OBJ->data_type == "chats_contacts_refresh") {
+    } else if ($DATA_OBJ->data_type == "chats_contacts_refresh") { // contacts refresh
         $chat_refresh = true;
     }
 
-    $arr['userid'] = "";
-    if (isset($DATA_OBJ->userid) ) {
+    if (isset($DATA_OBJ->userid) ) { // if we opened a message
 
-        $chat_receiver = $DB->getChatReceiver($DATA_OBJ->userid);
+        $chat_other_user = $DB->getChatReceiver($DATA_OBJ->userid);
 
-        if ($chat_receiver) {
+        if ($chat_other_user) {
 
             $html_contacts_panel = ""; // initialize
 
@@ -25,14 +24,14 @@
                     <div id='back-to-chat' style='width: 100%; background-color:red; position: relative;'>
                         <button onclick='getChats(event)' style='right: 0; position: absolute'>Back</button>
                     </div>
-                    <p>$chat_receiver->username</p>
+                    <p>$chat_other_user->username</p>
                 ";
             }
 
             // find chat if exist
             $chat = "";
             try {
-                $chat = $DB->chatFinder($chat_receiver->userid, $_SESSION['userid']);
+                $chat = $DB->chatFinder($chat_other_user->userid, $_SESSION['userid']);
             } catch (Exception $e) {
                 $info->chat_contact = "No chats found: " . $e->getMessage();
                 $info->data_type = "error";
@@ -55,10 +54,10 @@
             // the messages itself
             if ($chat_messages) {
                 foreach ($chat_messages as $message) {
-                    if ($message->receiver == $chat_receiver->userid) {
+                    if ($message->receiver == $chat_other_user->userid) {
                         $html_message .= getMessageRight($message);
                     } else {
-                        $html_message .= getMessageLeft($chat_receiver, $message);
+                        $html_message .= getMessageLeft($chat_other_user, $message);
                     }
                 }
             }
