@@ -2,8 +2,6 @@
 
     global $DATA_OBJ, $DB, $info;
 
-    $arr['userid'] = "";
-
     $refresh = false;
     $chat_refresh = false;
     if ($DATA_OBJ->data_type == "chats_refresh") {
@@ -12,14 +10,12 @@
         $chat_refresh = true;
     }
 
+    $arr['userid'] = "";
     if (isset($DATA_OBJ->userid) ) {
 
-        $arr['userid'] = $DATA_OBJ->userid;
-        $sql = "SELECT * FROM `users` WHERE `userid` = :userid LIMIT 1 ";
-        $result = $DB->read($sql, $arr);
+        $chat_receiver = $DB->getChatReceiver($DATA_OBJ->userid);
 
-        if (is_array($result)) {
-            $user = $result[0];
+        if ($chat_receiver) {
 
             $html_contacts_panel = ""; // initialize
 
@@ -29,17 +25,14 @@
                     <div id='back-to-chat' style='width: 100%; background-color:red; position: relative;'>
                         <button onclick='getChats(event)' style='right: 0; position: absolute'>Back</button>
                     </div>
-                    <p>$user->username</p>
+                    <p>$chat_receiver->username</p>
                 ";
             }
-
-            // get the receiver
-            $chat_receiver = $DB->getChatReceiver($user->userid);
 
             // find chat if exist
             $chat = "";
             try {
-                $chat = $DB->chatFinder($user->userid, $_SESSION['userid']);
+                $chat = $DB->chatFinder($chat_receiver->userid, $_SESSION['userid']);
             } catch (Exception $e) {
                 $info->chat_contact = "No chats found: " . $e->getMessage();
                 $info->data_type = "error";
