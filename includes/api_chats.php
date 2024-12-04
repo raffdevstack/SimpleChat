@@ -55,7 +55,8 @@
                     if ($message->receiver == $chat_other_user->userid) { // if the other person is the receiver
                         $html_messages .= getMessageRight($message);
                     } else {
-                        $html_messages .= getMessageLeft($chat_other_user, $message);
+                        $html_messages .= getMessageLeft($chat_other_user, $message); // if the receiver is me
+                        $DB->write("UPDATE `messages` SET `received` = 1 WHERE `id` = " . $message->id);
                     }
                 }
             }
