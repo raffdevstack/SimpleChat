@@ -37,8 +37,10 @@
             }
 
             // find chat messages
-            print_r($chat); die;
-            $chat_messages = $DB->getChatMessages($chat->chat_id);
+            $chat_messages = "";
+            if ($chat != "") { // if a chat exists, get its messages
+                $chat_messages = $DB->getChatMessages($chat->chat_id);
+            }
 
             $html_messages = ""; // initialize messages section
             if (!$refresh) { // don't redisplay if we are refreshing the messages
