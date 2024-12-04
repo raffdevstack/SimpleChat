@@ -51,6 +51,7 @@
     <script>
 
         let CURRENT_CHAT_USER = null;
+        let SEEN_STATUS = false;
 
         const logout_el = document.getElementById("logout");
         logout_el.addEventListener("click", logout_user);
@@ -119,11 +120,11 @@
                         case "user_info":
                             document.getElementById("username").innerHTML = obj_result.username;
                             break;
-                        case "chats_refresh":
-                            document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
-                            break;
                         case "chats_contacts_refresh":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
+                            break;
+                        case "chats_refresh":
+                            document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
                             break;
                         case "chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
