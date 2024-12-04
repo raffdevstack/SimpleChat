@@ -54,7 +54,8 @@ function getMessageLeft($user, $message)
                 <h4>$user->username</h4>
                 <p>$message->txt_message</p>
                 <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>
-                <h6>" . ($message->received == 1 ? 'received' : 'not received') . "</h6>
+                <h6>" . ($message->received == 1 ? 'received' : 'no received') . "</h6>
+                <h6>" . ($message->seen == 1 ? 'seen' : 'not seen') . "</h6>
             </div>
         </div>
     ";
@@ -69,7 +70,8 @@ function getMessageRight($message)
                 <h4>You</h4>
                 <p>$message->txt_message</p>
                 <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>
-                 <h6>" . ($message->received == 1 ? 'received' : 'not received') . "</h6>
+                <h6>" . ($message->received == 1 ? 'received' : 'not received') . "</h6>
+                <h6>" . ($message->seen == 1 ? 'seen' : 'not seen') . "</h6>
             </div>
         </div>
     ";
