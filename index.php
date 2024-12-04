@@ -115,12 +115,14 @@
                 if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
                     window.location = "login.php";
                 } else {
+                    const wrapper_el = document.getElementById("messages_wrapper");
                     switch (obj_result.data_type) { // goes through all data types
                         case "user_info":
                             document.getElementById("username").innerHTML = obj_result.username;
                             break;
                         case "chats_refresh":
                             document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
+                            wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
                             break;
                         case "chats_contacts_refresh":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
@@ -128,7 +130,6 @@
                         case "chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
-                            const wrapper_el = document.getElementById("messages_wrapper");
                             wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
                             const text_input_el = document.getElementById("message_text");
                             text_input_el.focus();
@@ -266,8 +267,6 @@
 
                 }
             }
-
-            // getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
         }, 5000)
 
         initializeLanding();
