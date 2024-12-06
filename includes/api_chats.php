@@ -56,7 +56,6 @@
                         $html_messages .= getMessageRight($message);
                     } else {
                         $html_messages .= getMessageLeft($chat_other_user, $message); // if the receiver is me
-                        $DB->write("UPDATE `messages` SET `received` = 1 WHERE `id` = " . $message->id);
                     }
                 }
             }
@@ -110,6 +109,7 @@
                         <p>$chat->txt_message</p>
                     </div>
                 ";
+                $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $other_user_obj->userid);
             };
 
 
