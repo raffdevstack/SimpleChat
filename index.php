@@ -124,9 +124,11 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             break;
                         case "chats_refresh":
+                            SEEN_STATUS = false;
                             document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
                             break;
                         case "chats":
+                            SEEN_STATUS = false;
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
                             const wrapper_el = document.getElementById("messages_wrapper");
@@ -249,13 +251,21 @@
             }
             CURRENT_CHAT_USER = userid;
             radio_chat_el.checked = true;
-            getData({userid:CURRENT_CHAT_USER}, 'chats')
+            getData({
+                userid:CURRENT_CHAT_USER,
+                seen: SEEN_STATUS
+            }, 'chats')
         }
 
         function enter_pressed(e) {
             if (event.keyCode === 13) {
                 sendMessage(e);
             }
+        }
+
+        function setSeen(e) {
+            alert("seen please");
+            SEEN_STATUS = true;
         }
 
         setInterval(function () {

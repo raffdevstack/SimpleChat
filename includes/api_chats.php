@@ -4,10 +4,12 @@
 
     $refresh = false;
     $chat_refresh = false;
+    $seen = false;
     if ($DATA_OBJ->data_type == "chats_refresh") { // messages refresh
         $refresh = true;
     } else if ($DATA_OBJ->data_type == "chats_contacts_refresh") { // contacts refresh
         $chat_refresh = true;
+        $seen = $DATA_OBJ->seen;
     }
 
     if (isset($DATA_OBJ->userid) ) { // if we opened a message
@@ -45,7 +47,7 @@
             $html_messages = ""; // initialize messages section
             if (!$refresh) { // don't redisplay if we are refreshing the messages
                 $html_messages = "
-                    <div id='messages_wrapper'>
+                    <div id='messages_wrapper' onclick='setSeen(event)' style='background-color:red; '>
                 ";
             }
 
@@ -56,6 +58,11 @@
                         $html_messages .= getMessageRight($message);
                     } else {
                         $html_messages .= getMessageLeft($chat_other_user, $message); // if the receiver is me
+
+                        if ($seen && $message->received == 1) {
+                            $DB->write("UPDATE `messages` SET `seen` = 1 WHERE `sender` = " . $chat_other_user->userid .
+                                " AND `receiver` = " . $_SESSION['userid'] . "; ");
+                        }
 
                         $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $chat_other_user->userid .
                             " AND `receiver` = " . $_SESSION['userid'] . "; ");
