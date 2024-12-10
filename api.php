@@ -64,6 +64,15 @@ function getMessageLeft($user, $message)
 // template for messages on the right side
 function getMessageRight($message)
 {
+    $status = "";
+
+    if ($message->received == 1) {
+        $status = "sent";
+        if ($message->seen == 1) {
+            $status = "seen";
+        }
+    }
+
     return "
         <div class='message_container'>
             <div class='message right_message'>
@@ -71,8 +80,7 @@ function getMessageRight($message)
                 <h4>You</h4>
                 <p>$message->txt_message</p>
                 <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>
-                <h6>" . ($message->received == 1 ? 'received' : 'not received') . "</h6>
-                <h6>" . ($message->seen == 1 ? 'seen' : 'not seen') . "</h6>
+                <h6>" . $status . "</h6>
             </div>
         </div>
     ";
