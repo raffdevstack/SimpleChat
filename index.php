@@ -132,6 +132,10 @@
                             break;
                         case "chats_contacts_refresh":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
+                            if (typeof(obj_result.new_message) !== undefined) {
+                                if (obj_result.new_message)
+                                    playNotification();
+                            }
                             break;
                         case "chats_refresh":
                             SEEN_STATUS = false;

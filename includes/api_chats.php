@@ -127,6 +127,10 @@
                     </div>
                 ";
 
+                if ($chat->received == 0) {
+                    $new_message = true;
+                }
+
                 $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $other_user_obj->userid .
                     " AND `receiver` = " . $_SESSION['userid'] . "; ");
             };
@@ -153,6 +157,7 @@
         if ($chat_refresh) {
             $info->chat_contact = $html_previous_chats_panel;
             $info->data_type = "chats_contacts_refresh";
+            $info->new_message = $new_message;
         }
 
     }
