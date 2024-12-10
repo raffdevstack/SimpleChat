@@ -90,7 +90,12 @@
             console.log(" ::::: " + description.toUpperCase() + " ::::: " + data);
         }
 
-        function playNotification() { notification_sound.play(); }
+        function playNotification() {
+            notification_sound.play()
+            .catch(error => {
+                console.error('Error playing notification sound:', error);
+            });
+        }
 
         function getData(find, type) { // something we are searching (an object), data type (string)
 

@@ -203,12 +203,18 @@ input[type="submit"]:hover {
 
 .message p { margin: 4px 0; }
 
-#delete_message {
-    background-color: red;
+#delete_message_right {
     cursor: pointer;
     position: absolute !important;
     top: 15px;
     left: -60px;
+}
+
+#delete_message_left {
+    cursor: pointer;
+    position: absolute !important;
+    top: 15px;
+    right: -60px;
 }
 
 .left_message {

@@ -53,6 +53,7 @@ function getMessageLeft($user, $message)
     return "
         <div class='message_container'>
             <div class='message left_message'>
+                <button message_id='$message->id' onclick='deleteMessage(event)' id='delete_message_left'>Delete</button>
                 <h4>$user->username</h4>
                 <p>$message->txt_message</p>
                 <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>
@@ -62,10 +63,9 @@ function getMessageLeft($user, $message)
 }
 
 // template for messages on the right side
-function getMessageRight($message)
-{
-    $status = "";
+function getMessageRight($message) {
 
+    $status = "";
     if ($message->received == 1) {
         $status = "sent";
         if ($message->seen == 1) {
@@ -76,7 +76,7 @@ function getMessageRight($message)
     return "
         <div class='message_container'>
             <div class='message right_message'>
-                <button message_id='$message->id' onclick='deleteMessage(event)' id='delete_message'>Delete</button>
+                <button message_id='$message->id' onclick='deleteMessage(event)' id='delete_message_right'>Delete</button>
                 <h4>You</h4>
                 <p>$message->txt_message</p>
                 <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>

@@ -1,4 +1,13 @@
+### Delete Thread
+#### Steps
+1. copy paste delete_message file
+2. make new function, repurpose chatFinder
+3. repurpose delete_message function on index.php
+4. handle with file in api
+
+---
 ### Delete Message
+
 #### Steps
 1. ~~create a button, absolute position~~
 2. ~~create an onclick~~
@@ -16,7 +25,7 @@
    * ~~add limit 1 to the query above~~
 6. ~~update chats query to not include deleted by whom~~
 #### Other issue
-1. optimize update to received in chat contacts refresh 
+~~1. optimize update to received in chat contacts refresh~~ 
 
 
 ---
