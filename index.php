@@ -186,8 +186,7 @@
         }
 
         function logout_user() {
-            var answer = confirm("Are you sure you want to logout?")
-            if (answer)
+            if (confirm("Are you sure you want to logout?"))
                 getData({},"logout");
         }
 
@@ -291,8 +290,25 @@
             SEEN_STATUS = true;
         }
 
+        function deleteMessage(e) {
+
+            const message_id = e.target.getAttribute("message_id");
+
+            if (confirm("Are you sure you want to delete this message?")) {
+                getData({
+                    message_id: message_id
+                }, 'delete_message')
+            }
+
+            getData({
+                userid: CURRENT_CHAT_USER,
+                seen: SEEN_STATUS
+            }, "chats_refresh");
+
+        }
+
         setInterval(function () {
-            if (CURRENT_CHAT_USER != null) { // if outside a chat conversation
+            if (CURRENT_CHAT_USER != null) { // inside a chat conversation
                 getData({
                     userid: CURRENT_CHAT_USER,
                     seen: SEEN_STATUS

@@ -43,6 +43,8 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_save_settings.php");
 }   else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "send_message") {
     include("includes/api_send_message.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "delete_message") {
+    include("includes/api_delete_message.php");
 }
 
 // template for messages on the left side
@@ -65,6 +67,7 @@ function getMessageRight($message)
     return "
         <div class='message_container'>
             <div class='message right_message'>
+                <button message_id='$message->id' onclick='deleteMessage(event)' id='delete_message'>Delete</button>
                 <h4>You</h4>
                 <p>$message->txt_message</p>
                 <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>

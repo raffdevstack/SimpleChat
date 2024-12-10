@@ -1,5 +1,26 @@
-### Chat section
-#### Function
+### Delete Message
+#### Steps
+1. ~~create a button, absolute position~~
+2. ~~create an onclick~~
+   * ~~pass the message id~~ 
+3. ~~define in onclick function index~~
+   * ~~add a confirmation~~
+   * ~~use get_data with delete_message data type~~
+   * ~~refresh the page with get_data->chat_refresh~~
+4. ~~define in api_chats~~
+5. ~~create a file~~
+   * ~~get the message id~~
+   * get the message from message_id
+   * determine if you are the sender/receiver
+   * update messages and set deleted___ column to 1
+   * add limit 1 to the query above
+6. update chats query to not include deleted by whom
+
+
+---
+
+### ~~Chat section~~
+#### ~~Function~~
 1. ~~Send message to db~~
 #### Steps
 1. ~~copy api chats~~ 
