@@ -2,6 +2,8 @@
 
     global $DATA_OBJ, $DB, $info;
 
+    $new_message = false;
+
     $refresh = false;
     $chat_refresh = false;
     $seen = false;
@@ -22,7 +24,7 @@
             if (!$refresh) { // don't redisplay if we are refreshing the messages
                 $html_contacts_panel = "
                     <h3>You are chatting with: </h3>
-                    <div id='back-to-chat' style='width: 100%; background-color:red; position: relative;'>
+                    <div id='back-to-chat' style='width: 100%; position: relative;'>
                         <button onclick='getChats(event)' style='right: 0; position: absolute'>Back</button>
                     </div>
                     <p>$chat_other_user->username</p>
@@ -59,6 +61,10 @@
                     } else {
                         $html_messages .= getMessageLeft($chat_other_user, $message); // if the receiver is me
 
+                        if ($message->receiver == $_SESSION['userid'] && $message->received == 0) {
+                            $new_message = true;
+                        }
+
                         if ($seen && $message->received == 1) {
                             $DB->write("UPDATE `messages` SET `seen` = 1 WHERE `sender` = " . $chat_other_user->userid .
                                 " AND `receiver` = " . $_SESSION['userid'] . "; ");
@@ -85,6 +91,7 @@
             $info->chat_contact = $html_contacts_panel;
             $info->messages = $html_messages;
             $info->data_type = "chats"; // send to responseText
+            $info->new_message = $new_message;
             if ($refresh) { // if we are refreshing, only refresh the messages section
                 $info->data_type = "chats_refresh";
             }

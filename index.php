@@ -48,10 +48,18 @@
         </div>
 
     </div>
+
+    <audio id="notificationSound">
+        <source src="audio/message-receive.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <script>
 
         let CURRENT_CHAT_USER = null;
         let SEEN_STATUS = false;
+
+        const notification_sound = document.getElementById('notificationSound');
 
         const logout_el = document.getElementById("logout");
         logout_el.addEventListener("click", logout_user);
@@ -81,6 +89,8 @@
         function raffyCustomConsole(description, data) {
             console.log(" ::::: " + description.toUpperCase() + " ::::: " + data);
         }
+
+        function playNotification() { notification_sound.play(); }
 
         function getData(find, type) { // something we are searching (an object), data type (string)
 
@@ -126,6 +136,10 @@
                         case "chats_refresh":
                             SEEN_STATUS = false;
                             document.getElementById("messages_wrapper").innerHTML = obj_result.messages;
+                            if (typeof(obj_result.new_message) !== undefined) {
+                                if (obj_result.new_message)
+                                    playNotification();
+                            }
                             break;
                         case "chats":
                             SEEN_STATUS = false;
@@ -135,6 +149,10 @@
                             wrapper_el.scrollTo(0,wrapper_el.scrollHeight);
                             const text_input_el = document.getElementById("message_text");
                             text_input_el.focus();
+                            if (typeof(obj_result.new_message) !== undefined) {
+                                if (obj_result.new_message)
+                                    playNotification();
+                            }
                             break;
                         case "contacts":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
