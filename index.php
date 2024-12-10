@@ -270,11 +270,13 @@
 
         setInterval(function () {
             if (CURRENT_CHAT_USER != null) { // if outside a chat conversation
-                getData({userid: CURRENT_CHAT_USER}, "chats_refresh");
+                getData({
+                    userid: CURRENT_CHAT_USER,
+                    seen: SEEN_STATUS
+                }, "chats_refresh");
             } else {
                 if (radio_chat_el.checked) {
                     getData({},"chats_contacts_refresh");
-
                 }
             }
         }, 5000)

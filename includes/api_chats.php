@@ -7,9 +7,9 @@
     $seen = false;
     if ($DATA_OBJ->data_type == "chats_refresh") { // messages refresh
         $refresh = true;
+        $seen = $DATA_OBJ->seen;
     } else if ($DATA_OBJ->data_type == "chats_contacts_refresh") { // contacts refresh
         $chat_refresh = true;
-        $seen = $DATA_OBJ->seen;
     }
 
     if (isset($DATA_OBJ->userid) ) { // if we opened a message
