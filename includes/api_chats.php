@@ -34,7 +34,7 @@
             // find chat if exist
             $chat = "";
             try {
-                $chat = $DB->chatFinder($chat_other_user->userid, $_SESSION['userid']); // other's userid and my userid
+                $chat = $DB->chatFinder($chat_other_user->userid, $_SESSION['userid']); // args receiver, sender
             } catch (Exception $e) {
                 $info->chat_contact = "No chats found: " . $e->getMessage();
                 $info->data_type = "error";
@@ -43,7 +43,11 @@
             // find chat messages
             $chat_messages = "";
             if ($chat != "") { // if a chat exists, get its messages
-                $chat_messages = $DB->getChatMessages($chat->chat_id);
+                $chat_messages = $DB->getChatMessages(
+                    $chat->chat_id,
+                    $chat_other_user->userid, // receiver
+                    $_SESSION['userid'] // sender
+                );
             }
 
             $html_messages = ""; // initialize messages section

@@ -90,7 +90,7 @@ Class Database {
         } return false;
     }
 
-    public function getChatMessages($chat_id) {
+    public function getChatMessages($chat_id, $receiver_id, $sender_id) {
         $con = $this->connect();
         $arr['chat_id'] = $chat_id;
         $query = "SELECT * FROM `messages` 
@@ -110,7 +110,7 @@ Class Database {
     public function getChatReceiver($receiver_id) {
         $con = $this->connect();
         $arr['receiver_userid'] = $receiver_id;
-        $query = "SELECT * FROM `users` WHERE `userid` = :receiver_userid  LIMIT 1";
+        $query = "SELECT * FROM `users` WHERE `userid` = :receiver_userid LIMIT 1";
         $stmt = $con->prepare($query);
         $check = $stmt->execute($arr);
         if ($check) {
