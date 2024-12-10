@@ -80,9 +80,10 @@
                 }
             }
 
+            $html_messages .= "</div>";
+
             if (!$refresh) { // don't redisplay if we are refreshing the messages
                 $html_messages .= "
-                </div>
                 <div id='messages_inputs'>
                     <label for='message_file' id='file_input_label'>File</label>
                     <input type='file' id='message_file' style='display: none' >
