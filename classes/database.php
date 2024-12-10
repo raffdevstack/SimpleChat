@@ -93,8 +93,15 @@ Class Database {
     public function getChatMessages($chat_id, $receiver_id, $sender_id) {
         $con = $this->connect();
         $arr['chat_id'] = $chat_id;
+        $arr['receiver_id'] = $receiver_id;
+        $arr['sender_id'] = $sender_id;
         $query = "SELECT * FROM `messages` 
-             WHERE `chat_id` = :chat_id AND `deleted_receiver` != 1 AND `deleted_sender` != 1 ORDER BY id DESC LIMIT 10";
+             WHERE `chat_id` = :chat_id AND 
+                   (
+                       (`receiver` = :receiver_id AND `sender` = :sender_id AND `deleted_sender` = 0) OR 
+                       (`receiver` = :sender_id AND `sender` = :receiver_id AND `deleted_receiver` = 0) 
+                    ) 
+             ORDER BY id DESC LIMIT 10";
         $stmt = $con->prepare($query);
         $check = $stmt->execute($arr);
         if ($check) {
