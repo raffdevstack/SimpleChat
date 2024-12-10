@@ -49,7 +49,7 @@
             $html_messages = ""; // initialize messages section
             if (!$refresh) { // don't redisplay if we are refreshing the messages
                 $html_messages = "
-                    <div id='messages_wrapper' onclick='setSeen(event)' style='background-color:red; '>
+                    <div id='messages_wrapper' onclick='setSeen(event)' '>
                 ";
             }
 
@@ -65,13 +65,17 @@
                             $new_message = true;
                         }
 
-                        if ($seen && $message->received == 1) {
-                            $DB->write("UPDATE `messages` SET `seen` = 1 WHERE `sender` = " . $chat_other_user->userid .
-                                " AND `receiver` = " . $_SESSION['userid'] . "; ");
+                        if ($message->receiver == $_SESSION['userid']) {
+
+                            if ($seen && $message->received == 1 && $message->seen == 0) {
+                                $DB->write("UPDATE `messages` SET `seen` = 1 WHERE `sender` = " . $chat_other_user->userid . " ");
+                            }
+                            if ($message->received == 0) {
+                                $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $chat_other_user->userid . " ");
+                            }
                         }
 
-                        $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $chat_other_user->userid .
-                            " AND `receiver` = " . $_SESSION['userid'] . "; ");
+
                     }
                 }
             }
