@@ -262,10 +262,10 @@
             if (event.keyCode === 13) {
                 sendMessage(e);
             }
+            setSeen();
         }
 
         function setSeen(e) {
-            alert("seen please");
             SEEN_STATUS = true;
         }
 
