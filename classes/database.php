@@ -94,7 +94,7 @@ Class Database {
         $con = $this->connect();
         $arr['chat_id'] = $chat_id;
         $query = "SELECT * FROM `messages` 
-             WHERE `chat_id` = :chat_id ORDER BY id DESC LIMIT 10";
+             WHERE `chat_id` = :chat_id AND `deleted_receiver` != 1 AND `deleted_sender` != 1 ORDER BY id DESC LIMIT 10";
         $stmt = $con->prepare($query);
         $check = $stmt->execute($arr);
         if ($check) {

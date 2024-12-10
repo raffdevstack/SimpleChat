@@ -14,7 +14,7 @@
    * ~~determine if you are the sender/receiver~~
    * ~~update messages and set deleted___ column to 1~~
    * ~~add limit 1 to the query above~~
-6. update chats query to not include deleted by whom
+6. ~~update chats query to not include deleted by whom~~
 #### Other issue
 1. optimize update to received in chat contacts refresh 
 

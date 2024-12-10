@@ -74,8 +74,6 @@
                                 $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $chat_other_user->userid . " ");
                             }
                         }
-
-
                     }
                 }
             }
