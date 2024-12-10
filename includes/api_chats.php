@@ -134,8 +134,9 @@
                     $new_message = true;
                 }
 
-                $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $other_user_obj->userid .
-                    " AND `receiver` = " . $_SESSION['userid'] . "; ");
+                if ($chat->receiver == $_SESSION['userid'] && $chat->received == 0) {
+                    $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $other_user_obj->userid . " ");
+                }
             };
 
 
