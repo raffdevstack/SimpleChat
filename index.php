@@ -193,7 +193,8 @@
             }
             getData({
                 text: text,
-                receiver_userid: CURRENT_CHAT_USER
+                receiver_userid: CURRENT_CHAT_USER,
+                seen: SEEN_STATUS
             },"send_message");
         }
 
