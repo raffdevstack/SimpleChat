@@ -20,6 +20,10 @@
             $query = "UPDATE `messages` SET `deleted_receiver` = 1  WHERE `chat_id` = '$chat->chat_id' ";
             $DB->write($query);
 
+            $info->data_type = "success";
+            $info->message = "Thread deleted";
         }
 
     }
+
+echo json_encode($info);

@@ -185,6 +185,9 @@
                             alert("Error:" + obj_result.message);
                             initializeLanding();
                             break;
+                        case "success":
+                            alert("Success: " + obj_result.message);
+                            break;
                     }
                 }
             }
