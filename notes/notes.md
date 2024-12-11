@@ -1,9 +1,10 @@
 ### Delete Thread
 #### Steps
-1. copy paste delete_message file
-2. make new function, repurpose chatFinder
-3. repurpose delete_message function on index.php
-4. handle with file in api
+1. ~~button "delete thread"~~
+2. ~~repurpose delete_message function on index.php~~
+3. ~~handle with file in api~~
+4. ~~copy-paste delete_message file~~
+5. ~~make new function, repurpose chatFinder~~
 
 ---
 ### Delete Message

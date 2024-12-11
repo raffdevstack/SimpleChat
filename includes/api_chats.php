@@ -28,6 +28,7 @@
                         <button onclick='getChats(event)' style='right: 0; position: absolute'>Back</button>
                     </div>
                     <p>$chat_other_user->username</p>
+                    <button userid='$chat_other_user->userid' onclick='deleteThread(event)'>Delete Thread</button>
                 ";
             }
 

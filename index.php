@@ -310,6 +310,23 @@
                 seen: SEEN_STATUS
             }, "chats_refresh");
 
+
+        }
+
+        function deleteThread(e) {
+
+            const userid = e.target.getAttribute("userid");
+
+            if (confirm("Are you sure you want to delete this thread?")) {
+                getData ({
+                    other_userid: userid
+                }, 'delete_thread')
+            }
+
+            getData({
+                userid: CURRENT_CHAT_USER,
+                seen: SEEN_STATUS
+            }, "chats_refresh");
         }
 
         setInterval(function () {
