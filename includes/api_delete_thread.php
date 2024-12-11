@@ -12,17 +12,26 @@
             $info->data_type = "error";
         }
 
-        if ($chat != "") {
+        $query = "SELECT * FROM `messages` WHERE `chat_id` = '$chat->chat_id'";
+        $messages = $DB->read($query);
 
-            $query = "UPDATE `messages` SET `deleted_sender` = 1  WHERE `chat_id` = '$chat->chat_id' ";
-            $DB->write($query);
+        if (is_array($messages) && count($messages) > 0) {
+            foreach ($messages as $message) {
 
-            $query = "UPDATE `messages` SET `deleted_receiver` = 1  WHERE `chat_id` = '$chat->chat_id' ";
-            $DB->write($query);
+                if ($message->sender == $_SESSION['userid']) { // if I am the sender
+                    $query = "UPDATE `messages` SET `deleted_sender` = 1 WHERE `id` = '$chat->id' ";
+                    $DB->write($query);
+                }
 
-            $info->data_type = "success";
-            $info->message = "Thread deleted";
+                if ($message->receiver == $_SESSION['userid']) {
+                    $query = "UPDATE `messages` SET `deleted_receiver` = 1 WHERE `id` = '$chat->id' ";
+                    $result = $DB->write($query);
+                }
+
+            }
         }
+
+
 
     }
 

@@ -1,6 +1,6 @@
 ### Bugs report
 1. also deleted thread on the other side.
-2. persistent new_message alert
+2. persistent new_message alert.
 
 ---
 
