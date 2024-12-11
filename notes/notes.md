@@ -1,3 +1,9 @@
+### Bugs report
+1. also deleted thread on the other side.
+2. persistent new_message alert
+
+---
+
 ### Delete Thread
 #### Steps
 1. ~~button "delete thread"~~
