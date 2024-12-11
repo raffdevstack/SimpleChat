@@ -19,12 +19,12 @@
             foreach ($messages as $message) {
 
                 if ($message->sender == $_SESSION['userid']) { // if I am the sender
-                    $query = "UPDATE `messages` SET `deleted_sender` = 1 WHERE `id` = '$chat->id' ";
+                    $query = "UPDATE `messages` SET `deleted_sender` = 1 WHERE `id` = '$message->id' ";
                     $DB->write($query);
                 }
 
                 if ($message->receiver == $_SESSION['userid']) {
-                    $query = "UPDATE `messages` SET `deleted_receiver` = 1 WHERE `id` = '$chat->id' ";
+                    $query = "UPDATE `messages` SET `deleted_receiver` = 1 WHERE `id` = '$message->id' ";
                     $result = $DB->write($query);
                 }
 
