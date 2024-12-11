@@ -135,7 +135,8 @@
                     </div>
                 ";
 
-                if ($chat->received == 0) {
+
+                if ($chat->receiver == $_SESSION['userid'] && $chat->received == 0) {
                     $new_message = true;
                 }
 

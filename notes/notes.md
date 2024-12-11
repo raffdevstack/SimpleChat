@@ -1,6 +1,8 @@
 ### Bugs report
+1. persistent new message notification
+   -> set received to 1 when we delete the thread
 1. should go the chat contacts page on delete
-thread success.
+thread success
 ---
 
 ### Bugs report
