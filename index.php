@@ -187,7 +187,7 @@
                             break;
                         case "success":
                             alert("Info: " + obj_result.message);
-                            getData({},"chats_contacts_refresh");
+                            getChats();
                             break;
                     }
                 }
