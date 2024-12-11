@@ -1,4 +1,9 @@
 ### Bugs report
+1. should go the chat contacts page on delete
+thread success.
+---
+
+### Bugs report
 1. ~~also deleted thread on the other side.~~
 2. ~~persistent new_message alert.~~
 

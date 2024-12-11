@@ -186,7 +186,8 @@
                             initializeLanding();
                             break;
                         case "success":
-                            alert("Success: " + obj_result.message);
+                            alert("Info: " + obj_result.message);
+                            getData({},"chats_contacts_refresh");
                             break;
                     }
                 }

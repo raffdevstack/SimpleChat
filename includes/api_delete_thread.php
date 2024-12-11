@@ -25,13 +25,30 @@
 
                 if ($message->receiver == $_SESSION['userid']) {
                     $query = "UPDATE `messages` SET `deleted_receiver` = 1 WHERE `id` = '$message->id' ";
-                    $result = $DB->write($query);
+                    $DB->write($query);
                 }
 
             }
         }
 
+        $delete_checker = false;
+        if (is_array($messages) && count($messages) > 0) {
+            foreach ($messages as $message) {
+                if ($message->sender == $_SESSION['userid']) {
+                    $query = "SELECT * FROM `messages` WHERE `deleted_sender` = 0 AND `id` = '$message->id' ";
+                    $delete_checker = $DB->read($query);
+                }
+                if ($message->receiver == $_SESSION['userid']) {
+                    $query = "SELECT * FROM `messages` WHERE `deleted_receiver` = 0 AND `id` = '$message->id' ";
+                    $delete_checker = $DB->read($query);
+                }
+            }
+        }
 
+        if ($delete_checker == "") {
+            $info->message = "Successfully deleted thread!";
+            $info->data_type = "success";
+        }
 
     }
 
