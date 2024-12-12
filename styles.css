@@ -3,20 +3,19 @@
 }
 
 :root {
-    --blue-one: #081424;
-    --blue-two: #001F3F;
+    --navy0: #02050b;
     --navy1: #081424;
     --navy2: #061a30;
     --navy3: #001F3F;
-    --dwhite: #FEF3C7;
     --teal: #008080;
+    --dwhite: #FEF3C7;
 }
 
 body {
+    background-color: var(--navy0);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f3f4f6;
     color: var(--dwhite);
 }
 
@@ -32,7 +31,7 @@ body {
 
 /* Left Sidebar Styling */
 #left_wrapper {
-    background-color: var(--blue-one);
+    background-color: var(--navy1);
     flex: 1;
     padding: 20px;
     display: flex;
@@ -79,26 +78,29 @@ input[type="text"], input[type="password"] {
     border-radius: 5px;
     width: 100%;
     border: #374151 solid 1px;
+    color: var(--dwhite);
 }
 
 input[type="submit"] {
     padding: 10px;
     border: none;
-    background-color: #3b82f6;
+    background-color: var(--teal);
     font-size: 1rem;
     border-radius: 5px;
     font-weight: bold;
-    color: #fff;
     margin: 16px 0;
+    color: var(--dwhite);
+    transition: 0.2s;
 }
 
 input[type="submit"]:hover {
     cursor: pointer;
+    background-color: var(--navy3);
 }
 
 #form_wrapper {
-    border: solid 1px red;
     padding: 16px;
+    background-color: var(--navy1);
 }
 
 #form_wrapper h2 {
@@ -106,7 +108,7 @@ input[type="submit"]:hover {
 }
 
 #signupForm {
-    background-color: #fff;
+    background-color: var(--navy2);
     padding: 24px;
 }
 
@@ -114,22 +116,21 @@ input[type="submit"]:hover {
     display: block;
     padding: 12px;
     margin-bottom: 10px;
-    background-color: var(--blue-two);
-    color: #ffffff;
+    background-color: var(--navy2);
     text-align: center;
     border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
 #buttons_wrapper label:hover {
-    background-color: var(--blue-three);
+    background-color: var(--navy3);
     cursor: pointer;
 }
 
 /* Right Content Area Styling */
 #right_wrapper {
     flex: 4;
-    background-color: #ffffff;
+    background-color: var(--teal);
     display: flex;
     flex-direction: column;
 }
@@ -144,7 +145,6 @@ input[type="submit"]:hover {
 
 #header h4 {
     margin: 0;
-    color: #374151;
 }
 
 #container {
@@ -196,11 +196,10 @@ input[type="submit"]:hover {
 }
 
 .message {
-    background-color: #3b82f6;
+    background-color: var(--navy3);
     max-width: 60%;
     padding: 8px 16px;
     border-radius: 16px;
-    color: #ffffff;
     position: relative !important;
 }
 

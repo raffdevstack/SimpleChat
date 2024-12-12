@@ -19,8 +19,13 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" >
 
+                <label for="password_confirm">Confirm Password:</label>
+                <input type="password" id="password_confirm" name="password_confirm" >
+
                 <input type="submit" id="signup_button" value="Signup" />
+
                 <br><br><br>
+
                 <a href="login.php">Already have an account? Login here.</a>
             </form>
             <p id="message"></p>
