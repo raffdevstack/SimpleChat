@@ -129,7 +129,7 @@
             if (result.trim() !== "") { // if result is not empty
                 let obj_result = JSON.parse(result); // converting to object the text json
                 if (typeof(obj_result.logged_in) != "undefined" && !obj_result.logged_in ) { // if not logged in
-                    window.location = "login.php";
+                    window.location = "login.html";
                 } else {
                     switch (obj_result.data_type) { // goes through all data types
                         case "user_info":

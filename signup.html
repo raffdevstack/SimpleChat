@@ -32,7 +32,7 @@
 
                 <br><br><br>
 
-                <a href="login.php">Already have an account? Login here.</a>
+                <a href="login.html">Already have an account? Login here.</a>
             </form>
             <p id="message"></p>
         </div>
@@ -105,7 +105,7 @@
         }
 
         function handle_result(result) {
-            raffyCustomConsole(result);
+            raffyCustomConsole("from handle result",result);
             let data = JSON.parse(result);
             if(data.data_type === "info") {
                 alert(data.message);
