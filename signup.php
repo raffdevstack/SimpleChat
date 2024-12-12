@@ -39,7 +39,11 @@
     </div>
     <script>
         const signup_button = document.getElementById("signup_button");
-        signup_button.addEventListener("click", collectData)
+        signup_button.addEventListener("click", collectData);
+
+        function raffyCustomConsole(description, data) {
+            console.log(" ::::: " + description.toUpperCase() + " ::::: " + data);
+        }
 
         function collectData() {
             signup_button.disabled = true;
@@ -56,6 +60,7 @@
 
                 // Use a switch case to handle each input based on its name
                 switch (name) {
+
                     case "first_name":
                         formData.first_name = value;
                         break;
@@ -75,6 +80,7 @@
                         console.log(`Unknown input: ${name}`);
                 }
             }
+
             sendDataToServer(formData, 'signup');
         }
 
@@ -99,6 +105,7 @@
         }
 
         function handle_result(result) {
+            raffyCustomConsole(result);
             let data = JSON.parse(result);
             if(data.data_type === "info") {
                 alert(data.message);
