@@ -105,16 +105,23 @@
         }
 
         function handle_result(result) {
+
             raffyCustomConsole("from handle result",result);
+
             let data = JSON.parse(result);
+
             if(data.data_type === "info") {
                 alert(data.message);
                 window.location = "login.php";
             } else if (data.data_type === "error") {
+
+                raffyCustomConsole("from error block", data.message.first_name);
+
                 const error_element = document.getElementById("error");
                 error_element.innerHTML = data.message;
                 error_element.style.display = "block";
             }
+
         }
     </script>
 </body>
