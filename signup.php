@@ -13,8 +13,14 @@
             <p id="error" style="color: red; display: none"></p>
             <form id="signupForm">
 
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" >
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" >
+
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" >
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" >
 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" >
@@ -22,7 +28,7 @@
                 <label for="password_confirm">Confirm Password:</label>
                 <input type="password" id="password_confirm" name="password_confirm" >
 
-                <input type="submit" id="signup_button" value="Signup" />
+                <button type="submit" id="signup_button">Signup</button>
 
                 <br><br><br>
 
@@ -40,19 +46,30 @@
             signup_button.value = "Loading... Please wait...";
             const formData = {};  // Create an object to store input data
             const inputs = document.querySelectorAll("#signupForm input");  // Select all input elements
+
             // Iterate over each input element in the form
             for (let i = 0; i < inputs.length; i++) {
+
                 const input = inputs[i];
                 const name = input.name;
                 const value = input.value;
 
                 // Use a switch case to handle each input based on its name
                 switch (name) {
-                    case "username":
-                        formData.username = value;
+                    case "first_name":
+                        formData.first_name = value;
+                        break;
+                    case "last_name":
+                        formData.last_name = value;
+                        break;
+                    case "email":
+                        formData.email = value;
                         break;
                     case "password":
                         formData.password = value;
+                        break;
+                    case "password_confirm":
+                        formData.password_confirm = value;
                         break;
                     default:
                         console.log(`Unknown input: ${name}`);

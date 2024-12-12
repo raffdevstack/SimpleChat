@@ -65,7 +65,7 @@ body {
     width: 100%;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="email"] {
     -webkit-appearance: none; /* Remove default styling in WebKit browsers */
     -moz-appearance: none; /* Remove default styling in Firefox */
     appearance: none; /* Remove default styling in modern browsers */

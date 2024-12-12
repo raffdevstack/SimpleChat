@@ -1,8 +1,8 @@
 <?php
 
-$info = (Object)[]; // this info object will be the base of the respose to ajax
+global $DATA_OBJ, $DB, $Error, $info;
 
-global $DATA_OBJ, $DB, $Error;
+print_r($DATA_OBJ); die;
 
 $data = false;
 $data['userid'] = $DB->generate_id(20);
