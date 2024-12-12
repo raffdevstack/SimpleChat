@@ -1,10 +1,12 @@
 
-
----
-
 ### Bugs report
-2. ~~should go the chat contacts page on delete
+* duplicate account
+* ~~individual input errors~~
+* ~~should go the chat contacts page on delete
 thread success~~
+* ~~try to delete last item on that array.~~
+
+
 ---
 
 ### Bugs report

@@ -75,6 +75,8 @@ if (!isset($errors['password'])) {
 
 if (!isset($errors['password']) && !isset($errors['password_confirm']) && $data['password'] !== $data['password_confirm']) {
     $errors['password_confirm'] = 'Passwords do not match.';
+} else {
+    unset($data["password_confirm"]);
 }
 
 if ($errors == []) {

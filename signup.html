@@ -15,18 +15,23 @@
 
                 <label for="first_name">First Name:</label>
                 <input type="text" id="first_name" name="first_name" >
+                <p class="input_errors" id="first_name_error"></p>
 
                 <label for="last_name">Last Name:</label>
                 <input type="text" id="last_name" name="last_name" >
+                <p class="input_errors" id="last_name_error"></p>
 
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" >
+                <p class="input_errors" id="email_error"></p>
 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" >
+                <p class="input_errors" id="password_error"></p>
 
                 <label for="password_confirm">Confirm Password:</label>
                 <input type="password" id="password_confirm" name="password_confirm" >
+                <p class="input_errors" id="password_confirm_error"></p>
 
                 <button type="submit" id="signup_button">Signup</button>
 
@@ -108,21 +113,39 @@
 
             raffyCustomConsole("from handle result",result);
 
-            let data = JSON.parse(result);
+            if (result.trim() !== "") {
 
-            if(data.data_type === "info") {
-                alert(data.message);
-                window.location = "login.php";
-            } else if (data.data_type === "error") {
+                let obj_result = JSON.parse(result);
 
-                raffyCustomConsole("from error block", data.message.first_name);
+                switch (obj_result.data_type) { // goes through all data types
+                    case "info":
+                        alert(obj_result.message);
+                        window.location = "login.html";
+                        break;
+                    case "error":
 
-                const error_element = document.getElementById("error");
-                error_element.innerHTML = data.message;
-                error_element.style.display = "block";
+                        raffyCustomConsole("from error block", obj_result.message.first_name);
+
+                        displayErrors(obj_result.message);
+                }
             }
-
         }
+
+        function displayErrors(errors) {
+
+            for (const [key, error] of Object.entries(errors)) {
+
+                const error_element = document.getElementById(`${key}_error`);
+
+                if (error_element) {
+
+                    error_element.textContent = error;
+                    error_element.style.display = "block";
+
+                }
+            }
+        }
+
     </script>
 </body>
 </html>

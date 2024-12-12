@@ -98,6 +98,11 @@ input[type="submit"]:hover {
     background-color: var(--navy3);
 }
 
+.input_errors {
+    color: red;
+    display: none;
+}
+
 #form_wrapper {
     padding: 16px;
     background-color: var(--navy1);
