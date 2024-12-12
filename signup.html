@@ -9,29 +9,40 @@
 <body>
     <div id="wrapper">
         <div id="form_wrapper">
+
             <h2>Sign Up</h2>
-            <p id="error" style="color: red; display: none"></p>
+
             <form id="signupForm">
 
-                <label for="first_name">First Name:</label>
-                <input type="text" id="first_name" name="first_name" >
-                <p class="input_errors" id="first_name_error"></p>
+                <div class="input-container">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" >
+                    <p class="input_errors" id="first_name_error"></p>
+                </div>
 
-                <label for="last_name">Last Name:</label>
-                <input type="text" id="last_name" name="last_name" >
-                <p class="input_errors" id="last_name_error"></p>
+                <div class="input-container">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" >
+                    <p class="input_errors" id="last_name_error"></p>
+                </div>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" >
-                <p class="input_errors" id="email_error"></p>
+                <div class="input-container">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" >
+                    <p class="input_errors" id="email_error"></p>
+                </div>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" >
-                <p class="input_errors" id="password_error"></p>
+                <div class="input-container">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" >
+                    <p class="input_errors" id="password_error"></p>
+                </div>
 
-                <label for="password_confirm">Confirm Password:</label>
-                <input type="password" id="password_confirm" name="password_confirm" >
-                <p class="input_errors" id="password_confirm_error"></p>
+                <div class="input-container">
+                    <label for="password_confirm">Confirm Password:</label>
+                    <input type="password" id="password_confirm" name="password_confirm" >
+                    <p class="input_errors" id="password_confirm_error"></p>
+                </div>
 
                 <button type="submit" id="signup_button">Signup</button>
 
@@ -39,8 +50,9 @@
 
                 <a href="login.html">Already have an account? Login here.</a>
             </form>
-            <p id="message"></p>
+
         </div>
+
     </div>
     <script>
         const signup_button = document.getElementById("signup_button");

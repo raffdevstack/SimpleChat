@@ -1,5 +1,6 @@
 
 ### Bugs report
+* signup front-end error, "half-page"
 * duplicate account
 * ~~individual input errors~~
 * ~~should go the chat contacts page on delete
