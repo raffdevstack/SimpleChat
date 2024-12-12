@@ -110,7 +110,7 @@
             if(data.data_type === "info") {
                 alert(data.message);
                 window.location = "login.php";
-            } else {
+            } else if (data.data_type === "error") {
                 const error_element = document.getElementById("error");
                 error_element.innerHTML = data.message;
                 error_element.style.display = "block";

@@ -2,7 +2,9 @@
 
 global $DATA_OBJ, $DB, $info;
 
-$data = false;
+$errors = [];
+$data = [];
+
 $data['userid'] = $DB->generate_id(20);
 $data['date'] = date("Y-m-d H:i:s");
 
@@ -15,9 +17,6 @@ $required_fields = [
     'password_confirm' => 'Password confirmation is required.'
 ];
 
-$errors = [];
-$data = [];
-
 // Loop through required fields to validate input
 foreach ($required_fields as $field => $error_message) {
     $data[$field] = isset($DATA_OBJ->$field) ? trim($DATA_OBJ->$field) : '';
@@ -28,12 +27,20 @@ foreach ($required_fields as $field => $error_message) {
 
 // Additional validations
 
-if (!isset($errors['first_name']) && !preg_match('/^[a-zA-Z\s]+$/', $data['first_name'])) {
-    $errors['first_name'] = 'First name can only contain letters and spaces.';
+if (!isset($errors['first_name'])) {
+    if (!preg_match('/^[a-zA-Z\s]+$/', $data['first_name'])) {
+        $errors['first_name'] = 'First name can only contain letters and spaces.';
+    } elseif (strlen($data['first_name']) < 2 || strlen($data['first_name']) > 50) {
+        $errors['first_name'] = 'First name must be between 2 and 50 characters.';
+    }
 }
 
-if (!isset($errors['last_name']) && !preg_match('/^[a-zA-Z\s]+$/', $data['last_name'])) {
-    $errors['last_name'] = 'Last name can only contain letters and spaces.';
+if (!isset($errors['last_name'])) {
+    if (!preg_match('/^[a-zA-Z\s]+$/', $data['last_name'])) {
+        $errors['last_name'] = 'Last name can only contain letters and spaces.';
+    } elseif (strlen($data['last_name']) < 2 || strlen($data['last_name']) > 50) {
+        $errors['last_name'] = 'Last name must be between 2 and 50 characters.';
+    }
 }
 
 if (!isset($errors['email'])) {
@@ -41,7 +48,7 @@ if (!isset($errors['email'])) {
         $errors['email'] = 'Invalid email format.';
     } else {
         // Additional validation:
-        if (strlen($data['email']) > 255) {
+        if (strlen($data['email']) > 100) {
             $errors['email'] = 'Email address is too long.';
         } elseif (preg_match('/[\x00-\x1F\x7F-\xFF]/', $data['email'])) {
             $errors['email'] = 'Email address contains invalid characters.';
@@ -70,8 +77,10 @@ if (!isset($errors['password']) && !isset($errors['password_confirm']) && $data[
     $errors['password_confirm'] = 'Passwords do not match.';
 }
 
-if ($errors == "") {
-    $query = "insert into users(userid,username,password,date) values(:userid,:username,:password,:date)";
+if ($errors == []) {
+
+    $query = "INSERT INTO users(`userid`,`first_name`,`last_name`,`email`,`password`,`date`) 
+    VALUES(:userid,:first_name,:last_name,:email,:password,:date)";
     $result = $DB->write($query, $data);
     if ($result) {
         $info->message = "Your account has been created.";
@@ -80,8 +89,10 @@ if ($errors == "") {
         $info->message = "Your has not been created due to some error.";
         $info->data_type = "error";
     }
+
 } else {
     $info->message = $errors;
     $info->data_type = "error";
 }
+
 echo json_encode($info);
