@@ -19,8 +19,8 @@
                 <h2>Settings</h2>
                 
                 <div id="profile_img_set">
-                    <label for="profile_img">Change Profile</label>
-                    <input type="file" onchange="uploadProfileImg(this.files)" id="profile_img" name="profile_img" >
+                    <label for="profile_img" id="change_profile_button">Change Profile</label>
+                    <input type="file" id="profile_img" onchange="uploadProfileImg(this.files)" >
                     <p class="input_errors" id="profile_img_error"></p>
                 </div>
                 

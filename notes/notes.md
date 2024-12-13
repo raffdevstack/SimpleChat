@@ -1,7 +1,15 @@
 
 ### Add image on profile
-* save email and password
-* yeahh
+* ~~save email and password~~
+* ~~capture the files by a files parameter~~
+* ~~disable the button and put text~~
+* ~~create a new form object = new FormData()~~
+* ~~gotta call ajax, capture the response~~
+* ~~append your form, put the key data type~~
+* ~~append and put the file itself~~
+* ~~you open and send ajax~~
+* ~~create upload file~~
+* ~~check in server with print_r $_FILES~~
 
 ---
 

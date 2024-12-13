@@ -283,6 +283,31 @@
             xhr.send(data_string);
         }
 
+        function uploadProfileImg(files) {
+
+            const change_profile_button = document.getElementById("change_profile_button");
+            change_profile_button.disabled = true;
+            change_profile_button.innerText = "Loading... Please wait...";
+
+            let my_form = new FormData();
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+                if (xhr.status === 200 || xhr.readyState === 4) {
+                    alert(xhr.responseText);
+                    change_profile_button.disabled = false;
+                    change_profile_button.innerText = "Signup";
+                }
+            };
+
+            my_form.append("file", files[0]);
+            my_form.append("data_type", "change_profile");
+
+            xhr.open("POST","uploader.php",true);
+            xhr.send(my_form);
+        }
+
         function displayErrors(errors) {
 
             for (const [key, error] of Object.entries(errors)) {
