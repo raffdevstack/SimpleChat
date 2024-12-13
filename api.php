@@ -8,10 +8,10 @@ $DATA_OBJ = json_decode($DATA_RAW_STRING); // this is like JSON.parse() in js
 
 date_default_timezone_set('Asia/Manila');
 
-session_start();
 
 $info = (object)[]; // this info object will be the base of the response to ajax
 
+session_start();
 // check if logged in
 if (!isset($_SESSION['userid'])) { // if no userid in sessions, it's not logged in
     if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type != "login" && $DATA_OBJ->data_type != "signup" ) { // if we are not in the login page // --  --

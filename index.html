@@ -136,6 +136,7 @@
                             const fullname = obj_result.first_name + " " + obj_result.last_name;
                             document.getElementById("fullname").innerHTML = fullname;
                             document.getElementById("email").innerHTML = obj_result.email;
+                            document.getElementById("profile_image").src = obj_result.image;
                             break;
                         case "chats_contacts_refresh":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
@@ -180,15 +181,15 @@
                             getData({},"user_info");
                             get_settings(true);
                             break;
+                        case "save_settings_error":
+                            displayErrors(obj_result.message);
+                            break;
                         case "send_message":
                             getData({userid: obj_result.receiver_id},"chats");
                             break;
                         case "error":
                             alert("Error:" + obj_result.message);
                             initializeLanding();
-                            break;
-                        case "save_settings_error":
-                            displayErrors(obj_result.message);
                             break;
                         case "success":
                             alert("Info: " + obj_result.message);
@@ -295,7 +296,7 @@
 
             xhr.onload = function () {
                 if (xhr.status === 200 || xhr.readyState === 4) {
-                    raffyCustomConsole("uploader",xhr.responseText);
+
                     change_profile_button.disabled = false;
                     change_profile_button.innerText = "Signup";
 
@@ -311,13 +312,20 @@
         }
 
         function uploaderResultHandler(result) {
+
             if (result.trim() !== "") {
+
                 let obj_result = JSON.parse(result);
 
-                raffyCustomConsole('uploader', obj_result);
+
                 switch (obj_result.data_type) {
                     case "error":
-
+                        console.log(obj_result.message);
+                        break;
+                    case "change_profile":
+                        alert(obj_result.message);
+                        getData({},"user_info");
+                        get_settings(true);
                         break;
                 }
             }

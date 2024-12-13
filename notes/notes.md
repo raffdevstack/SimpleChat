@@ -1,5 +1,7 @@
 
 ### Add image on profile
+* prevent other files
+* fix image ration if you want
 * ~~save email and password~~
 * ~~capture the files by a files parameter~~
 * ~~disable the button and put text~~
@@ -15,7 +17,16 @@
   * ~~check if files['file'] is set and file name is not 
   empty~~
   * ~~if no errors~~
-* if data_type is set
+* ~~if data_type is set~~, assign to a local var
+* ~~check the data_type~~
+* ~~if info data_type is success, then we save it db~~
+* ~~initialize db and sessions up top~~
+* ~~also check if user is logged_in~~ 
+* ~~use the same data_type for uploading and success~~
+* ~~query, you set image to $destination where userid is me~~
+* ~~refresh the settings after success~~
+* ~~test~~
+* ~~display the image~~
 
 ---
 
