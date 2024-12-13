@@ -1,5 +1,6 @@
 
 ### Add image on profile
+* save email and password
 * yeahh
 
 ---

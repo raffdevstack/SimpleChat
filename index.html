@@ -231,9 +231,11 @@
         }
 
         function collectUpdatedSettings() {
+
             const save_settings_button_el = document.getElementById("save_settings_button");
             save_settings_button_el.disabled = true;
             save_settings_button_el.value = "Loading... Please wait...";
+
             const formData = {};  // Create an object to store input data
             const inputs = document.querySelectorAll("#settings_form input");  // Select all input elements
             // Iterate over each input element in the form
@@ -244,8 +246,8 @@
 
                 // Use a switch case to handle each input based on its name
                 switch (name) {
-                    case "username":
-                        formData.username = value;
+                    case "email":
+                        formData.email = value;
                         break;
                     case "password":
                         formData.password = value;
@@ -254,6 +256,7 @@
                         console.log(`Unknown input in settings collection: ${name}`);
                 }
             }
+
             sendSettingsUpdateToServer(formData, 'save_settings');
         }
 
