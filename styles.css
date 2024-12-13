@@ -106,6 +106,7 @@ input[type="submit"]:hover {
 #form_wrapper {
     padding: 16px;
     background-color: var(--navy1);
+    width: 100%;
 }
 
 #form_wrapper h2 {
