@@ -13,7 +13,7 @@
             <!-- Profile Section -->
             <div id="profile_wrapper">
                 <img id="profile_image" src="images/profile.png" alt="Profile Image">
-                <p id="username" class="profile_name">Username</p>
+                <p id="fullname" class="profile_name">Fullname</p>
                 <p id="email" class="profile_email">email@example.com</p>
             </div>
             <!-- Navigation Buttons -->
@@ -133,7 +133,9 @@
                 } else {
                     switch (obj_result.data_type) { // goes through all data types
                         case "user_info":
-                            document.getElementById("username").innerHTML = obj_result.username;
+                            const fullname = obj_result.first_name + " " + obj_result.last_name;
+                            document.getElementById("fullname").innerHTML = fullname;
+                            document.getElementById("email").innerHTML = obj_result.email;
                             break;
                         case "chats_contacts_refresh":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;

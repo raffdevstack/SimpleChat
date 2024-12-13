@@ -37,11 +37,4 @@
     $info->data_type = "settings"; // send to responseText
     echo json_encode($info);
 
-//    die;
-//    $info->message = "No contacts found";
-//    $info->data_type = "error";
-//    echo json_encode($info);
-
-?>
-
 
