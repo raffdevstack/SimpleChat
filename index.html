@@ -187,6 +187,9 @@
                             alert("Error:" + obj_result.message);
                             initializeLanding();
                             break;
+                        case "save_settings_error":
+                            displayErrors(obj_result.message);
+                            break;
                         case "success":
                             alert("Info: " + obj_result.message);
                             getChats();
@@ -278,6 +281,21 @@
 
             xhr.open("POST","api.php",true);
             xhr.send(data_string);
+        }
+
+        function displayErrors(errors) {
+
+            for (const [key, error] of Object.entries(errors)) {
+
+                const error_element = document.getElementById(`${key}_error`);
+
+                if (error_element) {
+
+                    error_element.textContent = error;
+                    error_element.style.display = "block";
+
+                }
+            }
         }
 
         function startChat(e) {

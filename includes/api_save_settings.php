@@ -76,6 +76,6 @@ if ($errors == []) {
     }
 } else {
     $info->message = $errors;
-    $info->data_type = "error";
+    $info->data_type = "save_settings_error";
 }
 echo json_encode($info);
