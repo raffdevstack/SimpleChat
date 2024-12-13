@@ -1,4 +1,9 @@
 
+### Add image on profile
+* yeahh
+
+---
+
 ### Bugs report
 * ~~duplicate account~~
 * ~~individual input errors~~
