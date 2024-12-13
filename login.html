@@ -7,21 +7,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <div id="wrapper">
         <div id="form_wrapper">
+
             <h2>Login</h2>
-            <p id="error" style="color: red; display: none"></p>
+
             <form id="loginForm">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" >
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" >
+
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" >
+
                 <input type="submit" id="login_button" value="Login" />
                 <br>
                 <br>
                 <br>
                 <a href="signup.html">Don't have an account? Signup here.</a>
                 <p style="color: red">dev note: it shouldn't tell wrong username</p>
+
             </form>
             <p id="message"></p>
         </div>
@@ -33,7 +39,9 @@
         function collectData() {
             login_button.disabled = true;
             login_button.value = "Loading... Please wait...";
+
             const formData = {};  // Create an object to store input data
+
             const inputs = document.querySelectorAll("#loginForm input");  // Select all input elements
             // Iterate over each input element in the form
             for (let i = 0; i < inputs.length; i++) {
@@ -43,8 +51,8 @@
 
                 // Use a switch case to handle each input based on its name
                 switch (name) {
-                    case "username":
-                        formData.username = value;
+                    case "email":
+                        formData.email = value;
                         break;
                     case "password":
                         formData.password = value;
@@ -53,6 +61,7 @@
                         console.log(`Unknown input from login.php: ${name}`);
                 }
             }
+
             sendDataToServer(formData, 'login');
         }
 
@@ -77,14 +86,24 @@
         }
 
         function handle_result(result) {
-            let data = JSON.parse(result);
-            if(data.data_type === "info") {
-                window.location = "index.php";
-            } else {
-                const error_element = document.getElementById("error");
-                error_element.innerHTML = data.message;
-                error_element.style.display = "block";
+
+            console.log(result);
+
+            if (result.trim() !== "") {
+
+                let obj_result = JSON.parse(result);
+
+                switch (obj_result.data_type) { // goes through all data types
+                    case "info":
+                        alert(obj_result.message);
+                        window.location = "index.html";
+                        break;
+                    case "error":
+                        alert(obj_result.message);
+                        break;
+                }
             }
+
         }
 
     </script>

@@ -1,6 +1,6 @@
 
 ### Bugs report
-* duplicate account
+* ~~duplicate account~~
 * ~~individual input errors~~
 * ~~should go the chat contacts page on delete
 thread success~~
