@@ -56,7 +56,7 @@ function getMessageLeft($user, $message)
         <div class='message_container'>
             <div class='message left_message'>
                 <button message_id='$message->id' onclick='deleteMessage(event)' id='delete_message_left'>Delete</button>
-                <h4>$user->username</h4>
+                <h4>$user->first_name</h4>
                 <p>$message->txt_message</p>
                 <h6>". date('M j, Y, g:i a', strtotime($message->date)). "</h6>
             </div>

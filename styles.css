@@ -29,6 +29,10 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.index_wrapper {
+    max-height: 90vh; !important;
+}
+
 /* Left Sidebar Styling */
 #left_wrapper {
     background-color: var(--navy1);
@@ -247,7 +251,7 @@ input[type="submit"]:hover {
 
 .left_message {
     margin-right: auto;
-    background-color: var(--blue-two);
+    background-color: var(--navy2);
     border-top-left-radius: 0;
 }
 

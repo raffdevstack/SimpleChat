@@ -27,7 +27,7 @@
                     <div id='back-to-chat' style='width: 100%; position: relative;'>
                         <button onclick='getChats(event)' style='right: 0; position: absolute'>Back</button>
                     </div>
-                    <p>$chat_other_user->username</p>
+                    <p>$chat_other_user->first_name</p>
                     <button userid='$chat_other_user->userid' onclick='deleteThread(event)'>Delete Thread</button>
                 ";
             }
@@ -128,9 +128,10 @@
                 }
 
                 $other_user_obj = $DB->getChatReceiver($other_user_id);
+                $fullname = $other_user_obj->first_name . " " . $other_user_obj->last_name;
                 $html_previous_chats_panel .= "
                     <div id='previous_chat_item' userid='$other_user_obj->userid' onclick='startChat(event)'>
-                        <h5>$other_user_obj->username</h5>
+                        <h5>$fullname</h5>
                         <p>$chat->txt_message</p>
                     </div>
                 ";

@@ -21,9 +21,10 @@
     <div id="contacts_container">';
     if (is_array($users)) {
         foreach ($users as $user) {
+            $fullname = $user->first_name . " " . $user->last_name;
             $contacts_markup .= "
                 <div id='contact' userid='$user->userid' onclick='startChat(event)'>
-                    <p>$user->username</p>
+                    <p>$fullname</p>
                 </div>";
         }
     }
