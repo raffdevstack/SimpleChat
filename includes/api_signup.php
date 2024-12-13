@@ -44,14 +44,20 @@ if (!isset($errors['last_name'])) {
 }
 
 if (!isset($errors['email'])) {
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = 'Invalid email format.';
+
+    if ($DB->userFinder($data['email'])) {
+        $errors['email'] = 'Email already used by other account.';
     } else {
-        // Additional validation:
-        if (strlen($data['email']) > 100) {
-            $errors['email'] = 'Email address is too long.';
-        } elseif (preg_match('/[\x00-\x1F\x7F-\xFF]/', $data['email'])) {
-            $errors['email'] = 'Email address contains invalid characters.';
+
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = 'Invalid email format.';
+        } else {
+            // Additional validation:
+            if (strlen($data['email']) > 100) {
+                $errors['email'] = 'Email address is too long.';
+            } elseif (preg_match('/[\x00-\x1F\x7F-\xFF]/', $data['email'])) {
+                $errors['email'] = 'Email address contains invalid characters.';
+            }
         }
     }
 }

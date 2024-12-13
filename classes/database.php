@@ -44,6 +44,24 @@ Class Database {
     /**
      * @throws Exception
      */
+
+    public function userFinder($email) {
+        $con = $this->connect();
+        $arr['email'] = $email;
+
+        $query = "SELECT * FROM users WHERE email = :email LIMIT 1";
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($arr);
+
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            } return false;
+        } return false;
+
+    }
+
     public function chatFinder($receiver_id, $sender_id) {
         $con = $this->connect();
         $arr['receiver_userid'] = $receiver_id;
