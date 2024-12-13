@@ -21,7 +21,6 @@ body {
 
 #wrapper {
     max-width: 960px;
-    height: 600px;
     display: flex;
     margin: 30px auto;
     border-radius: 10px;
