@@ -10,6 +10,12 @@
 * ~~you open and send ajax~~
 * ~~create upload file~~
 * ~~check in server with print_r $_FILES~~
+* ~~refresh what POST and FILE from console~~ 
+* ~~validate files~~
+  * ~~check if files['file'] is set and file name is not 
+  empty~~
+  * ~~if no errors~~
+* if data_type is set
 
 ---
 

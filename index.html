@@ -295,9 +295,11 @@
 
             xhr.onload = function () {
                 if (xhr.status === 200 || xhr.readyState === 4) {
-                    alert(xhr.responseText);
+                    raffyCustomConsole("uploader",xhr.responseText);
                     change_profile_button.disabled = false;
                     change_profile_button.innerText = "Signup";
+
+                    uploaderResultHandler(xhr.responseText);
                 }
             };
 
@@ -306,6 +308,20 @@
 
             xhr.open("POST","uploader.php",true);
             xhr.send(my_form);
+        }
+
+        function uploaderResultHandler(result) {
+            if (result.trim() !== "") {
+                let obj_result = JSON.parse(result);
+
+                raffyCustomConsole('uploader', obj_result);
+                switch (obj_result.data_type) {
+                    case "error":
+
+                        break;
+                }
+            }
+
         }
 
         function displayErrors(errors) {
