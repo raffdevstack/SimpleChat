@@ -18,31 +18,31 @@
             
                 <h2>Settings</h2>
                 
-                <form id="settings_form">
-                
-                <div class="input-container">
-                    <label for="profile_img">Profile:</label>
-                    <input type="file" id="profile_img" name="profile_img" >
+                <div id="profile_img_set">
+                    <label for="profile_img">Change Profile</label>
+                    <input type="file" onchange="uploadProfileImg(this.files)" id="profile_img" name="profile_img" >
                     <p class="input_errors" id="profile_img_error"></p>
                 </div>
                 
-                <div class="input-container">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="'.$user->email.'">
-                    <p class="input_errors" id="email_error"></p>
-                </div>
-                
-                <div class="input-container">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" value="'.$user->password.'" >
-                    <p class="input_errors" id="password_error"></p>
-                </div>
+                <form id="settings_form">
                     
-                <br>
-                <br>
-                <br>
-                
-                <input type="submit" id="save_settings_button" value="Save Settings" onclick="collectUpdatedSettings()" />
+                    <div class="input-container">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="'.$user->email.'">
+                        <p class="input_errors" id="email_error"></p>
+                    </div>
+                    
+                    <div class="input-container">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" value="'.$user->password.'" >
+                        <p class="input_errors" id="password_error"></p>
+                    </div>
+                        
+                    <br>
+                    <br>
+                    <br>
+                    
+                    <input type="submit" id="save_settings_button" value="Save Settings" onclick="collectUpdatedSettings()" />
 
                 </form>
                 <p id="message"></p>

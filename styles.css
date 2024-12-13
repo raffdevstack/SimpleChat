@@ -188,7 +188,27 @@ input[type="submit"]:hover {
 
 #radio_settings:checked ~ #inner_right_wrapper { /* ~ means sibling */
     flex: 0;
+}
 
+#profile_img_set {
+    border-radius: 4px;
+    background-color: var(--navy3);
+    display: inline-block;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+}
+
+#profile_img_set:hover {
+    background-color: var(--navy2);
+    cursor: pointer; !important;
+}
+
+#profile_img_set > label:hover {
+    cursor: pointer; !important;
+}
+
+#profile_img_set > input {
+    display: none;
 }
 
 #messages_wrapper {
