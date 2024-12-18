@@ -47,7 +47,7 @@
                 </form>
                 <p id="message"></p>
             </div>
-    ';
+        ';
     }
 
 
