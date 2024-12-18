@@ -28,7 +28,8 @@
         <div id="right_wrapper">
             <!-- Header Section -->
             <div id="header">
-                <h4 id="text_logo">Simple Chat</h4>
+                <h4 id="text_logo">Simply Secure Chat</h4>
+                <label for="radio_group_chat" id="label_group_chat">Create a Group Chat</label>
             </div>
             <!-- Chat Container -->
             <div id="container">
@@ -40,6 +41,7 @@
                 <input type="radio" id="radio_chat" name="my_radio" style="display: none">
                 <input type="radio" id="radio_contacts" name="my_radio" style="display: none">
                 <input type="radio" id="radio_settings" name="my_radio" style="display: none">
+                <input type="radio" id="radio_group_chat" name="my_radio" style="display: none">
 
                 <div id="inner_right_wrapper">
                     <!-- Placeholder for Chat Messages -->
@@ -78,6 +80,9 @@
         const radio_contacts_el = document.getElementById("radio_contacts");
 
         const inner_right_wrapper_el = document.getElementById("inner_right_wrapper");
+
+        const label_group_chat_el = document.getElementById("label_group_chat");
+        label_group_chat_el.addEventListener("click", createGroup);
 
         function initializeLanding() {
             // data getter from the server
@@ -186,6 +191,11 @@
                             break;
                         case "send_message":
                             getData({userid: obj_result.receiver_id},"chats");
+                            break;
+                        case "create_group":
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
                             break;
                         case "error":
                             alert("Error:" + obj_result.message);
@@ -403,6 +413,10 @@
                 userid: CURRENT_CHAT_USER,
                 seen: SEEN_STATUS
             }, "chats_refresh");
+        }
+
+        function createGroup() {
+            getData({},"create_group");
         }
 
         setInterval(function () {
