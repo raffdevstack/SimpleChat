@@ -176,13 +176,32 @@ input[type="submit"]:hover {
 }
 
 #contacts_container {
-    /*background-color: red;*/
+    padding: 16px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    gap: 10px;
 }
 
 #contacts_container p {
     display: inline-block;
     width: 8rem;
 }
+
+#contacts_container > .contact {
+    width: 100px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--teal);
+}
+
+#contacts_container > .contact img {
+    border-radius: 50%;
+    width: 40px;
+}
+
 
 #inner_right_wrapper {
     background-color: var(--teal);

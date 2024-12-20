@@ -141,7 +141,11 @@
                             const fullname = obj_result.first_name + " " + obj_result.last_name;
                             document.getElementById("fullname").innerHTML = fullname;
                             document.getElementById("email").innerHTML = obj_result.email;
-                            document.getElementById("profile_image").src = obj_result.image;
+                            const image_element = document.getElementById("profile_image");
+                            image_element.src = "images/profile.png";
+                            if (obj_result.image === "null") {
+                                image_element.src = obj_result.image;
+                            }
                             break;
                         case "chats_contacts_refresh":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;

@@ -23,7 +23,8 @@
         foreach ($users as $user) {
             $fullname = $user->first_name . " " . $user->last_name;
             $contacts_markup .= "
-                <div id='contact' userid='$user->userid' onclick='startChat(event)'>
+                <div class='contact' id='contact' userid='$user->userid' onclick='startChat(event)'>
+                    <img src='images/profile.png' />
                     <p>$fullname</p>
                 </div>";
         }
