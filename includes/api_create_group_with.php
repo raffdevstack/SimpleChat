@@ -5,11 +5,18 @@ $logged_user = $_SESSION['userid'];
 
 if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
+    $users_array = $DATA_OBJ->userid;
+
+    array_unshift($users_array, $logged_user); // add myself as the first value
+
+    // find me
+    $me = $DB->userFinderId($logged_user);
+
     $names = [];
 
     // retrieve names from db
-    $id_list = implode(",", array_map('intval', $DATA_OBJ->userid)); // Convert the user IDs to integers to prevent SQL injection
-    $query = "SELECT * FROM `users` WHERE `userid` IN ($id_list) LIMIT 3";
+    $id_list = implode(",", array_map('intval', $users_array)); // Convert the user IDs to integers to prevent SQL injection
+    $query = "SELECT `first_name` FROM `users` WHERE `userid` IN ($id_list) LIMIT 3";
     $result = $DB->read($query);
 
     if (is_array($result)) {
@@ -29,12 +36,52 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
     $result = $DB->write($query, $data);
 
     if ($result) {
-        $info->message = "Your group has been created.";
-        $info->data_type = "create_group_with";
+
+//        add members to db
+
+//        get the group
+        $data = [];
+        $data["gc_name"] = $concatenated_names;
+        $query = "SELECT * FROM `groups` ORDER BY `created_at` AND `group_name` = :gc_name DESC LIMIT 1;";
+        $group_chat = $DB->read($query, $data);
+
+        if (is_array($group_chat)) {
+            $gc = $group_chat[0];
+
+            $data = [];
+            $data["group_id"] = $gc->id;
+
+            for ($i = 0; $i < count($users_array); $i++) {
+
+
+                $user = $users_array[$i];  // Make sure to retrieve the user at index $i
+                $data["user_id"] = $user;
+
+                if ($i == 0) {
+                    $data["role"] = "admin";
+                    $query = "INSERT INTO `group_members`(`group_id`, `user_id`, `role`) VALUES(:group_id, :user_id, :role)";
+                    $result = $DB->write($query, $data);
+                } else {
+                    $data["role"] = "member";
+                    $query = "INSERT INTO `group_members`(`group_id`, `user_id`, `role`) VALUES(:group_id, :user_id, :role)";
+                    $result = $DB->write($query, $data);
+                }
+
+
+                if ($result) {
+                    $info->message = "Your group has been created.";
+                    $info->data_type = "create_group_with";
+                }
+
+            }
+
+        }
+
     } else {
         $info->message = "Your group has not been created due to some sql error.";
         $info->data_type = "error";
     }
+
 } else {
     $info->message = "select a contact to create group";
     $info->data_type = "error";
