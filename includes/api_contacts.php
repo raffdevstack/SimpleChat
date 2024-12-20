@@ -7,18 +7,7 @@
     $sql = "SELECT * FROM `users` WHERE `userid`!='$logged_user' ";
     $users = $DB->read($sql, []);
 
-    $contacts_markup = '
-    <style>
-        #contact {
-            display: inline-block;
-        }
-        #contact:hover {
-            color: blue;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
-    <div id="contacts_container">';
+    $contacts_markup = '<div id="contacts_container">';
     if (is_array($users)) {
         foreach ($users as $user) {
             $fullname = $user->first_name . " " . $user->last_name;
