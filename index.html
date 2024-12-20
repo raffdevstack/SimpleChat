@@ -423,6 +423,29 @@
             getData({},"create_group");
         }
 
+        function createGroupWith() {
+            const create_group_with_btn = document.getElementById("create_group_with_btn");
+            create_group_with_btn.disabled = true;
+            create_group_with_btn.value = "Loading... Please wait...";
+
+            const checked_users = { userid: [] };
+            const inputs = document.querySelectorAll("#create_group_form input[type='checkbox']");
+
+            for (let i = 0; i < inputs.length; i++) {
+                const input = inputs[i];
+                const userid = input.name;
+                const checked = input.checked;
+
+                if (checked) {
+                    checked_users.userid.push(userid);
+                }
+
+            }
+
+            getData(checked_users, "create_group_with")
+
+        }
+
         setInterval(function () {
             if (CURRENT_CHAT_USER != null) { // inside a chat conversation
                 getData({

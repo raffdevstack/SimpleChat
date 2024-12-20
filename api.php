@@ -49,6 +49,8 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_delete_thread.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "create_group") {
     include("includes/api_create_group.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "create_group_with") {
+    include("includes/api_create_group_with.php");
 }
 
 // template for messages on the left side

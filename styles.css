@@ -209,6 +209,16 @@ input[type="submit"]:hover {
     /*overflow-wrap: break-word;*/
 }
 
+#gc_contact_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.gc_contact {
+    display: flex;
+}
+
 
 #inner_right_wrapper {
     background-color: var(--teal);
