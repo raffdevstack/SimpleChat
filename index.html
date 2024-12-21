@@ -385,6 +385,7 @@
         }
 
         function startChatWithGroup($my_userid, $group_id) {
+            radio_chat_el.checked = true;
             getData({
                 my_userid: $my_userid,
                 group_id: $group_id
