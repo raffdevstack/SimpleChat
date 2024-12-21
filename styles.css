@@ -328,14 +328,18 @@ input[type="submit"]:hover {
     cursor: pointer;
 }
 
-#previous_chat_item {
+#previous_chats {
+    overflow-y: auto;
+}
+
+.previous_chat_item {
     border: 1px solid black;
     padding: 2px 8px;
     cursor: pointer;
     margin: 16px 0;
 }
 
-#previous_chat_item * {
+.previous_chat_item * {
     margin: 0;
 }
 

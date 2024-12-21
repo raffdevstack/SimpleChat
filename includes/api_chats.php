@@ -115,7 +115,12 @@
         $query = "SELECT * FROM `messages` WHERE `group_id` IS NOT NULL GROUP BY `group_id` ";
         $all_group_chats = $DB->read($query);
 
-        $aggregated_chats = array_merge($all_chats, $all_group_chats);
+        $aggregated_chats = "";
+        if (is_array($all_group_chats) && is_array($all_chats)) {
+            $aggregated_chats = array_merge($all_chats, $all_group_chats);
+        } else {
+            $aggregated_chats = $all_chats;
+        }
 
         $html_previous_chats_panel = "";
 
@@ -123,7 +128,7 @@
 
             $html_previous_chats_panel = "
                 <h4>Previous Chats: </h4>
-                <div>
+                <div id='previous_chats'>
             ";
 
             $is_group = false;
@@ -138,7 +143,7 @@
                     $chat_name = $group->group_name;
 
                     $html_previous_chats_panel .= "
-                    <div id='previous_chat_item'  onclick='startChat(event)'>
+                    <div class='previous_chat_item'  onclick='startChat(event)'>
                         <h5>$chat_name</h5>
                         <p>$chat->txt_message</p>
                     </div>
@@ -154,7 +159,7 @@
                     $chat_name = $other_user_obj->first_name . " " . $other_user_obj->last_name;
 
                     $html_previous_chats_panel .= "
-                    <div id='previous_chat_item' userid='$other_user_obj->userid' onclick='startChat(event)'>
+                    <div class='previous_chat_item' userid='$other_user_obj->userid' onclick='startChat(event)'>
                         <h5>$chat_name</h5>
                         <p>$chat->txt_message</p>
                     </div>
