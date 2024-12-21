@@ -209,8 +209,7 @@
                             break;
                         case "group_chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
-                            document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;                            inner_right_wrapper_el.style.overflow = "hidden";
-                            inner_right_wrapper_el.style.opacity = "0";
+                            document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
                             break;
                         case "error":
                             alert("Error:" + obj_result.message);

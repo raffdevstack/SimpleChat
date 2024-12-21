@@ -59,8 +59,14 @@
 
         $html_contacts_panel .= "</p>";
 
+        $html_messages = "
+                    <div id='messages_wrapper'  >
+                        <h1>Messages</h1>
+                    </div>
+                ";
+
         $info->chat_contact = $html_contacts_panel;
-        $info->messages = "I am from messages";
+        $info->messages = $html_messages;
         $info->data_type = "group_chats";
     }
 
