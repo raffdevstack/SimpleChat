@@ -60,6 +60,7 @@
 
         let CURRENT_CHAT_USER = null;
         let SEEN_STATUS = false;
+        let GROUP_ID = null;
 
         const notification_sound = document.getElementById('notificationSound');
 
@@ -205,6 +206,7 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
+                            GROUP_ID = obj_result.group_id;
                             startChatWithGroup(obj_result.my_userid, obj_result.group_id);
                             break;
                         case "group_chats":
@@ -471,7 +473,7 @@
                     seen: SEEN_STATUS
                 }, "chats_refresh");
             } else {
-                if (radio_chat_el.checked) {
+                if (radio_chat_el.checked && GROUP_ID == null) {
                     getData({},"chats_contacts_refresh");
                 }
             }
