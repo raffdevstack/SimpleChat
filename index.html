@@ -165,6 +165,7 @@
                             break;
                         case "chats":
                             SEEN_STATUS = false;
+                            GROUP_ID = null;
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
                             const wrapper_el = document.getElementById("messages_wrapper");
