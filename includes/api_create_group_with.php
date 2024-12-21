@@ -53,7 +53,6 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
             for ($i = 0; $i < count($users_array); $i++) {
 
-
                 $user = $users_array[$i];  // Make sure to retrieve the user at index $i
                 $data["user_id"] = $user;
 
@@ -72,11 +71,20 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
                     $info->group_id = $gc->id;
                     $info->my_userid = $logged_user;
                     $info->data_type = "create_group_with";
-
                 }
 
             }
 
+            if ($info->data_type == "create_group_with") {
+                // create first message here
+                $msg_data["txt_message"] = "Created a new group.";
+                $msg_data["group_id"] = $gc->id;
+                $msg_data["sender"] = $logged_user;
+                $msg_data["date"] =  date('Y-m-d H:i:s');
+                $query = "INSERT INTO `messages`(`group_id`, `txt_message`, `sender`, `date`) 
+                    VALUES(:group_id, :txt_message, :sender, :date)";
+                $result = $DB->write($query, $msg_data);
+            }
         }
 
     } else {
