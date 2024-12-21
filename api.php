@@ -35,6 +35,8 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
 } else if (isset($DATA_OBJ->data_type) && ($DATA_OBJ->data_type == "chats")
     || ($DATA_OBJ->data_type == "chats_refresh") || ($DATA_OBJ->data_type == "chats_contacts_refresh") ) {
     include("includes/api_chats.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "group_chats") {
+    include("includes/api_group_chats.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "contacts") {
     include("includes/api_contacts.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "settings") {

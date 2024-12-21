@@ -70,7 +70,7 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
                 if ($result) {
                     $info->message = "Your group has been created.";
                     $info->group_id = $gc->id;
-                    $info->userid = $logged_user;
+                    $info->my_userid = $logged_user;
                     $info->data_type = "create_group_with";
 
                 }

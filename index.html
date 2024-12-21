@@ -205,7 +205,12 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
-                            startChatWithGroup(obj_result.userid, obj_result.group_id);
+                            startChatWithGroup(obj_result.my_userid, obj_result.group_id);
+                            break;
+                        case "group_chats":
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
+                            document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;                            inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
                             break;
                         case "error":
                             alert("Error:" + obj_result.message);
@@ -380,13 +385,11 @@
             }, 'chats')
         }
 
-        function startChatWithGroup($userid, $group_id) {
-            CURRENT_CHAT_USER = $userid;
+        function startChatWithGroup($my_userid, $group_id) {
             getData({
-                userid: CURRENT_CHAT_USER,
-                group_id: $group_id,
-                seen: SEEN_STATUS
-            }, 'chats');
+                my_userid: $my_userid,
+                group_id: $group_id
+            }, 'group_chats');
         }
 
         function enter_pressed(e) {
