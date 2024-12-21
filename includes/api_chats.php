@@ -112,8 +112,14 @@
 
         $all_chats = $DB->findAllMyChat($_SESSION['userid']);
 
+        $query = "SELECT * FROM `messages` WHERE `group_id` IS NOT NULL GROUP BY `group_id` ";
+        $all_group_chats = $DB->read($query);
+
+        $aggregated_chats = array_merge($all_chats, $all_group_chats);
+
         $html_previous_chats_panel = "";
-        if (is_array($all_chats)) { // if chats exist
+
+        if ($aggregated_chats != "") { // if chats exist
 
             $html_previous_chats_panel = "
                 <h4>Previous Chats: </h4>
@@ -123,7 +129,7 @@
             $is_group = false;
             $group = "";
             $chat_name = "";
-            foreach ($all_chats as $chat) {
+            foreach ($aggregated_chats as $chat) {
 
                 if ($chat->group_id !== NULL)  { // if it's not a group message
                     $is_group = true;
@@ -153,18 +159,16 @@
                         <p>$chat->txt_message</p>
                     </div>
                     ";
+
+                    // set it to received if it is
+                    if ($chat->receiver == $_SESSION['userid'] && $chat->received == 0) {
+                        $new_message = true;
+                    }
+                    if ($chat->receiver == $_SESSION['userid'] && $chat->received == 0) {
+                        $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $other_user_obj->userid . " ");
+                    }
                 }
 
-
-
-
-                if ($chat->receiver == $_SESSION['userid'] && $chat->received == 0) {
-                    $new_message = true;
-                }
-
-                if ($chat->receiver == $_SESSION['userid'] && $chat->received == 0) {
-                    $DB->write("UPDATE `messages` SET `received` = 1 WHERE `sender` = " . $other_user_obj->userid . " ");
-                }
             };
 
 
