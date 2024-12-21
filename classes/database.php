@@ -76,7 +76,22 @@ Class Database {
                 return $result[0];
             } return false;
         } return false;
+    }
 
+    public function groupFinderId($group_id) {
+        $con = $this->connect();
+        $arr['group_id'] = $group_id;
+
+        $query = "SELECT * FROM `groups` WHERE `id` = :group_id ";
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($arr);
+
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            } return false;
+        } return false;
     }
 
     public function chatFinder($receiver_id, $sender_id) {

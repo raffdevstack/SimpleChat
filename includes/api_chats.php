@@ -120,21 +120,42 @@
                 <div>
             ";
 
+            $is_group = false;
+            $group = "";
+            $chat_name = "";
             foreach ($all_chats as $chat) {
 
-                $other_user_id = $chat->sender; // the default other user is the sender.
-                if ($chat->sender == $_SESSION['userid']) { // if the sender is me,
-                    $other_user_id = $chat->receiver; // the other user is the receiver of the chat
-                }
+                if ($chat->group_id !== NULL)  { // if it's not a group message
+                    $is_group = true;
+                    // get group
+                    $group = $DB->groupFinderId($chat->group_id);
+                    $chat_name = $group->group_name;
 
-                $other_user_obj = $DB->getChatReceiver($other_user_id);
-                $fullname = $other_user_obj->first_name . " " . $other_user_obj->last_name;
-                $html_previous_chats_panel .= "
-                    <div id='previous_chat_item' userid='$other_user_obj->userid' onclick='startChat(event)'>
-                        <h5>$fullname</h5>
+                    $html_previous_chats_panel .= "
+                    <div id='previous_chat_item'  onclick='startChat(event)'>
+                        <h5>$chat_name</h5>
                         <p>$chat->txt_message</p>
                     </div>
-                ";
+                    ";
+
+                } else {
+                    $other_user_id = $chat->sender; // the default other user is the sender.
+                    if ($chat->sender == $_SESSION['userid']) { // if the sender is me,
+                        $other_user_id = $chat->receiver; // the other user is the receiver of the chat
+                    }
+
+                    $other_user_obj = $DB->getChatReceiver($other_user_id);
+                    $chat_name = $other_user_obj->first_name . " " . $other_user_obj->last_name;
+
+                    $html_previous_chats_panel .= "
+                    <div id='previous_chat_item' userid='$other_user_obj->userid' onclick='startChat(event)'>
+                        <h5>$chat_name</h5>
+                        <p>$chat->txt_message</p>
+                    </div>
+                    ";
+                }
+
+
 
 
                 if ($chat->receiver == $_SESSION['userid'] && $chat->received == 0) {
