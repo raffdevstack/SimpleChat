@@ -147,7 +147,7 @@
                     $chat_name = $group->group_name;
 
                     $html_previous_chats_panel .= "
-                    <div class='previous_chat_item'  onclick='startChat(event)'>
+                    <div class='previous_chat_item' groupid='$chat->group_id'  onclick='startChatWithGroupFromChats(event)'>
                         <h5>$chat_name</h5>
                         <p>$chat->txt_message</p>
                     </div>

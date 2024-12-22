@@ -2,6 +2,8 @@
 
     global $DATA_OBJ, $DB, $info;
 
+    print_r($DATA_OBJ); die;
+
     $my_group = "";
 
     // get the group chat
@@ -19,7 +21,7 @@
         }
     }
 
-    if (isset($DATA_OBJ->my_userid) && $my_group !== "") {
+    if ($my_group !== "") {
 
         // get my other chats
         $members_userid = [];

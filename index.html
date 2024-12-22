@@ -208,7 +208,7 @@
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
                             GROUP_ID = obj_result.group_id;
-                            startChatWithGroup(obj_result.my_userid, obj_result.group_id);
+                            startChatWithGroup(obj_result.group_id);
                             break;
                         case "group_chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
@@ -387,13 +387,24 @@
             }, 'chats')
         }
 
-        function startChatWithGroup($my_userid, $group_id) {
+        function startChatWithGroup($group_id) {
             radio_chat_el.checked = true;
             getData({
-                my_userid: $my_userid,
                 group_id: $group_id
             }, 'group_chats');
         }
+
+        function startChatWithGroupFromChats(e) {
+            radio_chat_el.checked = true;
+            let groupid = e.target.getAttribute("groupid"); // it targets the element where the event happened
+            if (e.target.id === "") {
+                groupid = e.target.parentNode.getAttribute("groupid"); // when inner element catches the click
+            }
+            getData({
+                group_id: groupid
+            }, 'group_chats');
+        }
+
 
         function enter_pressed(e) {
             if (event.keyCode === 13) {
