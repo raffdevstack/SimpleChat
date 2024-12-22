@@ -2,6 +2,8 @@
 
     global $DATA_OBJ, $DB, $info;
 
+    $logged_user = $_SESSION['userid'];
+
     $my_group = "";
 
     // get the group chat
@@ -62,9 +64,27 @@
 
         $html_contacts_panel .= "</p>";
 
+        // get all messages from group_id
+        $arr = [];
+        $arr["group_id"] = $my_group->id    ;
+        $query = "SELECT * FROM `messages` WHERE `group_id` = :group_id";
+        $messages = $DB->read($query, $arr);
+
         $html_messages = "
                     <div id='messages_wrapper'  >
-                        <h1>Messages</h1>
+                        ";
+
+        foreach ($messages as $message) {
+            if ($message->sender == $logged_user) {
+                $html_messages .= getMessageRight($message);
+            } else {
+                $other_user = $DB->getChatReceiver($message->sender);
+                $html_messages .= getMessageLeft($other_user, $message); // user, message
+            }
+        }
+
+
+        $html_messages .= "
                     </div>
                 ";
 
