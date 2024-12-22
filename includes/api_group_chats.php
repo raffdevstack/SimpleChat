@@ -23,20 +23,26 @@
 
     if ($my_group !== "") {
 
+        $me_as_member = "";
+
         // get my other chats
         $members_userid = [];
-
         $data = [];
         $data["group_id"] = $my_group->id;
         $query = "SELECT * FROM `group_members` WHERE `group_id` = :group_id GROUP BY `user_id`";
-        $result = $DB->read($query, $data);
-        if (is_array($result)) {
-            foreach ($result as $member) {
+        $members = $DB->read($query, $data);
+
+        // collect the userid of the all members
+        if (is_array($members)) {
+            foreach ($members as $member) {
                 $members_userid[] = $member->user_id;
+
+                if ($member->user_id == $logged_user) {
+                    $me_as_member = $member;
+                }
             }
         }
 
-        // get the actual members
 
 
         $html_contacts_panel = ""; // initialize
@@ -47,6 +53,8 @@
                     <div>
                         <button onclick='getChats(event)'>Back</button>
                     </div>
+                    <h5 style='display: inline-block'>Your Role: </h5>
+                    <p style='display: inline-block'>$me_as_member->role</p>
                     <h5>Members: </h5>
                     <p>";
 
@@ -54,8 +62,6 @@
             $data_user["userid"] = $member_userid;
             $query = "SELECT * FROM `users` WHERE `userid` = :userid LIMIT 1 ";
             $result = $DB->read($query, $data_user);
-
-
             if (isset($result[0])) {
                 $user = $result[0];
                 $html_contacts_panel .= $user->first_name . " " . $user->last_name . "<br>";
