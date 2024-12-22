@@ -124,7 +124,9 @@
             $aggregated_chats = $all_group_chats;
         }
 
-
+        usort($aggregated_chats, function ($a, $b) {
+            return $b->id - $a->id;
+        });
 
         $html_previous_chats_panel = "";
 
@@ -135,13 +137,11 @@
                 <div id='previous_chats'>
             ";
 
-            $is_group = false;
             $group = "";
             $chat_name = "";
             foreach ($aggregated_chats as $chat) {
 
-                if ($chat->group_id !== NULL)  { // if it's not a group message
-                    $is_group = true;
+                if ($chat->group_id !== NULL)  { // if it's a group message
                     // get group
                     $group = $DB->groupFinderId($chat->group_id);
                     $chat_name = $group->group_name;
@@ -154,6 +154,7 @@
                     ";
 
                 } else {
+
                     $other_user_id = $chat->sender; // the default other user is the sender.
                     if ($chat->sender == $_SESSION['userid']) { // if the sender is me,
                         $other_user_id = $chat->receiver; // the other user is the receiver of the chat
