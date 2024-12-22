@@ -196,7 +196,11 @@
                             displayErrors(obj_result.message);
                             break;
                         case "send_message":
-                            getData({userid: obj_result.receiver_id},"chats");
+                            if (obj_result.group_id) {
+                                startChatWithGroup(obj_result.group_id);
+                            } else {
+                                getData({userid: obj_result.receiver_id},"chats");
+                            }
                             break;
                         case "create_group":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;

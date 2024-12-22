@@ -77,7 +77,7 @@
         // if first chat in a group
         $group_data = [];
         $group_data["group_id"] = $my_group->id;
-        $query = "SELECT * FROM `messages` WHERE `group_id` = :group_id ORDER BY `id` DESC LIMIT 1";
+        $query = "SELECT * FROM `messages` WHERE `group_id` = :group_id ORDER BY `id` LIMIT 1";
         $result = $DB->read($query, $group_data);
         $first_message = $result[0];
 
