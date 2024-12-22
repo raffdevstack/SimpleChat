@@ -42,8 +42,11 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
     )";
     $results_same_group = $DB->read($query);
 
-    if ($results_same_group != "") {
-        print_r($results_same_group); die;
+    if (!empty($results_same_group)) {
+        $info->message = "Same group already exists";
+        $info->data_type = "error";
+        echo json_encode($info);
+        exit;
     }
 
     // create group on db
