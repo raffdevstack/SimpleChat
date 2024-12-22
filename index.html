@@ -437,6 +437,12 @@
             setSeen();
         }
 
+        function enter_pressed_on_group(e) {
+            if (event.keyCode === 13) {
+                sendGroupMessage(e);
+            }
+        }
+
         function setSeen(e) {
             SEEN_STATUS = true;
         }
