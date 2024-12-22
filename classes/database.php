@@ -123,7 +123,8 @@ Class Database {
           INNER JOIN (
               SELECT `chat_id`, MAX(id) AS latest
               FROM `messages`
-              WHERE (`receiver` = :userid AND `deleted_receiver` = 0) OR (`sender` = :userid AND `deleted_sender` = 0)
+              WHERE (`group_id` IS NULL) AND  
+                    ((`receiver` = :userid AND `deleted_receiver` = 0) OR (`sender` = :userid AND `deleted_sender` = 0))
               GROUP BY `chat_id`
           ) latest_messages ON m.`chat_id` = latest_messages.`chat_id` AND m.`id` = latest_messages.latest
           ORDER BY latest_messages.latest DESC";

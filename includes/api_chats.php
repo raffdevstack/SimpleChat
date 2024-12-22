@@ -118,9 +118,13 @@
         $aggregated_chats = "";
         if (is_array($all_group_chats) && is_array($all_chats)) {
             $aggregated_chats = array_merge($all_chats, $all_group_chats);
-        } else {
+        } else if (is_array($all_chats)) {
             $aggregated_chats = $all_chats;
+        } else if (is_array($all_group_chats)) {
+            $aggregated_chats = $all_group_chats;
         }
+
+
 
         $html_previous_chats_panel = "";
 
