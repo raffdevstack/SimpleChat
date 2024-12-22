@@ -99,6 +99,15 @@
                     </div>
                 ";
 
+        $html_messages .= "
+                <div id='messages_inputs'>
+                    <label for='message_file' id='file_input_label'>File</label>
+                    <input type='file' id='message_file' style='display: none' >
+                    <input type='text' id='message_text' placeholder='Enter your message here...' >
+                    <input type='button' onclick='sendMessage(event)' id='send_message' value='SEND'>    
+                </div>
+                ";
+
         $info->chat_contact = $html_contacts_panel;
         $info->messages = $html_messages;
         $info->data_type = "group_chats";
