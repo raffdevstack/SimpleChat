@@ -222,7 +222,7 @@ input[type="submit"]:hover {
 
 #inner_right_wrapper {
     background-color: var(--teal);
-    flex: 3;
+    flex: 2.5;
     padding: 20px;
     transition: all 0.5s ease;
 }
@@ -332,13 +332,23 @@ input[type="submit"]:hover {
 #previous_chats {
     overflow-y: auto;
     height: 85%;
+    padding-right: 8px;
+    max-width: 187px;
+    border-radius: 8px;
+}
+
+.previous_chat_item h5,
+.previous_chat_item p {
+    overflow: hidden;          /* Hide the overflow content */
+    text-overflow: ellipsis;   /* Add "..." at the end of overflowing text */
+    white-space: nowrap;       /* Prevent text from wrapping to the next line */
 }
 
 .previous_chat_item {
-    border: 1px solid black;
     padding: 2px 8px;
     cursor: pointer;
     margin: 16px 0;
+    background-color: var(--navy3);
 }
 
 .previous_chat_item * {
