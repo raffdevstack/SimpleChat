@@ -140,9 +140,11 @@
             $aggregated_chats = $all_group_chats;
         }
 
-        usort($aggregated_chats, function ($a, $b) {
-            return $b->id - $a->id;
-        });
+        if (is_array($aggregated_chats)) {
+            usort($aggregated_chats, function ($a, $b) {
+                return $b->id - $a->id;
+            });
+        }
 
         $html_previous_chats_panel = "";
 

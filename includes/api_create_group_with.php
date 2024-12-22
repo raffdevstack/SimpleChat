@@ -3,6 +3,7 @@
 global $info, $DB, $DATA_OBJ;
 $logged_user = $_SESSION['userid'];
 
+
 if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
     $users_array = $DATA_OBJ->userid;
@@ -76,7 +77,7 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
             if ($info->data_type == "create_group_with") {
                 // create first message here
-                $msg_data["txt_message"] = "Created a new group.";
+                $msg_data["txt_message"] = $me->first_name . " created a new group";
                 $msg_data["group_id"] = $gc->id;
                 $msg_data["sender"] = $logged_user;
                 $msg_data["date"] =  date('Y-m-d H:i:s');
