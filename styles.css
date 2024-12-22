@@ -355,3 +355,7 @@ input[type="submit"]:hover {
     margin: 0;
 }
 
+#first_group_message {
+    text-align: center;
+}
+

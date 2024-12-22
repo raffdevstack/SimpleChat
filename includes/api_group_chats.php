@@ -74,15 +74,26 @@
                     <div id='messages_wrapper'  >
                         ";
 
+        // if first chat in a group
+        $group_data = [];
+        $group_data["group_id"] = $my_group->id;
+        $query = "SELECT * FROM `messages` WHERE `group_id` = :group_id ORDER BY `id` DESC LIMIT 1";
+        $result = $DB->read($query, $group_data);
+        $first_message = $result[0];
+
         foreach ($messages as $message) {
-            if ($message->sender == $logged_user) {
-                $html_messages .= getMessageRight($message);
+
+            if ($first_message->id == $message->id) {
+                $html_messages .= "<p id='first_group_message'>" . $message->txt_message . "</p>";
             } else {
-                $other_user = $DB->getChatReceiver($message->sender);
-                $html_messages .= getMessageLeft($other_user, $message); // user, message
+                if ($message->sender == $logged_user) {
+                    $html_messages .= getMessageRight($message);
+                } else {
+                    $other_user = $DB->getChatReceiver($message->sender);
+                    $html_messages .= getMessageLeft($other_user, $message); // user, message
+                }
             }
         }
-
 
         $html_messages .= "
                     </div>
