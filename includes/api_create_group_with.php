@@ -18,16 +18,33 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
     // retrieve names from db
     $id_list = implode(",", array_map('intval', $users_array)); // Convert the user IDs to integers to prevent SQL injection
     $query = "SELECT `first_name` FROM `users` WHERE `userid` IN ($id_list) LIMIT 3";
-    $result = $DB->read($query);
+    $selected_users = $DB->read($query);
 
-    if (is_array($result)) {
-        foreach ($result as $user) {
+    if (is_array($selected_users)) {
+        foreach ($selected_users as $user) {
             $names[] = $user->first_name;
         }
     }
 
     $concatenated_names = implode(", ", $names);
 
+    // search groups with the users
+    $query = "SELECT gm.group_id
+    FROM group_members gm
+    WHERE gm.user_id IN ($id_list)
+    GROUP BY gm.group_id
+    HAVING COUNT(DISTINCT gm.user_id) = " . count($names) . "
+    AND NOT EXISTS (
+        SELECT 1 
+        FROM group_members gm2 
+        WHERE gm2.group_id = gm.group_id 
+        AND gm2.user_id NOT IN ($id_list)
+    )";
+    $results_same_group = $DB->read($query);
+
+    if ($results_same_group != "") {
+        print_r($results_same_group); die;
+    }
 
     // create group on db
     $data = [];
