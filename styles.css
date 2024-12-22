@@ -263,6 +263,7 @@ input[type="submit"]:hover {
 #messages_wrapper {
     height: 90%;
     overflow-y: scroll;
+    padding-right: 8px;
 }
 
 .message_container {
