@@ -2,6 +2,8 @@
 
     global $DATA_OBJ, $DB, $info;
 
+    $logged_user = $_SESSION['userid'];
+
     $new_message = false;
 
     $refresh = false;
@@ -112,17 +114,22 @@
 
         $all_chats = $DB->findAllMyChat($_SESSION['userid']);
 
-        $query = "SELECT * 
-            FROM `messages` AS m1
-            WHERE `group_id` IS NOT NULL 
-              AND `id` = (
+        $data = [];
+        $data["userid"] = $logged_user;
+        $query = "SELECT m1.* 
+            FROM `messages` AS m1 
+            JOIN `group_members` AS gm ON m1.group_id = gm.group_id 
+            WHERE m1.`group_id` IS NOT NULL 
+              AND gm.`user_id` = :userid  
+              AND m1.`id` = (
                   SELECT MAX(`id`) 
                   FROM `messages` AS m2 
                   WHERE m1.`group_id` = m2.`group_id`
               )
-            ORDER BY `id` DESC;
+            ORDER BY m1.`id` DESC;
             ";
-        $all_group_chats = $DB->read($query);
+
+        $all_group_chats = $DB->read($query, $data);
 
         $aggregated_chats = "";
         if (is_array($all_group_chats) && is_array($all_chats)) {
