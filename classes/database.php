@@ -180,6 +180,36 @@ Class Database {
         return false;
     }
 
+    public function hasPermission($userId, $groupId, $permissionName) {
+        $con = $this->connect();
+
+        $data = [
+            'user_id' => $userId,
+            'group_id' => $groupId,
+            'permission_name' => $permissionName
+        ];
+
+        $query = "SELECT COUNT(*) as count
+              FROM group_member_roles gmr
+              JOIN role_permissions rp ON rp.role_id = gmr.role_id
+              JOIN permissions p ON p.id = rp.permission_id
+              WHERE gmr.user_id = :user_id 
+              AND gmr.group_id = :group_id
+              AND p.name = :permission_name";
+
+        $stmt = $con->prepare($query);
+        $check = $stmt->execute($data);
+        print_r($check); die;
+        if ($check) {
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
+            if (is_array($result) && count($result) > 0) {
+                return $result[0];
+            }
+            return false;
+        }
+        return false;
+    }
+
     public function generate_id($max) {
         $generated_id = 0;
         for ($i = 0; $i < 10; $i++) {
