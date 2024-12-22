@@ -2,8 +2,6 @@
 
     global $DATA_OBJ, $DB, $info;
 
-    print_r($DATA_OBJ); die;
-
     $my_group = "";
 
     // get the group chat
@@ -44,6 +42,9 @@
         $html_contacts_panel = "
                     <h3>You are chatting with: </h3>
                     <h4>Group: $my_group->group_name </h4>
+                    <div>
+                        <button onclick='getChats(event)'>Back</button>
+                    </div>
                     <h5>Members: </h5>
                     <p>";
 
