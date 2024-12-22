@@ -337,18 +337,18 @@ input[type="submit"]:hover {
     border-radius: 8px;
 }
 
+.previous_chat_item {
+    padding: 2px 8px;
+    cursor: pointer;
+    margin: 12px 0;
+    background-color: var(--navy3);
+}
+
 .previous_chat_item h5,
 .previous_chat_item p {
     overflow: hidden;          /* Hide the overflow content */
     text-overflow: ellipsis;   /* Add "..." at the end of overflowing text */
     white-space: nowrap;       /* Prevent text from wrapping to the next line */
-}
-
-.previous_chat_item {
-    padding: 2px 8px;
-    cursor: pointer;
-    margin: 16px 0;
-    background-color: var(--navy3);
 }
 
 .previous_chat_item * {

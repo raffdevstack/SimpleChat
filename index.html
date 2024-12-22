@@ -260,7 +260,15 @@
         }
 
         function sendGroupMessage(e) {
-
+            let text = document.getElementById("message_text").value.trim();
+            if (text === "") {
+                alert("Please type something to send to group");
+                return;
+            }
+            getData({
+                text: text,
+                group_id: GROUP_ID
+            },"send_message");
         }
 
         function collectUpdatedSettings() {

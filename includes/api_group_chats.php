@@ -104,7 +104,7 @@
                     <label for='message_file' id='file_input_label'>File</label>
                     <input type='file' id='message_file' style='display: none' >
                     <input type='text' id='message_text' placeholder='Enter your message here...' >
-                    <input type='button' onclick='sendMessage(event)' id='send_message' value='SEND'>    
+                    <input type='button' onclick='sendGroupMessage(event)' id='send_message' value='SEND'>    
                 </div>
                 ";
 
