@@ -112,7 +112,16 @@
 
         $all_chats = $DB->findAllMyChat($_SESSION['userid']);
 
-        $query = "SELECT * FROM `messages` WHERE `group_id` IS NOT NULL GROUP BY `group_id` ";
+        $query = "SELECT * 
+            FROM `messages` AS m1
+            WHERE `group_id` IS NOT NULL 
+              AND `id` = (
+                  SELECT MAX(`id`) 
+                  FROM `messages` AS m2 
+                  WHERE m1.`group_id` = m2.`group_id`
+              )
+            ORDER BY `id` DESC;
+            ";
         $all_group_chats = $DB->read($query);
 
         $aggregated_chats = "";

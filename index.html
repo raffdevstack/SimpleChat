@@ -215,6 +215,14 @@
                         case "group_chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
+                            const wrapper_el2 = document.getElementById("messages_wrapper");
+                            wrapper_el2.scrollTo(0,wrapper_el2.scrollHeight);
+                            const text_input_el2 = document.getElementById("message_text");
+                            text_input_el2.focus();
+                            if (typeof(obj_result.new_message) !== undefined) {
+                                if (obj_result.new_message)
+                                    playNotification();
+                            }
                             break;
                         case "error":
                             alert("Error:" + obj_result.message);
