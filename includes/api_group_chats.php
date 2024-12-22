@@ -53,8 +53,11 @@
                     <div>
                         <button onclick='getChats(event)'>Back</button>
                     </div>
-                    <h5 style='display: inline-block'>Your Role: </h5>
+                    <h5 style='display: inline-block'>Your Role: </h5> 
                     <p style='display: inline-block'>$me_as_member->role</p>
+                    <h5>Actions: </h5>
+                    <button>Change group name</button>
+                    <button>Delete Group</button>
                     <h5>Members: </h5>
                     <p>";
 
