@@ -54,8 +54,15 @@
                     <h5 style='display: inline-block'>Your Role: </h5> 
                     <p style='display: inline-block'>$me_as_member->role</p>
                     <h5>Actions: </h5>
-                    <button>Change group name</button>
-                    <button>Delete Group</button>
+                    ";
+
+        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_message')->count
+            > 0
+        ) {
+            $html_contacts_panel .= "<button>Delete Group</button>";
+        }
+
+        $html_contacts_panel .= "                    
                     <h5>Members: </h5>
                     <p>";
 

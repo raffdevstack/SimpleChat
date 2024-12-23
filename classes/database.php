@@ -199,7 +199,7 @@ Class Database {
 
         $stmt = $con->prepare($query);
         $check = $stmt->execute($data);
-        print_r($check); die;
+
         if ($check) {
             $result = $stmt->fetchAll(PDO::FETCH_OBJ); // it needs to be an object
             if (is_array($result) && count($result) > 0) {
