@@ -16,7 +16,7 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
     $names = [];
 
     // retrieve names from db
-    $id_list = implode(",", array_map('intval', $users_array)); // Convert the user IDs to integers to prevent SQL injection
+    $id_list = implode(",", $users_array);
     $query = "SELECT `first_name` FROM `users` WHERE `userid` IN ($id_list) LIMIT 3";
     $selected_users = $DB->read($query);
 
