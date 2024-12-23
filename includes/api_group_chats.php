@@ -47,7 +47,7 @@
 
         $html_contacts_panel = "
                     <h3>You are chatting with: </h3>
-                    <h4>Group: $my_group->group_name </h4>
+                    <h4>$my_group->group_name </h4>
                     <div>
                         <button onclick='getChats(event)'>Back</button>
                     </div>

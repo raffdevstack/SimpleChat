@@ -13,20 +13,8 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
     // find me
     $me = $DB->userFinderId($logged_user);
 
-    $names = [];
-
     // retrieve names from db
     $id_list = implode(",", $users_array);
-    $query = "SELECT `first_name` FROM `users` WHERE `userid` IN ($id_list) LIMIT 3";
-    $selected_users = $DB->read($query);
-
-    if (is_array($selected_users)) {
-        foreach ($selected_users as $user) {
-            $names[] = $user->first_name;
-        }
-    }
-
-    $concatenated_names = implode(", ", $names);
 
     // search groups with the users
     $query = "SELECT gm.group_id
@@ -49,9 +37,11 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
         exit;
     }
 
+    $created_group_name = "Group ". $DB->generate_id(1000);
+
     // create group on db
     $data = [];
-    $data['name'] = $concatenated_names;
+    $data['name'] = "$created_group_name";
     $data['created_by'] = $logged_user;
     $query = "INSERT INTO `groups`(`group_name`,`created_by`) VALUES(:name,:created_by)";
     $result = $DB->write($query, $data);
@@ -62,7 +52,7 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
 //        get the group
         $data = [];
-        $data["gc_name"] = $concatenated_names;
+        $data["gc_name"] = $created_group_name;
         $query = "SELECT * FROM `groups` ORDER BY `created_at` AND `group_name` = :gc_name DESC LIMIT 1;";
         $group_chat = $DB->read($query, $data);
 
