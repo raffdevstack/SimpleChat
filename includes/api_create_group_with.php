@@ -69,18 +69,37 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
                 if ($i == 0) {
                     $data["role"] = "admin";
-                    $query = "INSERT INTO `group_members`(`group_id`, `user_id`, `role`) VALUES(:group_id, :user_id, :role)";
-                    $result = $DB->write($query, $data);
                 } else {
                     $data["role"] = "member";
-                    $query = "INSERT INTO `group_members`(`group_id`, `user_id`, `role`) VALUES(:group_id, :user_id, :role)";
-                    $result = $DB->write($query, $data);
                 }
+
+                $query = "INSERT INTO `group_members`(`group_id`, `user_id`, `role`) VALUES(:group_id, :user_id, :role)";
+                $result = $DB->write($query, $data);
 
                 if ($result) {
                     $info->message = "Your group has been created.";
                     $info->group_id = $gc->id;
                     $info->data_type = "create_group_with";
+
+                    $role_data = [];
+                    $role_data["role"] = $data["role"];
+                    $roles_query = "SELECT * FROM `roles` WHERE `name` = :role LIMIT 1";
+                    $roles_from_db = $DB->read($roles_query, $role_data);
+                    $role_from_db = $roles_from_db[0];
+
+                    $gmr_data = [];
+                    $gmr_data["group_id"] = $gc->id;
+                    $gmr_data["user_id"] = $user;
+                    $gmr_data["role_id"] = $role_from_db->id;
+                    $gmr_query = "INSERT INTO `group_member_roles`(`group_id`, `user_id`, `role_id`) 
+                        VALUES(:group_id, :user_id, :role_id)";
+                    $gmr_result = $DB->write($gmr_query, $gmr_data);
+
+                    if ($gmr_result) {
+                        $info->message = "Your group and permissions has been created.";
+                        $info->group_id = $gc->id;
+                        $info->data_type = "create_group_with";
+                    }
                 }
 
             }
