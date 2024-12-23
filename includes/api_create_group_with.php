@@ -33,7 +33,7 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
     FROM group_members gm
     WHERE gm.user_id IN ($id_list)
     GROUP BY gm.group_id
-    HAVING COUNT(DISTINCT gm.user_id) = " . count($names) . "
+    HAVING COUNT(DISTINCT gm.user_id) = " . count($users_array) . "
     AND NOT EXISTS (
         SELECT 1 
         FROM group_members gm2 

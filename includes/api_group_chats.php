@@ -43,8 +43,6 @@
             }
         }
 
-
-
         $html_contacts_panel = ""; // initialize
 
         $html_contacts_panel = "
