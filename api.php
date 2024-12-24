@@ -53,6 +53,8 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_create_group.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "create_group_with") {
     include("includes/api_create_group_with.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "add_group_member") {
+    include("includes/api_add_group_member.php");
 }
 
 // template for messages on the left side

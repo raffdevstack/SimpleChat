@@ -80,6 +80,8 @@
 
         const radio_contacts_el = document.getElementById("radio_contacts");
 
+        const radio_settings_el = document.getElementById("radio_settings");
+
         const inner_right_wrapper_el = document.getElementById("inner_right_wrapper");
 
         const label_group_chat_el = document.getElementById("label_group_chat");
@@ -203,6 +205,12 @@
                             }
                             break;
                         case "create_group":
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
+                            break;
+                        case "add_group_member":
+                            radio_settings_el.checked = true;
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
@@ -483,6 +491,13 @@
 
         function createGroup() {
             getData({},"create_group");
+        }
+
+        function addGroupMember(e) {
+            const group_id = e.target.getAttribute("group_id");
+            getData({
+                group_id: group_id
+            },"add_group_member");
         }
 
         function createGroupWith() {
