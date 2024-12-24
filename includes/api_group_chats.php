@@ -29,7 +29,7 @@
         $members_userid = [];
         $data = [];
         $data["group_id"] = $my_group->id;
-        $query = "SELECT * FROM `group_members` WHERE `group_id` = :group_id GROUP BY `user_id`";
+        $query = "SELECT * FROM `group_member_roles` WHERE `group_id` = :group_id GROUP BY `user_id`";
         $members = $DB->read($query, $data);
 
         // collect the userid of the all members
@@ -52,7 +52,7 @@
                         <button onclick='getChats(event)'>Back</button>
                     </div>
                     <h5 style='display: inline-block'>Your Role: </h5> 
-                    <p style='display: inline-block'>$me_as_member->role</p>
+                    <p style='display: inline-block'>$me_as_member->role_id</p>
                     <h5>Actions: </h5>
                     ";
 

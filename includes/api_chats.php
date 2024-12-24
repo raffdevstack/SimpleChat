@@ -120,9 +120,9 @@
         $data["userid"] = $logged_user;
         $query = "SELECT m1.* 
             FROM `messages` AS m1 
-            JOIN `group_members` AS gm ON m1.group_id = gm.group_id 
+            JOIN `group_member_roles` AS gmr ON m1.group_id = gmr.group_id 
             WHERE m1.`group_id` IS NOT NULL 
-              AND gm.`user_id` = :userid  
+              AND gmr.`user_id` = :userid  
               AND m1.`id` = (
                   SELECT MAX(`id`) 
                   FROM `messages` AS m2 
@@ -214,6 +214,7 @@
         $html_messages = "
             <div id='messages_wrapper'>
                 <h1>click chats to open</h1>
+                <input id='message_text' style='display: none'>
             </div>
         ";
 

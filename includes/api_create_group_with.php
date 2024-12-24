@@ -17,16 +17,16 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
     $id_list = implode(",", $users_array);
 
     // search groups with the users
-    $query = "SELECT gm.group_id
-    FROM group_members gm
-    WHERE gm.user_id IN ($id_list)
-    GROUP BY gm.group_id
-    HAVING COUNT(DISTINCT gm.user_id) = " . count($users_array) . "
+    $query = "SELECT gmr.group_id
+    FROM group_member_roles gmr
+    WHERE gmr.user_id IN ($id_list)
+    GROUP BY gmr.group_id
+    HAVING COUNT(DISTINCT gmr.user_id) = " . count($users_array) . "
     AND NOT EXISTS (
         SELECT 1 
-        FROM group_members gm2 
-        WHERE gm2.group_id = gm.group_id 
-        AND gm2.user_id NOT IN ($id_list)
+        FROM group_member_roles gmr2 
+        WHERE gmr2.group_id = gmr.group_id 
+        AND gmr2.user_id NOT IN ($id_list)
     )";
     $results_same_group = $DB->read($query);
 
@@ -62,44 +62,25 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
             $data = [];
             $data["group_id"] = $gc->id;
 
-            for ($i = 0; $i < count($users_array); $i++) {
+            for ($i = 0; $i < count($users_array); $i++) { // traverses all users
 
-                $user = $users_array[$i];  // Make sure to retrieve the user at index $i
+                $user = $users_array[$i];  // retrieve the user at count $i
                 $data["user_id"] = $user;
 
-                if ($i == 0) {
-                    $data["role"] = "admin";
+                if ($i == 0) { // the first user as admin which is always me
+                    $data["role_id"] = 1;
                 } else {
-                    $data["role"] = "member";
+                    $data["role_id"] = 3;
                 }
 
-                $query = "INSERT INTO `group_members`(`group_id`, `user_id`, `role`) VALUES(:group_id, :user_id, :role)";
+                $query = "INSERT INTO `group_member_roles`(`group_id`, `user_id`, `role_id`) VALUES(:group_id, :user_id, :role_id)";
                 $result = $DB->write($query, $data);
 
                 if ($result) {
-                    $info->message = "Your group has been created.";
+                    $info->message = "Your group and permissions has been created.";
                     $info->group_id = $gc->id;
                     $info->data_type = "create_group_with";
 
-                    $role_data = [];
-                    $role_data["role"] = $data["role"];
-                    $roles_query = "SELECT * FROM `roles` WHERE `name` = :role LIMIT 1";
-                    $roles_from_db = $DB->read($roles_query, $role_data);
-                    $role_from_db = $roles_from_db[0];
-
-                    $gmr_data = [];
-                    $gmr_data["group_id"] = $gc->id;
-                    $gmr_data["user_id"] = $user;
-                    $gmr_data["role_id"] = $role_from_db->id;
-                    $gmr_query = "INSERT INTO `group_member_roles`(`group_id`, `user_id`, `role_id`) 
-                        VALUES(:group_id, :user_id, :role_id)";
-                    $gmr_result = $DB->write($gmr_query, $gmr_data);
-
-                    if ($gmr_result) {
-                        $info->message = "Your group and permissions has been created.";
-                        $info->group_id = $gc->id;
-                        $info->data_type = "create_group_with";
-                    }
                 }
 
             }
