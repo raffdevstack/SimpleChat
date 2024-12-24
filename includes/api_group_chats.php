@@ -52,14 +52,42 @@
                         <button onclick='getChats(event)'>Back</button>
                     </div>
                     <h5 style='display: inline-block'>Your Role: </h5> 
-                    <p style='display: inline-block'>$me_as_member->role_id</p>
+                    ";
+        // get the role
+        $get_role_data = [
+            "role_id" => $me_as_member->role_id,
+        ];
+        $get_role_query = "SELECT * FROM `roles` WHERE `id` = :role_id LIMIT 1";
+        $get_role = $DB->read($get_role_query, $get_role_data);
+
+        if (isset($get_role)) {
+            $role = $get_role[0];
+            $html_contacts_panel .= "
+                 <p style='display: inline-block'>$role->name</p>
+            ";
+        }
+
+        $html_contacts_panel .="
                     <h5>Actions: </h5>
                     ";
 
-        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_message')->count
-            > 0
-        ) {
+        $is_permitted = false;
+        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'add_member')->count > 0) {
+            $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id' 
+                onclick='addGroupMember(event)'>Add Member</button>";
+            $is_permitted = true;
+        }
+        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'rename_group')->count > 0) {
+            $html_contacts_panel .= "<button>Rename Group</button>";
+            $is_permitted = true;
+        }
+        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_group')->count > 0) {
             $html_contacts_panel .= "<button>Delete Group</button>";
+            $is_permitted = true;
+        }
+
+        if (!$is_permitted) {
+            $html_contacts_panel .= "A member has limited permissions to this group.";
         }
 
         $html_contacts_panel .= "                    
