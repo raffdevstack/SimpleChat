@@ -1,5 +1,7 @@
 <?php
 
+    // last check 12/24/24
+
     global $DATA_OBJ, $DB, $info;
 
     $logged_user = $_SESSION['userid'];
@@ -20,7 +22,7 @@
 
         $chat_other_user = $DB->getChatReceiver($DATA_OBJ->userid);
 
-        if ($chat_other_user) {
+        if ($chat_other_user) {  // if other user is found in database
 
             $html_contacts_panel = ""; // initialize
             if (!$refresh) { // don't redisplay if we are refreshing the messages
@@ -106,7 +108,7 @@
                 $info->data_type = "chats_refresh";
             }
         } else { // if other user is not found
-            $info->chat_contact = "No chats found";
+            $info->chat_contact = "No chats found in records";
             $info->data_type = "error";
         }
 
@@ -140,6 +142,7 @@
             $aggregated_chats = $all_group_chats;
         }
 
+        // sort aggregated chats by latest
         if (is_array($aggregated_chats)) {
             usort($aggregated_chats, function ($a, $b) {
                 return $b->id - $a->id;
@@ -171,7 +174,7 @@
                     </div>
                     ";
 
-                } else {
+                } else { // not a group message
 
                     $other_user_id = $chat->sender; // the default other user is the sender.
                     if ($chat->sender == $_SESSION['userid']) { // if the sender is me,
@@ -200,8 +203,8 @@
             };
 
 
-                $html_previous_chats_panel .= "
-            </div>
+            $html_previous_chats_panel .= "
+                </div>
             ";
 
         } else { // if we can't find any chat
@@ -211,7 +214,6 @@
         $html_messages = "
             <div id='messages_wrapper'>
                 <h1>click chats to open</h1>
-                <input id='message_text' style='display: none'>
             </div>
         ";
 
