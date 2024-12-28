@@ -23,8 +23,8 @@ body {
 #logo {
     display: block;
     margin: 0 auto 10px;
-    max-width: 250px; /* Adjust size as needed */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 150px;
+    height: auto;
 }
 
 #form_wrapper {
@@ -42,7 +42,7 @@ h2 {
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 label {
@@ -50,27 +50,29 @@ label {
     font-weight: 500;
 }
 
+input[type="text"],
 input[type="email"],
 input[type="password"] {
+    margin-top: 2px;
     width: 94.5%;
     padding: 10px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
     transition: border-color 0.3s ease;
 }
 
+input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
     border-color: #6C63FF;
 }
 
-input[type="submit"] {
-    margin-top: 10px;
+button[type="submit"] {
     width: 100%;
     padding: 10px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: #fff;
     background: #3A3D98;
@@ -80,7 +82,7 @@ input[type="submit"] {
     transition: background 0.3s ease;
 }
 
-input[type="submit"]:hover {
+button[type="submit"]:hover {
     background: #008080;
 }
 
@@ -88,7 +90,7 @@ a {
     text-align: center;
     color: #6C63FF;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     transition: color 0.3s ease;
 }
 
@@ -96,8 +98,8 @@ a:hover {
     color: #3A3D98;
 }
 
-#message {
-    text-align: center;
+.input_errors {
+    font-size: 0.8rem;
     color: #d32f2f;
-    font-size: 0.9rem;
+    margin: 3px 0 3px;
 }
