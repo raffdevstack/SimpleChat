@@ -4,91 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Chat - Login</title>
+    <link rel="icon" type="image/png" href="./images/Icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="loginStyles.css">
 </head>
 <body>
-
     <div id="wrapper">
         <div id="form_wrapper">
-
-            <h2>Login</h2>
-
+            <img src="./images/Logo.png" alt="Logo" id="logo">
             <form id="loginForm">
-
+        
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required autofocus>
-
+        
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
+        
                 <input type="submit" id="login_button" value="Login">
-
+        
                 <a href="signup.html">Don't have an account? Sign up here.</a>
-
             </form>
             <p id="message"></p>
-        </div>
+        </div>        
     </div>
     
-    <script>
-        const login_button = document.getElementById("login_button");
-        login_button.addEventListener("click", collectData);
+    <script src="loginJS.js?v=1.0"></script>
 
-        function collectData(event) {
-            event.preventDefault();
-            login_button.disabled = true;
-            login_button.value = "Loading... Please wait...";
-
-            const formData = {};
-            const inputs = document.querySelectorAll("#loginForm input");
-            
-            inputs.forEach(input => {
-                const name = input.name;
-                const value = input.value;
-                if (name) formData[name] = value;
-            });
-
-            sendDataToServer(formData, 'login');
-        }
-
-        function sendDataToServer(data, type) {
-            const xhr = new XMLHttpRequest();
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    handle_result(xhr.responseText);
-                    login_button.disabled = false;
-                    login_button.value = "Login";
-                }
-            };
-
-            data.data_type = type;
-            const data_string = JSON.stringify(data);
-
-            xhr.open("POST", "api.php", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(data_string);
-        }
-
-        function handle_result(result) {
-            console.log(result);
-
-            if (result.trim() !== "") {
-                const obj_result = JSON.parse(result);
-
-                switch (obj_result.data_type) {
-                    case "info":
-                        alert(obj_result.message);
-                        window.location = "index.html";
-                        break;
-                    case "error":
-                        document.getElementById("message").textContent = obj_result.message;
-                        break;
-                }
-            }
-        }
-
-    </script>
 </body>
 </html>
