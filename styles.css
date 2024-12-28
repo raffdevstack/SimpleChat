@@ -85,7 +85,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     color: var(--dwhite);
 }
 
-input[type="submit"] {
+input[type="submit"], #logout {
     padding: 10px;
     border: none;
     background-color: var(--teal);
