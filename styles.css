@@ -1,3 +1,6 @@
+
+/* github test */
+
 * {
     box-sizing: border-box;
 }
@@ -342,7 +345,7 @@ input[type="submit"]:hover {
     cursor: pointer;
     margin: 12px 0;
     background-color: var(--navy3);
-    border-radius: 24px;
+    border-radius: 8px;
 }
 
 .previous_chat_item h5,
