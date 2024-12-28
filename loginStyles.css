@@ -44,7 +44,7 @@ label {
 
 input[type="email"],
 input[type="password"] {
-    width: 80%;
+    width: 90%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -59,6 +59,7 @@ input[type="password"]:focus {
 }
 
 input[type="submit"] {
+    width: 90%;
     padding: 10px;
     font-size: 1rem;
     font-weight: 700;
