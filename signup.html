@@ -6,7 +6,113 @@
     <title>Simple Chat - Sign Up</title>
     <link rel="icon" type="image/png" href="./images/Icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="signupStyles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #008080, #3A3D98);
+            color: #fff;
+        }
+
+        #wrapper {
+            background: #001f3f81;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        #logo {
+            display: block;
+            margin: 0 auto 10px;
+            max-width: 150px;
+            height: auto;
+        }
+
+        #form_wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0 0 20px;
+            color: #6C63FF;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            margin-top: 2px;
+            width: 94.5%;
+            padding: 10px;
+            font-size: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #6C63FF;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+            background: #3A3D98;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: #008080;
+        }
+
+        a {
+            text-align: center;
+            color: #6C63FF;
+            text-decoration: none;
+            font-size: 0.7rem;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #3A3D98;
+        }
+
+        .input_errors {
+            font-size: 0.8rem;
+            color: #d32f2f;
+            margin: 3px 0 3px;
+        }
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -51,6 +157,109 @@
             </form>
         </div>        
     </div>
-    <script src="signupJS.js?v=1.0"></script>
+    <script>
+        const signup_button = document.getElementById("signup_button");
+        signup_button.addEventListener("click", collectData);
+
+        function raffyCustomConsole(description, data) {
+            console.log(" ::::: " + description.toUpperCase() + " ::::: " + data);
+        }
+
+        function collectData() {
+            signup_button.disabled = true;
+            signup_button.value = "Loading... Please wait...";
+            const formData = {};  // Create an object to store input data
+            const inputs = document.querySelectorAll("#signupForm input");  // Select all input elements
+
+            // Iterate over each input element in the form
+            for (let i = 0; i < inputs.length; i++) {
+
+                const input = inputs[i];
+                const name = input.name;
+                const value = input.value;
+
+                // Use a switch case to handle each input based on its name
+                switch (name) {
+
+                    case "first_name":
+                        formData.first_name = value;
+                        break;
+                    case "last_name":
+                        formData.last_name = value;
+                        break;
+                    case "email":
+                        formData.email = value;
+                        break;
+                    case "password":
+                        formData.password = value;
+                        break;
+                    case "password_confirm":
+                        formData.password_confirm = value;
+                        break;
+                    default:
+                        console.log(`Unknown input: ${name}`);
+                }
+            }
+
+            sendDataToServer(formData, 'signup');
+        }
+
+        // Function to send data to the server using AJAX (XMLHttpRequest)
+        function sendDataToServer(data, type) {
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+                if (xhr.status === 200 || xhr.readyState === 4) {
+                    handle_result(xhr.responseText);
+                    signup_button.disabled = false;
+                    signup_button.value = "Signup";
+                }
+            };
+
+            data.data_type = type; // the type is sent to the data object
+            let data_string = JSON.stringify(data);
+
+            xhr.open("POST","api.php",true);
+            xhr.send(data_string);
+        }
+
+        function handle_result(result) {
+
+            raffyCustomConsole("from handle result",result);
+
+            if (result.trim() !== "") {
+
+                let obj_result = JSON.parse(result);
+
+                switch (obj_result.data_type) { // goes through all data types
+                    case "info":
+                        alert(obj_result.message);
+                        window.location = "login.html";
+                        break;
+                    case "error":
+
+                        raffyCustomConsole("from error block", obj_result.message.first_name);
+
+                        displayErrors(obj_result.message);
+                }
+            }
+        }
+
+        function displayErrors(errors) {
+
+            for (const [key, error] of Object.entries(errors)) {
+
+                const error_element = document.getElementById(`${key}_error`);
+
+                if (error_element) {
+
+                    error_element.textContent = error;
+                    error_element.style.display = "block";
+
+                }
+            }
+        }
+    </script>
 </body>
 </html>

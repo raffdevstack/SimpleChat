@@ -6,7 +6,111 @@
     <title>Simple Chat - Login</title>
     <link rel="icon" type="image/png" href="./images/Icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="loginStyles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #008080, #3A3D98);
+            color: #fff;
+        }
+
+        #wrapper {
+            background: #001f3f81;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        #logo {
+            display: block;
+            margin: 0 auto 10px;
+            max-width: 250px; /* Adjust size as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        #form_wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0 0 20px;
+            color: #6C63FF;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 94.5%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #6C63FF;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            background: #3A3D98;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #008080;
+        }
+
+        a {
+            text-align: center;
+            color: #6C63FF;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #3A3D98;
+        }
+
+        #message {
+            text-align: center;
+            color: #d32f2f;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -27,6 +131,64 @@
             <p id="message"></p>
         </div>        
     </div>
-    <script src="loginJS.js?v=1.0"></script>
+
+    <script>
+        const login_button = document.getElementById("login_button");
+        login_button.addEventListener("click", collectData);
+
+        function collectData(event) {
+            event.preventDefault();
+            login_button.disabled = true;
+            login_button.value = "Loading... Please wait...";
+
+            const formData = {};
+            const inputs = document.querySelectorAll("#loginForm input");
+
+            inputs.forEach(input => {
+                const name = input.name;
+                const value = input.value;
+                if (name) formData[name] = value;
+            });
+
+            sendDataToServer(formData, 'login');
+        }
+
+        function sendDataToServer(data, type) {
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    handle_result(xhr.responseText);
+                    login_button.disabled = false;
+                    login_button.value = "Login";
+                }
+            };
+
+            data.data_type = type;
+            const data_string = JSON.stringify(data);
+
+            xhr.open("POST", "api.php", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(data_string);
+        }
+
+        function handle_result(result) {
+            console.log(result);
+
+            if (result.trim() !== "") {
+                const obj_result = JSON.parse(result);
+
+                switch (obj_result.data_type) {
+                    case "info":
+                        alert(obj_result.message);
+                        window.location = "index.html";
+                        break;
+                    case "error":
+                        document.getElementById("message").textContent = obj_result.message;
+                        break;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
