@@ -76,7 +76,7 @@
         }
 
         input[type="submit"] {
-            margin-top: 10px;
+            margin-top: 16px;
             width: 100%;
             padding: 10px;
             font-size: 1rem;
@@ -105,11 +105,16 @@
             color: #3A3D98;
         }
 
-        #message {
-            text-align: center;
-            color: #d32f2f;
-            font-size: 0.9rem;
+        .input_errors {
+            color: red;
+            display: none;
+            margin: 0;
         }
+
+        #link_to_signup {
+            margin-top: 16px;
+        }
+
     </style>
 </head>
 <body>
@@ -120,15 +125,16 @@
         
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required autofocus>
-        
+                <p class="input_errors" id="email_error"></p>
+
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
-        
+                <p class="input_errors" id="password_error"></p>
+
                 <input type="submit" id="login_button" value="Login">
         
-                <a href="signup.html">Don't have an account? Sign up here.</a>
+                <a id="link_to_signup" href="signup.html">Don't have an account? Sign up here.</a>
             </form>
-            <p id="message"></p>
         </div>        
     </div>
 
@@ -183,9 +189,27 @@
                         alert(obj_result.message);
                         window.location = "index.html";
                         break;
-                    case "error":
-                        document.getElementById("message").textContent = obj_result.message;
+                    case "cred_error":
+                        alert(obj_result.message);
                         break;
+                    case "error":
+                        displayErrors(obj_result.message);
+                        break;
+                }
+            }
+        }
+
+        function displayErrors(errors) {
+
+            for (const [key, error] of Object.entries(errors)) {
+
+                const error_element = document.getElementById(`${key}_error`);
+
+                if (error_element) {
+
+                    error_element.textContent = error;
+                    error_element.style.display = "block";
+
                 }
             }
         }

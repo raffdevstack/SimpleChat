@@ -4,19 +4,19 @@ $info = (Object)[]; // this info object will be the base of the respose to ajax
 
 global $DATA_OBJ, $DB;
 
-$errors = "";
+$errors = [];
 
 $data = false;
 $data['email'] = $DATA_OBJ->email;
 
 if ($DATA_OBJ->email == "") {
-    $errors .= "Email is required";
+    $errors['email'] = "Email is required";
 }
 if ($DATA_OBJ->password == "") {
-    $errors .= "Password is required";
+    $errors['password'] = "Password is required";
 }
 
-if ($errors == "") {
+if ($errors == []) {
 
     $query = "SELECT * FROM `users` WHERE `email` = :email LIMIT 1"; // to get the user first
     $result = $DB->read($query, $data);
@@ -34,14 +34,14 @@ if ($errors == "") {
         } else {
 
             $info->message = "Wrong credentials";
-            $info->data_type = "error";
+            $info->data_type = "cred_error";
 
         }
 
     } else {
 
         $info->message = "Wrong credentials";
-        $info->data_type = "error";
+        $info->data_type = "cred_error";
 
     }
 

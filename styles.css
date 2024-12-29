@@ -109,6 +109,7 @@ input[type="submit"]:hover {
 .input_errors {
     color: red;
     display: none;
+    margin: 0;
 }
 
 #form_wrapper {
