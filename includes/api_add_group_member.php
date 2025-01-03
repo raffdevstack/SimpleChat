@@ -2,6 +2,9 @@
 
 global $info, $DB, $DATA_OBJ;
 
+fakjdfajf
+get group id to update
+
 $logged_user = $_SESSION['userid'];
 
 if(isset($DATA_OBJ->group_id)) {
@@ -9,8 +12,14 @@ if(isset($DATA_OBJ->group_id)) {
     $group_id = $DATA_OBJ->group_id;
 
     // get users that are not my group members
-    // get users list first
-    $sql = "SELECT * FROM `users` WHERE `userid`!='$logged_user' ";
+    $sql = "
+        SELECT u.*
+        FROM users u
+        LEFT JOIN group_member_roles gm ON u.userid = gm.userid
+        WHERE u.userid != '$logged_user' 
+          AND (gm.group_id IS NULL OR gm.group_id != '$group_id')
+    ";
+
     $users = $DB->read($sql);
 }
 
@@ -37,7 +46,7 @@ if (is_array($users)) {
 
 $html_markup .= '
             </div>
-            <input type="button" id="add_group_with_btn" onclick="addGroupWith()" value="Add To Group">
+            <input type="button" id="add_member_btn" onclick="addAsGroupMember()" value="Add To Group">
         </form>
     </div>
 ';
