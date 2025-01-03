@@ -47,11 +47,12 @@
 
         $html_contacts_panel = "
                     <h3>You are chatting with: </h3>
-                    <h4>$my_group->group_name </h4>
-                    <div>
-                        <button onclick='getChats(event)'>Back</button>
-                    </div>
-                    <h5 style='display: inline-block'>Your Role: </h5> 
+                    <div id='group_chat_side_bar'>
+                        <h4>$my_group->group_name </h4>
+                        <div>
+                            <button onclick='getChats(event)'>Back</button>
+                        </div>
+                        <h5 style='display: inline-block'>Your Role: </h5> 
                     ";
         // get the role
         $get_role_data = [
@@ -104,7 +105,10 @@
             }
         }
 
-        $html_contacts_panel .= "</p>";
+        $html_contacts_panel .= "
+                </p>
+            </div>
+        ";
 
         // get all messages from group_id
         $arr = [];

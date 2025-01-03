@@ -178,6 +178,7 @@ input[type="submit"]:hover {
     flex: 1;
     padding: 16px;
     border-right: 2px solid #e5e7eb;
+    height: 100%;
 }
 
 #contacts_container {
@@ -370,3 +371,7 @@ button.group_actions {
     margin-bottom: 4px;
 }
 
+#group_chat_side_bar {
+    overflow-y: auto;
+    height: 80%;
+}
