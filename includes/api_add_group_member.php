@@ -21,9 +21,8 @@ if(isset($DATA_OBJ->group_id)) {
     ";
 
     $users = $DB->read($sql, $data);
-}
 
-$html_markup = '
+    $html_markup = '
 
     <div id="create_group_wrapper">
         <h2>Edit Group Chat</h2>
@@ -33,24 +32,34 @@ $html_markup = '
         
     ';
 
-if (is_array($users)) {
-    foreach ($users as $user) {
-        $fullname = $user->first_name . " " . $user->last_name;
-        $html_markup .= "
+    if (is_array($users)) {
+        foreach ($users as $user) {
+            $fullname = $user->first_name . " " . $user->last_name;
+            $html_markup .= "
             <label class='gc_contact'>
                 <input type='checkbox' name='$user->userid' >
                 <p>$fullname</p>
             </label>";
+        }
+        $html_markup .= '
+                    </div>
+                    <input type="button" groupid="' . htmlspecialchars($DATA_OBJ->group_id, ENT_QUOTES, 'UTF-8') . '" 
+                       id="add_member_btn" onclick="addAsGroupMember(event)" value="Add To Group">
+                </form>
+            </div>
+        ';
+
+    } else {
+        $html_markup .= "no contacts found";
     }
+
+    $info->message = $html_markup;
+    $info->data_type = "add_group_member"; // send to responseText
+
+} else {
+    $info->message = "No group found";
+    $info->data_type = "error"; // send to responseText
 }
 
-$html_markup .= '
-            </div>
-            <input type="button" group_id="" id="add_member_btn" onclick="addAsGroupMember()" value="Add To Group">
-        </form>
-    </div>
-';
 
-$info->message = $html_markup;
-$info->data_type = "add_group_member"; // send to responseText
 echo json_encode($info);

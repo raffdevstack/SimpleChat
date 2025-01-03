@@ -523,10 +523,16 @@
 
         }
 
-        function addAsGroupMember() {
+        function addAsGroupMember(e) {
+
             const add_member_btn = document.getElementById("add_member_btn");
             add_member_btn.disabled = true;
             add_member_btn.value = "Loading... Please wait...";
+
+            let groupid = e.target.getAttribute("groupid"); // it targets the element where the event happened
+            if (e.target.id === "") {
+                groupid = e.target.parentNode.getAttribute("groupid"); // when inner element catches the click
+            }
 
             const checked_users = { userid: [] };
             const inputs = document.querySelectorAll("#create_group_form input[type='checkbox']");
@@ -541,6 +547,8 @@
                 }
 
             }
+
+            checked_users.groupid = groupid;
 
             getData(checked_users, "add_as_member");
         }
