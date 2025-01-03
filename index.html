@@ -220,6 +220,11 @@
                             GROUP_ID = obj_result.group_id; // for stopping refresh
                             startChatWithGroup(obj_result.group_id);
                             break;
+                        case "add_as_member":
+                            alert(obj_result.message)
+                            GROUP_ID = obj_result.group_id; // for stopping refresh
+                            startChatWithGroup(obj_result.group_id);
+                            break;
                         case "group_chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;

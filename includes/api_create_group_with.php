@@ -3,7 +3,6 @@
 global $info, $DB, $DATA_OBJ;
 $logged_user = $_SESSION['userid'];
 
-
 if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
     $users_array = $DATA_OBJ->userid;
