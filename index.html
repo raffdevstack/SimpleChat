@@ -505,6 +505,13 @@
             },"add_group_member");
         }
 
+        function renameGroup(e) {
+            const group_id = e.target.getAttribute("group_id");
+            getData({
+                group_id: group_id
+            },"rename_group");
+        }
+
         function createGroupWith() {
             const create_group_with_btn = document.getElementById("create_group_with_btn");
             create_group_with_btn.disabled = true;
