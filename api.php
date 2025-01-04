@@ -57,7 +57,11 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_add_group_member.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "add_as_member") {
     include("includes/api_add_as_member.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "rename_group") {
+    include("includes/api_rename_group.php");
 }
+
+// renameGroup
 
 
 // template for messages on the left side

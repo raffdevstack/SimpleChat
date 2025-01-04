@@ -74,13 +74,13 @@
 
         $is_permitted = false;
         if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'add_member')->count > 0) {
-            $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id' 
+            $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id'
                 onclick='addGroupMember(event)'>Add Member</button>";
             $is_permitted = true;
         }
         if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'rename_group')->count > 0) {
             $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id'
-                onclick='renameGroup(event)>Rename Group</button>";
+                onclick='renameGroup(event)'>Rename Group</button>";
             $is_permitted = true;
         }
         if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_group')->count > 0) {

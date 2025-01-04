@@ -189,6 +189,12 @@
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
                             break;
+                        case "rename_group":
+                            radio_settings_el.checked = true;
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
+                            break;
                         case "save_settings":
                             alert("Message:" + obj_result.message);
                             getData({},"user_info");
@@ -563,6 +569,16 @@
             checked_users.groupid = groupid;
 
             getData(checked_users, "add_as_member");
+        }
+
+        function updateGroupName(e) {
+
+            let group_id = e.target.getAttribute("group_id"); // it targets the element where the event happened
+            if (e.target.id === "") {
+                group_id = e.target.parentNode.getAttribute("group_id"); // when inner element catches the click
+            }
+
+            getData(group_id, "update_group_name");
         }
 
         setInterval(function () {
