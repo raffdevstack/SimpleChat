@@ -59,10 +59,13 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_add_as_member.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "rename_group") {
     include("includes/api_rename_group.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "update_group_name") {
+    include("includes/api_update_group_name.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "delete_group") {
+    include("includes/api_delete_group.php");
 }
 
-// renameGroup
-
+// delete_group
 
 // template for messages on the left side
 function getMessageLeft($user, $message)

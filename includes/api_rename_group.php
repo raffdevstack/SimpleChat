@@ -21,19 +21,21 @@ if (isset($DATA_OBJ->group_id)) {
                 <h2>Edit Group Chat</h2>
                 <h4>Rename group</h4>
                 
-                <form id="settings_form">
+                <form id="rename_form">
                     
                     <div class="input-container">
                         <label for="group_name">Group Name:</label>
                          <br>
                         <input type="text" id="group_name" name="group_name" value="'.$group->group_name.'">
+                        <input type="text" id="group_id" name="group_id" value="'.$group->id.'"
+                            style="display: none">
                     </div>
                         
                     <br>
                     <br>
                     <br>
                     
-                    <input type="submit" group_id="'.$group->id.'" id="rename_group_btn" value="Rename Group" 
+                    <input type="button" id="rename_group_btn" value="Rename Group" 
                         onclick="updateGroupName(event)" />
 
                 </form>

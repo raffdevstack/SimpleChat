@@ -84,7 +84,23 @@
             $is_permitted = true;
         }
         if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_group')->count > 0) {
-            $html_contacts_panel .= "<button>Delete Group</button>";
+            $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id'
+                onclick='deleteGroup(event)'>Delete Group</button>";
+            $is_permitted = true;
+        }
+        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_group')->count > 0) {
+            $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id'
+                onclick='deleteGroup(event)'>Remove Member</button>";
+            $is_permitted = true;
+        }
+        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_group')->count > 0) {
+            $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id'
+                onclick='deleteGroup(event)'>Edit Roles</button>";
+            $is_permitted = true;
+        }
+        if ($DB->hasPermission($me_as_member->user_id, $me_as_member->group_id, 'delete_group')->count > 0) {
+            $html_contacts_panel .= "<button class='group_actions' group_id='$me_as_member->group_id'
+                onclick='deleteGroup(event)'>Edit Permissions</button>";
             $is_permitted = true;
         }
 
