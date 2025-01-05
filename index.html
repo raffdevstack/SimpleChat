@@ -194,6 +194,12 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
+                            break
+                        case "remove_member":
+                            radio_settings_el.checked = true;
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
                             break;
                         case "save_settings":
                             alert("Message:" + obj_result.message);
@@ -548,7 +554,13 @@
 
             }
 
-            getData(checked_users, "create_group_with")
+            if (checked_users.userid.length === 0) {
+                alert("Please select contacts to create group");
+                getData({},"chats");
+                radio_chat_el.checked = true;
+            } else {
+                getData(checked_users, "create_group_with")
+            }
 
         }
 
@@ -577,9 +589,13 @@
 
             }
 
-            checked_users.groupid = groupid;
-
-            getData(checked_users, "add_as_member");
+            if (checked_users.userid.length === 0) {
+                alert("Please select contacts to add as member");
+                startChatWithGroup(groupid);
+            } else {
+                checked_users.groupid = groupid;
+                getData(checked_users, "add_as_member");
+            }
         }
 
         function updateGroupName(e) {
@@ -618,8 +634,48 @@
         }
 
         function removeMember(e) {
-
+            const group_id = e.target.getAttribute("group_id");
+            getData({
+                group_id: group_id
+            },"remove_member");
         }
+
+        function removeSelectedMmbrs(e) {
+
+            const btn = document.getElementById("remove_selected_mmbrs_btn");
+            btn.disabled = true;
+            btn.value = "Loading... Please wait...";
+
+            let groupid = e.target.getAttribute("groupid"); // it targets the element where the event happened
+            if (e.target.id === "") {
+                groupid = e.target.parentNode.getAttribute("groupid"); // when inner element catches the click
+            }
+
+            const checked_users = { userid: [] };
+            const inputs = document.querySelectorAll("#remove_member_form input[type='checkbox']");
+
+            for (let i = 0; i < inputs.length; i++) {
+                const input = inputs[i];
+                const userid = input.name;
+                const checked = input.checked;
+
+                if (checked) {
+                    checked_users.userid.push(userid);
+                }
+            }
+
+            console.log(checked_users);
+
+            if (checked_users.userid.length === 0) {
+                alert("Please select contacts to remove a member");
+                startChatWithGroup(groupid);
+            } else {
+                checked_users.groupid = groupid;
+                getData(checked_users, "remove_member_ondb");
+            }
+        }
+
+
 
         setInterval(function () {
             if (CURRENT_CHAT_USER != null) { // inside a chat conversation
