@@ -163,8 +163,21 @@
             const xhr = new XMLHttpRequest();
 
             xhr.onload = function () {
+                console.log("XHR loaded");  // Check if this is triggered
                 if (xhr.status === 200) {
-                    handle_result(xhr.responseText);
+                    try {
+                        const response = xhr.responseText;
+                        console.log(response);  // Check the response from the server
+                        handle_result(response);
+                        login_button.disabled = false;
+                        login_button.value = "Login";
+                    } catch (e) {
+                        console.error("Error parsing response:", e);
+                        login_button.disabled = false;
+                        login_button.value = "Login";
+                    }
+                } else {
+                    console.error("Request failed:", xhr.status);
                     login_button.disabled = false;
                     login_button.value = "Login";
                 }
@@ -178,6 +191,7 @@
             xhr.send(data_string);
         }
 
+
         function handle_result(result) {
             console.log(result);
 
@@ -186,18 +200,22 @@
 
                 switch (obj_result.data_type) {
                     case "info":
-                        alert(obj_result.message);
-                        window.location = "index.html";
+                        alert(obj_result.message); // Show success message
+                        window.location = "index.html"; // Redirect to the main page
                         break;
                     case "cred_error":
-                        alert(obj_result.message);
+                        alert(obj_result.message); // Show login error
                         break;
                     case "error":
-                        displayErrors(obj_result.message);
+                        displayErrors(obj_result.message); // Show validation errors
+                        break;
+                    case "not_verified": // Handle the unverified case
+                        showNotification(obj_result.message, 'error'); // Display the error notification
                         break;
                 }
             }
         }
+
 
         function displayErrors(errors) {
 
