@@ -1,5 +1,10 @@
 <?php
 
+require './vendor/autoload.php'; // Load Composer autoloader
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 global $DATA_OBJ, $DB, $info;
 
 $errors = [];
@@ -8,7 +13,7 @@ $data = [];
 $data['userid'] = $DB->generate_id(20);
 $data['date'] = date("Y-m-d H:i:s");
 
-// error validation
+// Error validation
 $required_fields = [
     'first_name' => 'First name is required.',
     'last_name' => 'Last name is required.',
@@ -44,11 +49,9 @@ if (!isset($errors['last_name'])) {
 }
 
 if (!isset($errors['email'])) {
-
     if ($DB->userFinder($data['email'])) {
         $errors['email'] = 'Email already used by other account.';
     } else {
-
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = 'Invalid email format.';
         } else {
@@ -85,22 +88,64 @@ if (!isset($errors['password']) && !isset($errors['password_confirm']) && $data[
     unset($data["password_confirm"]);
 }
 
+// If no errors
 if ($errors == []) {
+    // Hash the password
+    $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
+    $data['password'] = $hashed_password;
 
-    $query = "INSERT INTO users(`userid`,`first_name`,`last_name`,`email`,`password`,`date`) 
-    VALUES(:userid,:first_name,:last_name,:email,:password,:date)";
+    // Generate verification token
+    $verification_token = bin2hex(random_bytes(32));
+    $data['VerificationToken'] = $verification_token;
+
+    // Insert into the database
+    $query = "INSERT INTO users(`userid`, `first_name`, `last_name`, `email`, `password`, `date`, `IsVerified`, `VerificationToken`) 
+    VALUES(:userid, :first_name, :last_name, :email, :password, :date, FALSE, :VerificationToken)";
+
     $result = $DB->write($query, $data);
-    if ($result) {
-        $info->message = "Your account has been created.";
-        $info->data_type = "info";
-    } else {
-        $info->message = "Your has not been created due to some error.";
-        $info->data_type = "error";
-    }
 
+    if ($result) {
+        // Send verification email
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'dc.yahzeemailer@gmail.com'; // Your Gmail
+            $mail->Password = 'mfvw xlva ihbn lumk';        // Your app password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+        
+            // Recipients
+            $mail->setFrom('dc.yahzeemailer@gmail.com', 'SimpleChat');
+            $mail->addAddress($data['email']);
+        
+            // Email content
+            $verification_link = "http://localhost:3000/programs_JYDC_New/SimpleChat/includes/verify.php?token=" . $data['VerificationToken'];
+            $mail->isHTML(true);
+            $mail->Subject = 'Email Verification';
+            $mail->Body = "Click the link to verify your email: <a href='$verification_link'>Verify Now</a>";
+        
+            $mail->send();
+            $info->message = "Your account has been created. Please check your email to verify your account.";
+            $info->data_type = "info";
+        } catch (Exception $e) {
+            $info->message = "Mailer Error: " . $mail->ErrorInfo;
+            $info->data_type = "error";
+            // Optional: Log the error for further investigation
+            file_put_contents('mail_errors.log', $mail->ErrorInfo, FILE_APPEND);
+        }
+        
+    } else {
+        $info->message = "Your account has not been created due to some error.";
+        $info->data_type = "error";
+    }    
 } else {
     $info->message = $errors;
     $info->data_type = "error";
 }
 
 echo json_encode($info);
+?>
