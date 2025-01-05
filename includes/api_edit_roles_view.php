@@ -3,14 +3,16 @@
 global $info, $DB, $DATA_OBJ;
 $logged_user = $_SESSION['userid'];
 
-if (isset($DATA_OBJ->group_id)) {
+if (isset($DATA_OBJ->group_id) && $DATA_OBJ->data_type == 'edit_roles_view') {
 
     $data = [];
     $data['group_id'] = $DATA_OBJ->group_id;
-    $query = "SELECT 
+    $query = "SELECT
+            gmr.group_id,
             u.userid,
             u.first_name,
             u.last_name,
+            r.id AS role_id,
             r.name AS role_name,
             r.description
         FROM 
@@ -27,7 +29,9 @@ if (isset($DATA_OBJ->group_id)) {
 
     $gmr_result = $DB->read($query, $data);
 
-    $html_markup = '
+    if (is_array($gmr_result)) {
+
+        $html_markup = '
 
             <div id="form_wrapper">
             
@@ -40,29 +44,70 @@ if (isset($DATA_OBJ->group_id)) {
                         ';
 
         $html_markup .= '<table border="1" cellpadding="10" cellspacing="0">';
-        $html_markup .= '<thead><tr><th>Name</th><th>Role</th><th>Description</th><th></th></tr></thead>';
+        $html_markup .= '<thead><tr><th>Name</th><th>Role</th><th>Description</th></tr></thead>';
         $html_markup .= '<tbody>';
 
         foreach ($gmr_result as $row) {
             $html_markup .= '<tr>';
             $html_markup .= '<td>' . $row->first_name . ' ' . $row->last_name . '</td>';
-            $html_markup .= '<td>' . $row->role_name . '</td>';
-            $html_markup .= '<td>' . $row->description . '</td>';
-            if ($row->role_name != "admin") {
-                $html_markup .= '<td><button type="button" class="btn btn-primary" userid=" '.$row->userid.' " 
-                                    onclick="editRole(event)">
-                                    Edit Role</button></td>';  // Add button here
-            } else {
-                $html_markup .= '<td><button type="button" class="btn btn-primary" disabled>Edit Role</button></td>';  // Add button here
+
+            // Add dropdown for roles
+            $html_markup .= '<td>';
+            $html_markup .= '<select class="role-dropdown" userid="' . $row->userid . '"
+                 group_id="' . $row->group_id . '" onchange="updateRole(event)">';
+
+            // get all roles
+            $query = "SELECT `name`,`id` from `roles` ORDER BY `id`;";
+            $all_roles = $DB->read($query);
+
+            if (is_array($all_roles)) {
+                foreach ($all_roles as $role) {
+                    $selected = ($role->id == $row->role_id) ? 'selected' : '';
+                    $html_markup .= '<option value="' . $role->name . '" ' . $selected . '>' . $role->name . '</option>';
+                }
             }
+
+            $html_markup .= '</select>';
+            $html_markup .= '</td>';
+
+
+            $html_markup .= '<td>' . $row->description . '</td>';
             $html_markup .= '</tr>';
         }
 
-    $html_markup .= '</tbody>';
+        $html_markup .= '</tbody>';
         $html_markup .= '</table>';
 
-    $info->message = $html_markup;
-    $info->data_type = "edit_roles_view"; // send to responseText
+        $info->message = $html_markup;
+        $info->data_type = "edit_roles_view"; // send to responseText
+    }
+
+} else if ($DATA_OBJ->data_type == 'update_role_db') {
+
+    $role_data = [];
+    $role_data['name'] = $DATA_OBJ->new_role;
+    $sqlGetRoleId = "SELECT id FROM roles WHERE name = :name LIMIT 1";
+    $role = $DB->read($sqlGetRoleId, $role_data);
+
+    if (is_array($role)) {
+
+        $role_id = $role[0]->id;
+
+        $data = [];
+        $data['user_id'] = $DATA_OBJ->user_id;
+        $data['new_role_id'] = $role_id;
+        $data['group_id'] = $DATA_OBJ->group_id;
+        $sql = "UPDATE group_member_roles SET role_id = :new_role_id WHERE user_id = :user_id AND group_id = :group_id LIMIT 1";
+        $result = $DB->write($sql, $data);
+
+        if ($result) {
+            $info->message = "Successfully updated role";
+            $info->group_id = $DATA_OBJ->group_id;
+            $info->data_type = "update_role_db"; // send to responseText
+        }
+
+    }
+
 }
 
 echo json_encode($info);

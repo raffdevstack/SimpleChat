@@ -66,11 +66,10 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_update_group_name.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "delete_group") {
     include("includes/api_delete_group.php");
-} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "edit_roles_view") {
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "edit_roles_view"
+    ||  ($DATA_OBJ->data_type == "update_role_db")) {
     include("includes/api_edit_roles_view.php");
 }
-
-// edit_roles_view
 
 // template for messages on the left side
 function getMessageLeft($user, $message)

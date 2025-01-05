@@ -195,6 +195,11 @@
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
                             break
+                        case "edit_member_role":
+                            document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
+                            inner_right_wrapper_el.style.overflow = "hidden";
+                            inner_right_wrapper_el.style.opacity = "0";
+                            break
                         case "remove_member":
                             radio_settings_el.checked = true;
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
@@ -254,6 +259,11 @@
                             radio_chat_el.checked = true;
                             break;
                         case "removed_a_member":
+                            alert(obj_result.message)
+                            GROUP_ID = obj_result.group_id; // for stopping refresh
+                            startChatWithGroup(obj_result.group_id);
+                            break;
+                        case "update_role_db":
                             alert(obj_result.message)
                             GROUP_ID = obj_result.group_id; // for stopping refresh
                             startChatWithGroup(obj_result.group_id);
@@ -662,7 +672,23 @@
             const userid = e.target.getAttribute("userid");
             getData({
                 user_id: userid
-            },"edit_role_view");
+            },"edit_a_role_view");
+        }
+
+        function updateRole(e) {
+            // Get the dropdown element
+            let dropdown = event.target;
+
+            // Extract user ID and the new role from the dropdown
+            let user_id = dropdown.getAttribute('userid');
+            let group_id = dropdown.getAttribute('group_id');
+            let new_role = dropdown.value;
+
+            getData({
+                user_id: user_id,
+                group_id: group_id,
+                new_role: new_role
+            },"update_role_db");
         }
 
         function removeSelectedMmbrs(e) {
