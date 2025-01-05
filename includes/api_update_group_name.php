@@ -13,6 +13,7 @@ if (isset($DATA_OBJ->group_id) && isset($DATA_OBJ->new_group_name) ) {
 
     if ($result) {
         $info->message = "Group renamed successfully";
+        $info->group_id = $DATA_OBJ->group_id;
         $info->data_type = "update_group_name";
     }
 
