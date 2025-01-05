@@ -247,6 +247,11 @@
                             getData({},"chats");
                             radio_chat_el.checked = true;
                             break;
+                        case "removed_a_member":
+                            alert(obj_result.message)
+                            GROUP_ID = obj_result.group_id; // for stopping refresh
+                            startChatWithGroup(obj_result.group_id);
+                            break;
                         case "group_chats":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
                             document.getElementById("inner_right_wrapper").innerHTML = obj_result.messages;
@@ -651,22 +656,21 @@
                 groupid = e.target.parentNode.getAttribute("groupid"); // when inner element catches the click
             }
 
-            const checked_users = { userid: [] };
-            const inputs = document.querySelectorAll("#remove_member_form input[type='checkbox']");
+            const checked_users = { };
+            const inputs = document.querySelectorAll("#remove_member_form input[type='radio']");
 
             for (let i = 0; i < inputs.length; i++) {
                 const input = inputs[i];
-                const userid = input.name;
+                const userid = input.value; // Use `value` instead of `name`
                 const checked = input.checked;
 
                 if (checked) {
-                    checked_users.userid.push(userid);
+                    checked_users.userid = userid; // Assign directly since only one user can be selected
+                    break; // Exit the loop early since only one radio button can be selected
                 }
             }
 
-            console.log(checked_users);
-
-            if (checked_users.userid.length === 0) {
+            if (Object.keys(checked_users).length === 0) {
                 alert("Please select contacts to remove a member");
                 startChatWithGroup(groupid);
             } else {
@@ -674,8 +678,6 @@
                 getData(checked_users, "remove_member_ondb");
             }
         }
-
-
 
         setInterval(function () {
             if (CURRENT_CHAT_USER != null) { // inside a chat conversation

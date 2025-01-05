@@ -29,7 +29,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'remove_member') {
     <div id="create_group_wrapper">
     
         <h2>Edit Group Chat</h2>
-         <h4>Remove member</h4>
+         <h4>Remove a member</h4>
          
         <form id="remove_member_form">
             <div id="gc_contact_list">
@@ -41,7 +41,7 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'remove_member') {
                 $fullname = $user->first_name . " " . $user->last_name;
                 $html_markup .= "
             <label class='gc_contact'>
-                <input type='checkbox' name='$user->userid' >
+                <input type='radio' name='selected_user' value='$user->userid'>
                 <p>$fullname</p>
             </label>";
             }
@@ -62,8 +62,20 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'remove_member') {
 
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'remove_member_ondb') {
 
-    print_r($DATA_OBJ); die;
+    $data = [];
+    $data["group_id"] = $DATA_OBJ->groupid;
+    $data["user_id"] = $DATA_OBJ->userid;
+    $query = "DELETE FROM group_member_roles WHERE `user_id` = :user_id AND group_id = :group_id; ";
+    $result = $DB->write($query, $data);
 
+    if ($result) {
+        $info->message = "Member successfully removed";
+        $info->group_id = $DATA_OBJ->groupid;
+        $info->data_type = "removed_a_member";
+    } else {
+        $info->message = "Member could not be removed";
+        $info->data_type = "error";
+    }
 }
 
 
