@@ -1,5 +1,44 @@
 <?php
 
+require 'vendor/autoload.php';
+
+use phpseclib3\Crypt\AES;
+
+// Create a new AES object
+$aes = new AES('cbc'); // 'cbc' mode
+
+// Set a valid key length (16 bytes for AES-128)
+$key = 'thisisaverysecre'; // Exactly 16 characters (16 bytes)
+$aes->setKey($key);
+
+//
+//// The plaintext message to encrypt
+//$plaintext = "Hello, this is a secret message!";
+//
+//// Encrypt the message
+//$ciphertext = $aes->encrypt($plaintext);
+//
+//// Combine the IV and ciphertext for storage/transmission
+//$encryptedData = base64_encode($iv . $ciphertext);
+//
+////echo "Encrypted: " . $encryptedData . PHP_EOL;
+//
+//// To decrypt, separate the IV and the ciphertext
+//$decodedData = base64_decode($encryptedData);
+//$iv = substr($decodedData, 0, 16); // First 16 bytes are the IV
+//$ciphertext = substr($decodedData, 16); // The rest is the ciphertext
+//
+//// Set the IV for decryption
+//$aes->setIV($iv);
+//
+//// Decrypt the message
+//$decryptedText = $aes->decrypt($ciphertext);
+
+// Generate a new IV for each field
+$first_name_iv = openssl_random_pseudo_bytes(16);
+$last_name_iv = openssl_random_pseudo_bytes(16);
+$email_iv = openssl_random_pseudo_bytes(16);
+
 require_once("classes/autoload.php");
 
 $DB = new Database();
@@ -7,7 +46,6 @@ $DATA_RAW_STRING = file_get_contents('php://input');
 $DATA_OBJ = json_decode($DATA_RAW_STRING); // this is like JSON.parse() in js
 
 date_default_timezone_set('Asia/Manila');
-
 
 $info = (object)[]; // this info object will be the base of the response to ajax
 
@@ -118,5 +156,23 @@ function generateRandomString($length) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+function verifyEmail($storedEncryptedEmail, $loginEmailInput, $iv) {
+    // Decode the stored encrypted email from base64
+    global $aes;
+    $combined = base64_decode($storedEncryptedEmail);
+
+    // Extract IV and ciphertext
+    // Assuming IV length is 16 bytes (128 bits) for AES
+    $iv = substr($combined, 0, 16);
+    $ciphertext = substr($combined, 16);
+
+    // Set the same IV and encrypt the login input
+    $aes->setIV($iv);
+    $loginEmailCiphertext = $aes->encrypt($loginEmailInput);
+
+    // Compare the ciphertexts
+    return $ciphertext === $loginEmailCiphertext;
 }
 

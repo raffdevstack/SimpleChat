@@ -1,6 +1,6 @@
 <?php
 
-global $DATA_OBJ, $DB, $info;
+global $DATA_OBJ, $DB, $info, $aes, $iv, $first_name_iv, $last_name_iv, $email_iv;
 
 $errors = [];
 $data = [];
@@ -87,8 +87,33 @@ if (!isset($errors['password']) && !isset($errors['password_confirm']) && $data[
 
 if ($errors == []) {
 
-    $query = "INSERT INTO users(`userid`,`first_name`,`last_name`,`email`,`password`,`date`) 
-    VALUES(:userid,:first_name,:last_name,:email,:password,:date)";
+// Set the IV and encrypt the message for each field
+    $aes->setIV($first_name_iv);
+    $first_name_ciphertext = $aes->encrypt($data['first_name']);
+
+    $aes->setIV($last_name_iv);
+    $last_name_ciphertext = $aes->encrypt($data['last_name']);
+
+    $aes->setIV($email_iv);
+    $email_ciphertext = $aes->encrypt($data['email']);
+
+// Combine the IV and ciphertext for storage/transmission
+    $encrypted_first_name = base64_encode($first_name_iv . $first_name_ciphertext);
+    $encrypted_last_name = base64_encode($last_name_iv . $last_name_ciphertext);
+    $encrypted_email = base64_encode($email_iv . $email_ciphertext);
+
+    $data['first_name'] = $encrypted_first_name;
+    $data['last_name'] = $encrypted_last_name;
+    $data['email'] = $encrypted_email;
+    $data['email_iv'] = base64_encode($email_iv);
+
+    // Hash the password
+    $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+
+    $data['password'] = $hashedPassword;
+
+    $query = "INSERT INTO users(`userid`,`first_name`,`last_name`,`email`,`email_iv`,`password`,`date`) 
+    VALUES(:userid,:first_name,:last_name,:email,:email_iv,:password,:date)";
     $result = $DB->write($query, $data);
     if ($result) {
         $info->message = "Your account has been created.";
