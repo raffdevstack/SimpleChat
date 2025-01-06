@@ -44,8 +44,6 @@ if ($errors == []) {
 
         $result = $result[0]; // get the first result (array)
 
-
-
         // Verify the password
         if (password_verify($DATA_OBJ->password, $result->password)) {
             $_SESSION['userid'] = $result->userid; // store user id to session

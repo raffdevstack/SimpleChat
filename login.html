@@ -115,6 +115,32 @@
             margin-top: 16px;
         }
 
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #444;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            text-decoration: none;
+        }
+
+        .google-btn img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .google-btn:hover {
+            background-color: #f8f8f8;
+        }
+
     </style>
 </head>
 <body>
@@ -132,6 +158,21 @@
                 <p class="input_errors" id="password_error"></p>
 
                 <input type="submit" id="login_button" value="Login">
+
+                <a class="google-btn" id="google-button">
+                    <img src="https://www.svgrepo.com/show/380993/google-logo-search-new.svg" alt="Google Logo">
+                    Continue with Google
+                </a>
+
+                <!-- Google Sign-In -->
+                <div id="g_id_onload"
+                     data-client_id="581284499083-tosthllpap9ovpam423m7003rg8ghs1c.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+
+                <div class="g_id_signin" data-type="standard"></div>
         
                 <a id="link_to_signup" href="signup.html">Don't have an account? Sign up here.</a>
             </form>
@@ -214,5 +255,49 @@
             }
         }
     </script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+        function handleCredentialResponse(response) {
+            // Prepare the data for the server
+            const data = {
+                id_token: response.credential
+            };
+
+            // Send the data to the server using your existing function
+            sendDataToServer(data, 'google-login');
+        }
+
+        function sendDataToServer(data, type) {
+            const xhr = new XMLHttpRequest();
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const serverResponse = JSON.parse(xhr.responseText);
+                    handle_result(serverResponse);
+                    login_button.disabled = false;
+                    login_button.value = "Login";
+                }
+            };
+
+            data.data_type = type;  // Append the type of data being sent
+            const data_string = JSON.stringify(data); // Convert the data to JSON
+
+            xhr.open("POST", "process-google-login.php", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(data_string);
+        }
+
+        function handle_result(response) {
+            // Handle the server response (e.g., redirect to dashboard)
+            if (response.success) {
+                window.location.href = 'dashboard.php';
+            } else {
+                alert('Login failed: ' + response.error);
+            }
+        }
+    </script>
+
 </body>
 </html>

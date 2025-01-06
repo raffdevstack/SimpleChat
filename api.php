@@ -107,7 +107,10 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "edit_roles_view"
     ||  ($DATA_OBJ->data_type == "update_role_db")) {
     include("includes/api_edit_roles_view.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "google-login") {
+    include("process-google-login.php");
 }
+
 
 // template for messages on the left side
 function getMessageLeft($user, $message)

@@ -1,5 +1,6 @@
-
 <?php
+
+    global$email_iv;
 
     global $info, $DB;
 
@@ -11,6 +12,9 @@
     if (is_array($result)) {
 
         $user = $result[0];
+
+        $user->email = decryptAES($user->email, $email_iv);
+
 
         $html_markup = '
 
@@ -32,9 +36,11 @@
                         <p class="input_errors" id="email_error"></p>
                     </div>
                     
+                    <br>
+                    
                     <div class="input-container">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" value="'.$user->password.'" >
+                        <label for="password">Old Password:</label>
+                        <input type="text" id="password" name="password" > 
                         <p class="input_errors" id="password_error"></p>
                     </div>
                         
