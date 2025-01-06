@@ -375,3 +375,17 @@ button.group_actions {
     overflow-y: auto;
     height: 80%;
 }
+
+#member_roles_container {
+    /*background-color: green;*/
+}
+
+.member_roles {
+    /*border: 1px solid red;*/
+    padding: 8px 4px;
+    margin: 0 0 4px;
+}
+
+.member_roles p {
+    margin: 0;
+}
