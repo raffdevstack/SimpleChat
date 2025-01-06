@@ -176,3 +176,20 @@ function verifyEmail($storedEncryptedEmail, $loginEmailInput, $iv) {
     return $ciphertext === $loginEmailCiphertext;
 }
 
+function decryptAES($storedEncrypted, $iv) {
+
+    global $aes;
+
+    $decodedData = base64_decode($storedEncrypted);
+    $iv = substr($decodedData, 0, 16); // First 16 bytes are the IV
+    $ciphertext = substr($decodedData, 16); // The rest is the ciphertext
+
+// Set the IV for decryption
+    $aes->setIV($iv);
+
+// Decrypt the message
+    return $aes->decrypt($ciphertext);
+}
+
+
+
