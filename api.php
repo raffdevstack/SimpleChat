@@ -2,7 +2,6 @@
 
 header('Cross-Origin-Opener-Policy: same-origin-allow-popups');
 
-
 require 'vendor/autoload.php';
 
 use phpseclib3\Crypt\AES;
@@ -55,7 +54,9 @@ $info = (object)[]; // this info object will be the base of the response to ajax
 session_start();
 // check if logged in
 if (!isset($_SESSION['userid'])) { // if no userid in sessions, it's not logged in
-    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type != "login" && $DATA_OBJ->data_type != "signup" ) { // if we are not in the login page // --  --
+    if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type != "login" && $DATA_OBJ->data_type != "signup" &&
+    $DATA_OBJ->data_type != "google_verified"
+    ) { // if we are not in the login page // --  --
         $info->logged_in  = false;
         echo json_encode($info); // put it in the info object, it is echoed so it is part of the result, the $info is maybe just a dummy object
         die;
@@ -63,6 +64,10 @@ if (!isset($_SESSION['userid'])) { // if no userid in sessions, it's not logged 
 }
 
 $Error = "";
+
+if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "google_verified") {
+    include("google-verified-save.php");
+}
 
 // process the data
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
@@ -112,8 +117,6 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_edit_roles_view.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "google-login") {
     include("process-google-login.php");
-} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "google_verified") {
-    include("google-verified-save.php");
 }
 
 // google_verified
