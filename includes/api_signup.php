@@ -105,15 +105,14 @@ if ($errors == []) {
     $data['first_name'] = $encrypted_first_name;
     $data['last_name'] = $encrypted_last_name;
     $data['email'] = $encrypted_email;
-    $data['email_iv'] = base64_encode($email_iv);
 
     // Hash the password
     $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
     $data['password'] = $hashedPassword;
 
-    $query = "INSERT INTO users(`userid`,`first_name`,`last_name`,`email`,`email_iv`,`password`,`date`) 
-    VALUES(:userid,:first_name,:last_name,:email,:email_iv,:password,:date)";
+    $query = "INSERT INTO users(`userid`,`first_name`,`last_name`,`email`,`password`,`date`) 
+    VALUES(:userid,:first_name,:last_name,:email,:password,:date)";
     $result = $DB->write($query, $data);
     if ($result) {
         $info->message = "Your account has been created.";

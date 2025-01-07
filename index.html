@@ -61,6 +61,7 @@
         let CURRENT_CHAT_USER = null;
         let SEEN_STATUS = false;
         let GROUP_ID = null;
+        let prevent_refresh = false;
 
         const notification_sound = document.getElementById('notificationSound');
 
@@ -92,6 +93,7 @@
             getData({},"user_info"); // calling the function above, empty object because we are not finding anything
             getData({},"chats");
             radio_chat_el.checked = true;
+            prevent_refresh = false;
         }
 
         function raffyCustomConsole(description, data) {
@@ -149,6 +151,7 @@
                             if (obj_result.image === "null") {
                                 image_element.src = obj_result.image;
                             }
+                            prevent_refresh = false;
                             break;
                         case "chats_contacts_refresh":
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.chat_contact;
@@ -156,6 +159,7 @@
                                 if (obj_result.new_message)
                                     playNotification();
                             }
+                            prevent_refresh = false;
                             break;
                         case "chats_refresh":
                             SEEN_STATUS = false;
@@ -225,6 +229,7 @@
                             document.getElementById("inner_left_wrapper").innerHTML = obj_result.message;
                             inner_right_wrapper_el.style.overflow = "hidden";
                             inner_right_wrapper_el.style.opacity = "0";
+                            prevent_refresh = false;
                             break;
                         case "add_group_member":
                             radio_settings_el.checked = true;
@@ -726,16 +731,19 @@
         }
 
         setInterval(function () {
-            if (CURRENT_CHAT_USER != null) { // inside a chat conversation
-                getData({
-                    userid: CURRENT_CHAT_USER,
-                    seen: SEEN_STATUS
-                }, "chats_refresh");
-            } else {
-                if (radio_chat_el.checked && GROUP_ID == null) {
-                    getData({},"chats_contacts_refresh");
+            if (!prevent_refresh) {
+                if (CURRENT_CHAT_USER != null) { // inside a chat conversation
+                    getData({
+                        userid: CURRENT_CHAT_USER,
+                        seen: SEEN_STATUS
+                    }, "chats_refresh");
+                } else {
+                    if (radio_chat_el.checked && GROUP_ID == null) {
+                        getData({},"chats_contacts_refresh");
+                    }
                 }
             }
+
         }, 5000)
 
         initializeLanding();

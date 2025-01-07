@@ -1,6 +1,6 @@
 <?php
 
-global $info, $DB;
+global $info, $DB, $first_name_iv, $last_name_iv;
 $logged_user = $_SESSION['userid'];
 
 $sql = "SELECT * FROM `users` WHERE `userid`!='$logged_user' ";
@@ -18,6 +18,10 @@ $html_markup = '
 
 if (is_array($users)) {
     foreach ($users as $user) {
+
+        $user->first_name = decryptAES($user->first_name, $first_name_iv);
+        $user->last_name = decryptAES($user->last_name, $last_name_iv);
+
         $fullname = $user->first_name . " " . $user->last_name;
         $html_markup .= "
             <label class='gc_contact'>

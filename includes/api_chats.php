@@ -2,7 +2,7 @@
 
     // last check 12/24/24
 
-    global $DATA_OBJ, $DB, $info;
+    global $DATA_OBJ, $DB, $info, $first_name_iv, $last_name_iv;
 
     $logged_user = $_SESSION['userid'];
 
@@ -23,6 +23,8 @@
         $chat_other_user = $DB->getChatReceiver($DATA_OBJ->userid);
 
         if ($chat_other_user) {  // if other user is found in database
+
+            $chat_other_user->first_name = decryptAES($chat_other_user->first_name, $first_name_iv);
 
             $html_contacts_panel = ""; // initialize
             if (!$refresh) { // don't redisplay if we are refreshing the messages
@@ -182,6 +184,9 @@
                     }
 
                     $other_user_obj = $DB->getChatReceiver($other_user_id);
+                    $other_user_obj->first_name = decryptAES($other_user_obj->first_name, $first_name_iv);
+                    $other_user_obj->last_name = decryptAES($other_user_obj->last_name, $last_name_iv);
+
                     $chat_name = $other_user_obj->first_name . " " . $other_user_obj->last_name;
 
                     $html_previous_chats_panel .= "

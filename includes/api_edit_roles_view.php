@@ -1,6 +1,6 @@
 <?php
 
-global $info, $DB, $DATA_OBJ;
+global $info, $DB, $DATA_OBJ, $first_name_iv, $last_name_iv;
 $logged_user = $_SESSION['userid'];
 
 if (isset($DATA_OBJ->group_id) && $DATA_OBJ->data_type == 'edit_roles_view') {
@@ -48,6 +48,10 @@ if (isset($DATA_OBJ->group_id) && $DATA_OBJ->data_type == 'edit_roles_view') {
         $html_markup .= '<tbody>';
 
         foreach ($gmr_result as $row) {
+            // decrypt first
+            $row->first_name = decryptAES($row->first_name, $first_name_iv);
+            $row->last_name = decryptAES($row->last_name, $last_name_iv);
+
             $html_markup .= '<tr>';
             $html_markup .= '<td>' . $row->first_name . ' ' . $row->last_name . '</td>';
 

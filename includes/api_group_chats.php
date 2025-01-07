@@ -1,6 +1,6 @@
 <?php
 
-    global $DATA_OBJ, $DB, $info;
+    global $DATA_OBJ, $DB, $info, $first_name_iv, $last_name_iv;
 
     $logged_user = $_SESSION['userid'];
 
@@ -116,8 +116,11 @@
             $data_user["userid"] = $member_userid;
             $query = "SELECT * FROM `users` WHERE `userid` = :userid LIMIT 1 ";
             $result = $DB->read($query, $data_user);
+
             if (isset($result[0])) {
                 $user = $result[0];
+                $user->first_name = decryptAES($user->first_name, $first_name_iv);
+                $user->last_name = decryptAES($user->last_name, $last_name_iv);
                 $html_contacts_panel .= $user->first_name . " " . $user->last_name . "<br>";
             }
         }
@@ -153,6 +156,7 @@
                     $html_messages .= getMessageRight($message);
                 } else {
                     $other_user = $DB->getChatReceiver($message->sender);
+                    $other_user->first_name = decryptAES($other_user->first_name, $first_name_iv);
                     $html_messages .= getMessageLeft($other_user, $message); // user, message
                 }
             }

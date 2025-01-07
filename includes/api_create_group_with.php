@@ -1,6 +1,6 @@
 <?php
 
-global $info, $DB, $DATA_OBJ;
+global $info, $DB, $DATA_OBJ, $first_name_iv;
 $logged_user = $_SESSION['userid'];
 
 if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
@@ -86,6 +86,7 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
 
             if ($info->data_type == "create_group_with") {
                 // create first message here
+                $me->first_name = decryptAES($me->first_name, $first_name_iv);
                 $msg_data["txt_message"] = $me->first_name . " created a new group";
                 $msg_data["group_id"] = $gc->id;
                 $msg_data["sender"] = $logged_user;

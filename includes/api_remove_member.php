@@ -1,6 +1,6 @@
 <?php
 
-global $info, $DB, $DATA_OBJ;
+global $info, $DB, $DATA_OBJ, $first_name_iv, $last_name_iv;
 $logged_user = $_SESSION['userid'];
 
 if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'remove_member') {
@@ -38,6 +38,8 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == 'remove_member') {
 
         if (is_array($members)) {
             foreach ($members as $user) {
+                $user->first_name = decryptAES($user->first_name, $first_name_iv);
+                $user->last_name = decryptAES($user->last_name, $last_name_iv);
                 $fullname = $user->first_name . " " . $user->last_name;
                 $html_markup .= "
             <label class='gc_contact'>

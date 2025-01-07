@@ -1,6 +1,6 @@
 <?php
 
-global $info, $DB, $DATA_OBJ;
+global $info, $DB, $DATA_OBJ, $first_name_iv, $last_name_iv;
 
 $logged_user = $_SESSION['userid'];
 
@@ -34,6 +34,8 @@ if(isset($DATA_OBJ->group_id)) {
 
     if (is_array($users)) {
         foreach ($users as $user) {
+            $user->first_name = decryptAES($user->first_name, $first_name_iv);
+            $user->last_name = decryptAES($user->last_name, $last_name_iv);
             $fullname = $user->first_name . " " . $user->last_name;
             $html_markup .= "
             <label class='gc_contact'>
