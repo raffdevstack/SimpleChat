@@ -171,9 +171,8 @@
                      data-callback="handleCredentialResponse"
                      data-auto_prompt="false">
                 </div>
-
                 <div class="g_id_signin" data-type="standard"></div>
-        
+
                 <a id="link_to_signup" href="signup.html">Don't have an account? Sign up here.</a>
             </form>
         </div>        
@@ -256,48 +255,78 @@
         }
     </script>
 
-<!--    <script src="https://accounts.google.com/gsi/client" async defer></script>-->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-<!--    <script>-->
-<!--        function handleCredentialResponse(response) {-->
-<!--            // Prepare the data for the server-->
-<!--            const data = {-->
-<!--                id_token: response.credential-->
-<!--            };-->
+    <script>
+        function handleCredentialResponse(response) {
+            const idToken = response.credential;
 
-<!--            // Send the data to the server using your existing function-->
-<!--            sendDataToServer(data, 'google-login');-->
-<!--        }-->
+            // Send the token to your backend for verification
+            fetch('http://localhost/simplechat/verify-token.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id_token: idToken }),
+            })
+                .then(async (res) => {
+                    if (!res.ok) {
+                        throw new Error('Failed to verify ID token');
+                    }
 
-<!--        function sendDataToServer(data, type) {-->
-<!--            const xhr = new XMLHttpRequest();-->
+                    const data = await res.json();
 
-<!--            xhr.onload = function () {-->
-<!--                if (xhr.status === 200) {-->
-<!--                    const serverResponse = JSON.parse(xhr.responseText);-->
-<!--                    handle_result(serverResponse);-->
-<!--                    login_button.disabled = false;-->
-<!--                    login_button.value = "Login";-->
-<!--                }-->
-<!--            };-->
+                    console.log(data);
 
-<!--            data.data_type = type;  // Append the type of data being sent-->
-<!--            const data_string = JSON.stringify(data); // Convert the data to JSON-->
+                })
+                .catch((err) => {
+                    alert('Google verification error');
+                    console.error('Error:', err);
+                });
+        }
 
-<!--            xhr.open("POST", "process-google-login.php", true);-->
-<!--            xhr.setRequestHeader("Content-Type", "application/json");-->
-<!--            xhr.send(data_string);-->
-<!--        }-->
+        function sendDataToServer(data, type) {
+            const xhr = new XMLHttpRequest();
 
-<!--        function handle_result(response) {-->
-<!--            // Handle the server response (e.g., redirect to dashboard)-->
-<!--            if (response.success) {-->
-<!--                window.location.href = 'dashboard.php';-->
-<!--            } else {-->
-<!--                alert('Login failed: ' + response.error);-->
-<!--            }-->
-<!--        }-->
-<!--    </script>-->
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    handle_result(xhr.responseText);
+                    login_button.disabled = false;
+                    login_button.value = "Login";
+                }
+            };
+
+            data.data_type = type;
+            const data_string = JSON.stringify(data);
+
+            xhr.open("POST", "api.php", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(data_string);
+        }
+
+        function handle_result(result) {
+            console.log(result);
+
+            if (result.trim() !== "") {
+                const obj_result = JSON.parse(result);
+
+                switch (obj_result.data_type) {
+                    case "info":
+                        alert(obj_result.message);
+                        window.location = "index.html";
+                        break;
+                    case "cred_error":
+                        alert(obj_result.message);
+                        break;
+                    case "error":
+                        displayErrors(obj_result.message);
+                        break;
+                }
+            }
+        }
+
+    </script>
+
 
 </body>
 </html>

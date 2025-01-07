@@ -1,5 +1,8 @@
 <?php
 
+header('Cross-Origin-Opener-Policy: same-origin-allow-popups');
+
+
 require 'vendor/autoload.php';
 
 use phpseclib3\Crypt\AES;
@@ -109,8 +112,11 @@ if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "signup") {
     include("includes/api_edit_roles_view.php");
 } else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "google-login") {
     include("process-google-login.php");
+} else if (isset($DATA_OBJ->data_type) && $DATA_OBJ->data_type == "google_verified") {
+    include("google-verified-save.php");
 }
 
+// google_verified
 
 // template for messages on the left side
 function getMessageLeft($user, $message)
