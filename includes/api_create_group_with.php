@@ -81,7 +81,6 @@ if (isset($DATA_OBJ->userid) && $DATA_OBJ->userid !== []) {
                     $info->data_type = "create_group_with";
 
                 }
-
             }
 
             if ($info->data_type == "create_group_with") {

@@ -55,25 +55,30 @@ if (isset($DATA_OBJ->group_id) && $DATA_OBJ->data_type == 'edit_roles_view') {
             $html_markup .= '<tr>';
             $html_markup .= '<td>' . $row->first_name . ' ' . $row->last_name . '</td>';
 
-            // Add dropdown for roles
-            $html_markup .= '<td>';
-            $html_markup .= '<select class="role-dropdown" userid="' . $row->userid . '"
+            if ($row->role_name == 'admin') {
+                $html_markup .= '<td class="label label-success">Admin</td>';
+            } else {
+
+                // Add dropdown for roles
+                $html_markup .= '<td>';
+                $html_markup .= '<select class="role-dropdown" userid="' . $row->userid . '"
                  group_id="' . $row->group_id . '" onchange="updateRole(event)">';
 
-            // get all roles
-            $query = "SELECT `name`,`id` from `roles` ORDER BY `id`;";
-            $all_roles = $DB->read($query);
+                // get all roles
+                $query = "SELECT `name`,`id` from `roles` ORDER BY `id`;";
+                $all_roles = $DB->read($query);
 
-            if (is_array($all_roles)) {
-                foreach ($all_roles as $role) {
-                    $selected = ($role->id == $row->role_id) ? 'selected' : '';
-                    $html_markup .= '<option value="' . $role->name . '" ' . $selected . '>' . $role->name . '</option>';
+                if (is_array($all_roles)) {
+                    foreach ($all_roles as $role) {
+                        $selected = ($role->id == $row->role_id) ? 'selected' : '';
+                        $html_markup .= '<option value="' . $role->name . '" ' . $selected . '>' . $role->name . '</option>';
+                    }
                 }
+
+                $html_markup .= '</select>';
+                $html_markup .= '</td>';
+
             }
-
-            $html_markup .= '</select>';
-            $html_markup .= '</td>';
-
 
             $html_markup .= '<td>' . $row->description . '</td>';
             $html_markup .= '</tr>';
