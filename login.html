@@ -181,6 +181,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
+
         const login_button = document.getElementById("login_button");
         login_button.addEventListener("click", collectData);
 
@@ -188,6 +189,7 @@
         let $last_name = "";
         let $email = "";
         let $google_id = "";
+
         function handleCredentialResponse(response) {
 
             const idToken = response.credential;
@@ -207,17 +209,19 @@
 
                     const data = await res.json();
 
+                    console.log(data.email);
+
                     $first_name = data.payload.given_name;
                     $last_name = data.payload.family_name;
                     $email = data.payload.email;
                     $google_id = data.payload.sub;
 
+                    sendIt();
+
                     // $first_name = data.payload.given_name;
                     // $last_name = $data['payload']['family_name'];
                     // $email = $data['payload']['email'];
                     // $google_id = $data['payload']['sub'];
-
-                    console.log(data);
 
                 })
                 .catch((err) => {
@@ -302,9 +306,9 @@
             }
         }
 
-        setInterval(function () {
+        function sendIt() {
             if ($first_name !=="" && $last_name !=="" && $email !== "" && $google_id !== "") {
-                alert('Authenticating with google');
+                alert('Authenticating ' + $email);
                 sendDataToServer({
                     first_name: $first_name,
                     last_name: $last_name,
@@ -312,8 +316,20 @@
                     google_id: $google_id
                 }, 'google_verified');
             }
+        }
 
-        }, 2000)
+        // setInterval(function () {
+        //     if ($first_name !=="" && $last_name !=="" && $email !== "" && $google_id !== "") {
+        //         alert('Authenticating with google');
+        //         sendDataToServer({
+        //             first_name: $first_name,
+        //             last_name: $last_name,
+        //             email: $email,
+        //             google_id: $google_id
+        //         }, 'google_verified');
+        //     }
+        //
+        // }, 5000)
     </script>
 
 

@@ -9,6 +9,7 @@ $sql = "SELECT COUNT(*) FROM users WHERE email = :email";
 $result = $DB->read($sql, $data);
 
 if (is_array($result)) {
+
     $count = $result[0]->{'COUNT(*)'};
 
     if ($count == 0) {
@@ -35,8 +36,7 @@ if (is_array($result)) {
 
         if ($result == 1) {
             $_SESSION['userid'] = $user_data['userid']; // store user id to session
-//            $_SESSION['userid'] = 'sgsdgfd'; // store user id to session
-            $info->message = "Successfully authenticated by Google!";
+            $info->message = "Successfully authenticated " . $DATA_OBJ->email; ;
             $info->data_type = "google_authenticated";
         }
 
